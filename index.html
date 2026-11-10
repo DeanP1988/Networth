@@ -57,16 +57,16 @@
       background-color: #020617;
       color: #f8fafc;
     }
-    /* Balanced midpoint spacing to clear Dynamic Island/Notch without sitting too low */
+    /* Tuned midpoint spacing: between current and original height */
     .ios-status-spacer {
-      height: calc(env(safe-area-inset-top, 50px) + 10px);
-      min-height: 60px;
+      height: calc(env(safe-area-inset-top, 46px) + 5px);
+      min-height: 54px;
       width: 100%;
       background: #020617;
       display: block;
     }
     .safe-top { 
-      padding-top: calc(env(safe-area-inset-top, 50px) + 12px); 
+      padding-top: calc(env(safe-area-inset-top, 46px) + 6px); 
     }
     .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 24px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -154,11 +154,11 @@
   <!-- Mobile Container Frame (Max 430px for native iPhone feel) -->
   <div class="w-full max-w-md min-h-screen flex flex-col bg-slate-950 border-x border-slate-900 relative pb-28">
 
-    <!-- Dedicated Hardware Status Bar Spacer (Midpoint balanced height) -->
+    <!-- Dedicated Hardware Status Bar Spacer (Tuned midpoint height) -->
     <div class="ios-status-spacer sticky top-0 z-50"></div>
 
     <!-- Top Navigation Header -->
-    <header class="sticky top-[60px] z-40 bg-slate-950/95 ios-blur border-b border-slate-900 px-4 py-2.5 flex items-center justify-between">
+    <header class="sticky top-[54px] z-40 bg-slate-950/95 ios-blur border-b border-slate-900 px-4 py-2.5 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-950">
           <i class="fa-solid fa-chart-line text-slate-950 text-sm"></i>
@@ -309,14 +309,14 @@
             <div class="p-2 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
               <div class="flex items-center space-x-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
-                <span class="text-[10px] text-slate-300">Cash & Offsets</span>
+                <span class="text-[10px] text-slate-300">Cash</span>
               </div>
               <span id="dashLiveCashTotal" class="font-mono font-bold text-teal-300 text-[11px]">$0</span>
             </div>
             <div class="p-2 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
               <div class="flex items-center space-x-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
-                <span class="text-[10px] text-slate-300">Superannuation</span>
+                <span class="text-[10px] text-slate-300">Super</span>
               </div>
               <span id="dashLiveSuperTotal" class="font-mono font-bold text-sky-300 text-[11px]">$0</span>
             </div>
@@ -942,7 +942,7 @@
             </button>
           </div>
 
-          <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950 shadow-md">
+          <div class="overflow-x-auto max-h-[70vh] rounded-2xl border border-slate-800 bg-slate-950 shadow-md relative">
             <table id="historySpreadsheetTable" class="w-full text-[11px] text-left border-collapse whitespace-nowrap font-mono">
               <!-- Populated dynamically via JS -->
             </table>
@@ -3459,27 +3459,32 @@
         return;
       }
 
-      // Collect months in chronological order
-      const months = appHistory.map(e => e.month);
+      // Reverse historical entries so newest month is on the left and oldest is on the right
+      const reversedEntries = [...appHistory].reverse();
+      const months = reversedEntries.map(e => e.month);
 
-      // 1. Table Header (Month columns with sticky category column)
-      let thead = `<thead class="bg-slate-900/90 text-slate-300 border-b border-slate-800 sticky top-0 z-10"><tr>`;
-      thead += `<th class="p-2.5 font-bold sticky left-0 bg-slate-900 border-r border-slate-800 z-20 min-w-[130px]">Category / Account</th>`;
+      // 1. Table Header (Sticky Top with Sticky Left Category corner cell)
+      let thead = `<thead class="bg-slate-900 text-slate-300 border-b border-slate-800 sticky top-0 z-30 shadow-sm"><tr>`;
+      thead += `<th class="p-2.5 font-bold sticky left-0 top-0 bg-slate-900 border-r border-slate-800 z-40 min-w-[130px] shadow-sm">Category / Account</th>`;
       months.forEach(m => {
-        thead += `<th class="p-2.5 text-center font-mono min-w-[90px] border-r border-slate-800/40">${m}</th>`;
+        thead += `<th class="p-2.5 text-center font-mono min-w-[90px] border-r border-slate-800/40 bg-slate-900">${m}</th>`;
       });
       thead += `</tr></thead>`;
 
       // 2. Table Body
       let tbody = `<tbody class="divide-y divide-slate-800/60">`;
 
-      // Helper to generate a matrix row
+      // Helper to generate a matrix row with sticky left category cell
       const makeRow = (label, values, isHeader = false, isDebt = false, isNetWorth = false) => {
         let cls = isHeader ? "bg-slate-900/50 font-bold text-slate-200" : "hover:bg-slate-900/30 text-slate-300";
-        if (isNetWorth) cls = "bg-emerald-950/20 font-bold text-emerald-400 border-y border-emerald-500/30";
+        let cellBg = isHeader ? "bg-slate-900" : "bg-slate-950";
+        if (isNetWorth) {
+          cls = "bg-emerald-950/20 font-bold text-emerald-400 border-y border-emerald-500/30";
+          cellBg = "bg-slate-950";
+        }
 
         let html = `<tr class="${cls}">`;
-        html += `<td class="p-2.5 sticky left-0 bg-slate-950 border-r border-slate-800 z-10 truncate ${isHeader ? 'font-bold text-slate-200' : ''}">${label}</td>`;
+        html += `<td class="p-2.5 sticky left-0 ${cellBg} border-r border-slate-800 z-20 truncate ${isHeader ? 'font-bold text-slate-200' : ''}">${label}</td>`;
         values.forEach(v => {
           const formatted = isNaN(v) ? '-' : formatAUD(v, true);
           const colorClass = isNetWorth ? 'text-emerald-400 font-bold' : (isDebt ? 'text-rose-400' : 'text-slate-200');
@@ -3489,32 +3494,30 @@
         return html;
       };
 
-      // Summary Rows
-      const netWorthValues = appHistory.map(e => calculateSnapshotTotals(e).netWorth);
-      const totalAssetsValues = appHistory.map(e => calculateSnapshotTotals(e).totalAssets);
-      const totalDebtValues = appHistory.map(e => calculateSnapshotTotals(e).liabilities);
+      // Summary Rows (ordered from newest to oldest)
+      const netWorthValues = reversedEntries.map(e => calculateSnapshotTotals(e).netWorth);
+      const totalAssetsValues = reversedEntries.map(e => calculateSnapshotTotals(e).totalAssets);
+      const totalDebtValues = reversedEntries.map(e => calculateSnapshotTotals(e).liabilities);
 
       tbody += makeRow("TOTAL NET WORTH", netWorthValues, true, false, true);
       tbody += makeRow("Gross Assets", totalAssetsValues, true);
       tbody += makeRow("Total Liabilities", totalDebtValues, true, true);
 
       // Asset Class Summary Rows
-      const cashValues = appHistory.map(e => calculateSnapshotTotals(e).cash);
-      const sharesValues = appHistory.map(e => calculateSnapshotTotals(e).shares);
-      const propsValues = appHistory.map(e => calculateSnapshotTotals(e).properties);
-      const superValues = appHistory.map(e => calculateSnapshotTotals(e).super);
-      const otherValues = appHistory.map(e => calculateSnapshotTotals(e).other);
+      const cashValues = reversedEntries.map(e => calculateSnapshotTotals(e).cash);
+      const sharesValues = reversedEntries.map(e => calculateSnapshotTotals(e).shares);
+      const propsValues = reversedEntries.map(e => calculateSnapshotTotals(e).properties);
+      const superValues = reversedEntries.map(e => calculateSnapshotTotals(e).super);
+      const otherValues = reversedEntries.map(e => calculateSnapshotTotals(e).other);
 
-      tbody += makeRow("Cash & Offsets", cashValues);
+      tbody += makeRow("Cash", cashValues);
       tbody += makeRow("Shares & ETFs", sharesValues);
       tbody += makeRow("Real Estate", propsValues);
-      tbody += makeRow("Superannuation", superValues);
+      tbody += makeRow("Super", superValues);
       tbody += makeRow("Alternatives / Personal", otherValues);
 
       // Detailed Itemised Rows (If expanded)
       if (historyTableShowDetails) {
-        // Collect distinct platforms/accounts across history
-        const latest = appHistory[appHistory.length - 1];
         const allPlatforms = new Set();
         appHistory.forEach(e => {
           [...(e.cash || []), ...(e.shares || []), ...(e.properties || []), ...(e.super || []), ...(e.other || []), ...(e.liabilities || [])].forEach(i => {
@@ -3522,10 +3525,10 @@
           });
         });
 
-        tbody += `<tr class="bg-slate-900/60 font-bold text-emerald-400"><td class="p-2 sticky left-0 bg-slate-900 border-r border-slate-800" colspan="${months.length + 1}">Itemised Accounts</td></tr>`;
+        tbody += `<tr class="bg-slate-900/80 font-bold text-emerald-400 sticky z-10"><td class="p-2 sticky left-0 bg-slate-900 border-r border-slate-800 z-20" colspan="${months.length + 1}">Itemised Accounts</td></tr>`;
 
         allPlatforms.forEach(plat => {
-          const platValues = appHistory.map(e => {
+          const platValues = reversedEntries.map(e => {
             const match = [...(e.cash || []), ...(e.shares || []), ...(e.properties || []), ...(e.super || []), ...(e.other || []), ...(e.liabilities || [])].find(i => (i.platform || i.name) === plat);
             return match ? (Number(match.amount !== undefined ? match.amount : match.value) || 0) : 0;
           });
