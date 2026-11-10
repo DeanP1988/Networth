@@ -9,12 +9,17 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="AU Wealth">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#020617">
   <meta name="application-name" content="AU Wealth">
 
-  <!-- Slick Apple Touch Icon for iPhone Safari Home Screen (Data URI SVG) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='50%25' stop-color='%23022c22'/%3E%3Cstop offset='100%25' stop-color='%23020617'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fef08a'/%3E%3Cstop offset='50%25' stop-color='%23eab308'/%3E%3Cstop offset='100%25' stop-color='%23ca8a04'/%3E%3C/linearGradient%3E%3ClinearGradient id='emerald' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23059669'/%3E%3Cstop offset='100%25' stop-color='%2334d399'/%3E%3C/linearGradient%3E%3Cfilter id='glow' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='16' result='blur'/%3E%3CfeComposite in='SourceGraphic' in2='blur' operator='over'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='url(%23bg)'/%3E%3Crect x='16' y='16' width='480' height='480' rx='106' fill='none' stroke='rgba(52,211,153,0.25)' stroke-width='4'/%3E%3Ccircle cx='410' cy='110' r='14' fill='%23fef08a' filter='url(%23glow)'/%3E%3Ccircle cx='440' cy='170' r='9' fill='%23fef08a' opacity='0.85'/%3E%3Ccircle cx='370' cy='160' r='10' fill='%23fef08a' opacity='0.9'/%3E%3Ccircle cx='410' cy='220' r='12' fill='%23fef08a' filter='url(%23glow)'/%3E%3Ccircle cx='435' cy='200' r='6' fill='%23fef08a' opacity='0.7'/%3E%3Cpath d='M80 390 L180 305 L260 340 L400 170' fill='none' stroke='url(%23emerald)' stroke-width='32' stroke-linecap='round' stroke-linejoin='round' filter='url(%23glow)'/%3E%3Cpolygon points='405,145 425,195 375,185' fill='%2334d399'/%3E%3Ccircle cx='400' cy='170' r='18' fill='%23fef08a' stroke='%23064e3b' stroke-width='6'/%3E%3Ctext x='256' y='452' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif' font-size='52' font-weight='900' fill='url(%23gold)' text-anchor='middle' letter-spacing='6'%3E$ AUD%3C/text%3E%3C/svg%3E">
+  <!-- Apple Touch Icon Hooks (iOS requires PNG; auto-generated on load for guaranteed display) -->
+  <link id="dynamicAppleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==">
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%23064e3b'/%3E%3Cpath d='M80 390 L180 305 L260 340 L400 170' fill='none' stroke='%2334d399' stroke-width='36' stroke-linecap='round'/%3E%3Ccircle cx='400' cy='170' r='20' fill='%23fef08a'/%3E%3C/svg%3E">
+
+  <!-- Web App Manifest for iOS/Android Home Screen -->
+  <link id="dynamicAppManifest" rel="manifest">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -386,12 +391,31 @@
           <button onclick="setAssetTabFilter('liabilities')" id="btnAssetF-liabilities" class="text-[10px] font-medium px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 whitespace-nowrap">Loans</button>
         </div>
 
-        <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
-          <div>
-            <span class="text-[10px] text-slate-400">Holdings Total</span>
-            <p id="assetsTotalFilteredDisplay" class="text-sm font-bold text-white font-mono">$0</p>
+        <!-- Gross Total & Owing Split Cards (Replacing 'Holdings Total') -->
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="p-3 rounded-2xl bg-slate-900 border border-slate-800 shadow-sm space-y-0.5">
+            <div class="flex items-center justify-between text-[10px] text-slate-400">
+              <span class="flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                Gross Total
+              </span>
+              <span id="assetsItemCountBadge" class="font-mono text-[9px] px-1.5 py-0.2 rounded-md bg-slate-800 text-slate-300">0 Assets</span>
+            </div>
+            <p id="assetsGrossTotalDisplay" class="text-sm font-bold text-emerald-400 font-mono">$0</p>
+            <span class="text-[8px] text-slate-500 block truncate">Excl. loans & debts</span>
           </div>
-          <span id="assetsItemCountBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">0 Items</span>
+
+          <div class="p-3 rounded-2xl bg-slate-900 border border-slate-800 shadow-sm space-y-0.5">
+            <div class="flex items-center justify-between text-[10px] text-slate-400">
+              <span class="flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                Owing
+              </span>
+              <span id="assetsOwingCountBadge" class="font-mono text-[9px] px-1.5 py-0.2 rounded-md bg-slate-800 text-slate-300">0 Loans</span>
+            </div>
+            <p id="assetsOwingTotalDisplay" class="text-sm font-bold text-rose-400 font-mono">$0</p>
+            <span class="text-[8px] text-slate-500 block truncate">Total mortgages & debt</span>
+          </div>
         </div>
 
         <div id="assetsHoldingsContainer" class="space-y-2.5">
@@ -819,6 +843,12 @@
                 <input type="file" accept=".json" onchange="importDataBackup(event)" class="hidden">
               </label>
             </div>
+            <div class="pt-2 border-t border-slate-900">
+              <button onclick="clearAllPortfolioData()" class="w-full py-1.5 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-rose-400 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition active:scale-95">
+                <i class="fa-solid fa-trash text-[10px]"></i>
+                <span>Clear All Portfolio Snapshots</span>
+              </button>
+            </div>
           </div>
 
           <!-- Section 2: Security & PIN Code Setup -->
@@ -948,7 +978,7 @@
   <!-- Application Logic & Calculations Script -->
   <script>
     // State management
-    const STORAGE_KEY = 'AU_NET_WORTH_DATA_V3';
+    const STORAGE_KEY = 'AU_NET_WORTH_DATA_V6_EXACT';
     const GITHUB_REPO_KEY = 'AU_NET_WORTH_GITHUB_REPO';
     const PIN_STORAGE_KEY = 'AU_NET_WORTH_PIN_CODE';
     const APP_VERSION = 'v1.2.0';
@@ -985,72 +1015,183 @@
       inflation: 0.025,
       swr: 0.04,
       salarySacrifice: 'max', // 'max' or 'no'
-      properties: [
-        { name: "Bondi PPOR (Home)", value: 1650000, rentWk: 0, holdingPct: 0.15, loan: 820000, rate: 0.0594, termYrs: 24, strategy: 'hold' },
-        { name: "New Farm Unit (QLD)", value: 680000, rentWk: 650, holdingPct: 0.22, loan: 460000, rate: 0.0614, termYrs: 21, strategy: 'hold' },
-        { name: "Geelong House (VIC)", value: 640000, rentWk: 530, holdingPct: 0.20, loan: 410000, rate: 0.0609, termYrs: 19, strategy: 'hold' },
-        { name: "Scarborough Coastal (WA)", value: 590000, rentWk: 580, holdingPct: 0.24, loan: 375000, rate: 0.0624, termYrs: 18, strategy: 'hold' },
-        { name: "Toowoomba Dual-Key (QLD)", value: 540000, rentWk: 620, holdingPct: 0.25, loan: 360000, rate: 0.0619, termYrs: 23, strategy: 'hold' },
-        { name: "Ballarat Regional (VIC)", value: 470000, rentWk: 440, holdingPct: 0.20, loan: 290000, rate: 0.0604, termYrs: 16, strategy: 'hold' },
-        { name: "Logan Townhouse (QLD)", value: 430000, rentWk: 460, holdingPct: 0.22, loan: 285000, rate: 0.0615, termYrs: 22, strategy: 'hold' }
-      ]
+      properties: []
     };
 
-    // Realistic 14-Month Australian Portfolio Dataset (Oct 2024 to Nov 2025)
-    function getSampleDataset() {
-      const months = [
-        "2024-10", "2024-11", "2024-12",
-        "2025-01", "2025-02", "2025-03", "2025-04",
-        "2025-05", "2025-06", "2025-07", "2025-08",
-        "2025-09", "2025-10", "2025-11"
-      ];
+    // Clean Default Portfolio Template matching Column A (Asset) and Column B (Platform)
+    function getDefaultBlankSnapshot(targetMonth) {
+      const now = new Date();
+      const monthStr = targetMonth || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      return {
+        month: monthStr,
+        cash: [
+          { name: "Savings", platform: "CASH", amount: 0 }
+        ],
+        shares: [
+          { name: "Shares", platform: "COMMSEC", amount: 0 },
+          { name: "Shares", platform: "POCKET", amount: 0 },
+          { name: "Shares", platform: "RAIZ", amount: 0 },
+          { name: "Shares", platform: "SPACESHIP", amount: 0 },
+          { name: "Shares", platform: "UNHEDGED", amount: 0 },
+          { name: "Shares", platform: "SHARESIES", amount: 0 },
+          { name: "Shares", platform: "WW SHARE PLAN", amount: 0 },
+          { name: "Shares", platform: "STAKE", amount: 0 },
+          { name: "Shares", platform: "QOIN", amount: 0 },
+          { name: "Shares", platform: "CYRPTO", amount: 0 },
+          { name: "Shares", platform: "Vitadrop", amount: 0 },
+          { name: "Shares", platform: "Aquafab", amount: 0 },
+          { name: "Shares", platform: "TRADE ACC", amount: 0 }
+        ],
+        properties: [
+          { name: "Property", platform: "HARDWICK CRES (PP", value: 0 },
+          { name: "Property", platform: "ROPER RD", value: 0 },
+          { name: "Property", platform: "TULLY CRES", value: 0 },
+          { name: "Property", platform: "DAINTREE DR", value: 0 },
+          { name: "Property", platform: "BEACH RD", value: 0 },
+          { name: "Property", platform: "CANTON CRT", value: 0 },
+          { name: "Property", platform: "POPLAR CR", value: 0 }
+        ],
+        super: [
+          { name: "Super", platform: "RAIZ", amount: 0 }
+        ],
+        other: [
+          { name: "Personal", platform: "COLLECTIBLES", amount: 0 },
+          { name: "Personal", platform: "AUTOMOBILES", amount: 0 },
+          { name: "Personal", platform: "HOME FURNISHINGS", amount: 0 },
+          { name: "Personal", platform: "OTHER ASSETS", amount: 0 }
+        ],
+        liabilities: [
+          { name: "Loans", platform: "Credit Cards", amount: 0 },
+          { name: "Loans", platform: "Mortgages", amount: 0 },
+          { name: "Loans", platform: "Other", amount: 0 }
+        ]
+      };
+    }
 
-      return months.map((m, idx) => {
-        const factor = 1 + (idx * 0.009);
-        const debtFactor = 1 - (idx * 0.004);
-
-        return {
-          month: m,
-          cash: [
-            { name: "Macquarie Home Offset", amount: Math.round(52000 * factor) },
-            { name: "UBank High Interest Savings", amount: Math.round(28000 * (1 + idx * 0.005)) },
-            { name: "CBA Everyday Operating", amount: Math.round(7500 + (idx % 2 === 0 ? 1200 : -500)) }
-          ],
-          shares: [
-            { name: "CommSec (ASX 200 / VAS)", amount: Math.round(112000 * factor * 1.01) },
-            { name: "Pearler (Global / VGS)", amount: Math.round(88000 * factor * 1.02) },
-            { name: "Stake (US Tech / NDQ)", amount: Math.round(64000 * factor * 1.04) },
-            { name: "Betashares Direct (A200 / DHHF)", amount: Math.round(24000 * factor) }
-          ],
-          properties: [
-            { name: "Bondi PPOR (Home)", value: Math.round(1580000 * (1 + idx * 0.004)) },
-            { name: "New Farm Unit (QLD)", value: Math.round(640000 * (1 + idx * 0.005)) },
-            { name: "Geelong House (VIC)", value: Math.round(610000 * (1 + idx * 0.004)) },
-            { name: "Scarborough Coastal (WA)", value: Math.round(550000 * (1 + idx * 0.006)) },
-            { name: "Toowoomba Dual-Key (QLD)", value: Math.round(510000 * (1 + idx * 0.005)) },
-            { name: "Ballarat Regional (VIC)", value: Math.round(450000 * (1 + idx * 0.003)) },
-            { name: "Logan Townhouse (QLD)", value: Math.round(410000 * (1 + idx * 0.004)) }
-          ],
-          super: [
-            { name: "AustralianSuper (High Growth)", amount: Math.round(225000 * factor * 1.025) },
-            { name: "Hostplus Indexed Balanced", amount: Math.round(68000 * factor * 1.02) }
-          ],
-          other: [
-            { name: "Bitcoin / Ethereum Cold Vault", amount: Math.round(31000 * (1 + idx * 0.012)) },
-            { name: "Perth Mint Gold Bullion", amount: Math.round(14500 * factor) }
-          ],
-          liabilities: [
-            { name: "Bondi PPOR Mortgage (CBA)", amount: Math.round(850000 * debtFactor) },
-            { name: "New Farm Mortgage (Macquarie)", amount: Math.round(480000 * debtFactor) },
-            { name: "Geelong Mortgage (ANZ)", amount: Math.round(425000 * debtFactor) },
-            { name: "Scarborough Mortgage (Bankwest)", amount: Math.round(390000 * debtFactor) },
-            { name: "Toowoomba Mortgage (NAB)", amount: Math.round(375000 * debtFactor) },
-            { name: "Ballarat Mortgage (ING)", amount: Math.round(300000 * debtFactor) },
-            { name: "Logan Mortgage (Suncorp)", amount: Math.round(295000 * debtFactor) },
-            { name: "ATO HECS/HELP Loan", amount: Math.max(0, Math.round(18000 - (idx * 550))) }
-          ]
-        };
+    // Exact historical dataset parsed directly row-by-row and column-by-column from the spreadsheet
+    function getHistoricalSeedDataset() {
+      const snap = (m, cash, commsec, pocket, raiz, spaceship, unhedged, sharesies, wwSharePlan, property, stake, qoin, cyrpto, vitadrop, aquafab, tradeAcc, ppor, collectibles, automobiles, homeFurnishings, otherAssets, superVal, creditCards, mortgages, otherLoans) => ({
+        month: m,
+        cash: [
+          { name: "Savings", platform: "CASH", amount: cash }
+        ],
+        shares: [
+          { name: "Shares", platform: "COMMSEC", amount: commsec },
+          { name: "Shares", platform: "POCKET", amount: pocket },
+          { name: "Shares", platform: "RAIZ", amount: raiz },
+          { name: "Shares", platform: "SPACESHIP", amount: spaceship },
+          { name: "Shares", platform: "UNHEDGED", amount: unhedged },
+          { name: "Shares", platform: "SHARESIES", amount: sharesies },
+          { name: "Shares", platform: "WW SHARE PLAN", amount: wwSharePlan },
+          { name: "Shares", platform: "STAKE", amount: stake },
+          { name: "Shares", platform: "QOIN", amount: qoin },
+          { name: "Shares", platform: "CYRPTO", amount: cyrpto },
+          { name: "Shares", platform: "Vitadrop", amount: vitadrop },
+          { name: "Shares", platform: "Aquafab", amount: aquafab },
+          { name: "Shares", platform: "TRADE ACC", amount: tradeAcc }
+        ],
+        properties: [
+          { name: "Property", platform: "HARDWICK CRES (PPOR)", value: ppor },
+          { name: "Property", platform: "INVESTMENT PORTFOLIO", value: property }
+        ],
+        super: [
+          { name: "Super", platform: "RAIZ", amount: superVal }
+        ],
+        other: [
+          { name: "Personal", platform: "COLLECTIBLES", amount: collectibles },
+          { name: "Personal", platform: "AUTOMOBILES", amount: automobiles },
+          { name: "Personal", platform: "HOME FURNISHINGS", amount: homeFurnishings },
+          { name: "Personal", platform: "OTHER ASSETS", amount: otherAssets }
+        ],
+        liabilities: [
+          { name: "Loans", platform: "Credit Cards", amount: creditCards },
+          { name: "Loans", platform: "Mortgages", amount: mortgages },
+          { name: "Loans", platform: "Other", amount: otherLoans }
+        ]
       });
+
+      return [
+        // 2021
+        snap("2021-03", 10000, 4000, 20000, 12000, 20, 0, 0, 0, 2050000, 3000, 4000, 3000, 0, 0, 1000, 600000, 500, 35000, 10000, 2000, 95000, 4000, 1050000, 2000),
+        snap("2021-04", 10000, 4000, 25000, 12500, 25, 100, 0, 0, 2100000, 2500, 5500, 5000, 0, 0, 800, 600000, 500, 35000, 10000, 2000, 96000, 2000, 1045000, 2000),
+        snap("2021-05", 12000, 4500, 26500, 13000, 30, 250, 0, 0, 2100000, 2500, 5500, 4000, 0, 0, 700, 610000, 500, 35000, 10000, 2000, 97000, 2000, 1042000, 2000),
+        snap("2021-06", 11000, 5000, 28000, 13500, 35, 300, 0, 0, 2100000, 2500, 7000, 4500, 0, 0, 500, 620000, 500, 35000, 10000, 2000, 98000, 3000, 1040000, 2000),
+        snap("2021-07", 10000, 6000, 30000, 14000, 340, 330, 0, 0, 2100000, 2600, 10000, 5000, 0, 0, 600, 638000, 500, 35000, 10000, 2000, 100000, 5000, 1037000, 2000),
+        snap("2021-08", 12000, 5600, 30000, 14500, 380, 360, 0, 0, 2100000, 2700, 8500, 7000, 0, 0, 700, 638000, 500, 35000, 10000, 2000, 103000, 8000, 1034000, 2000),
+        snap("2021-09", 8000, 6000, 29000, 14300, 450, 500, 0, 0, 2110000, 2650, 17000, 6500, 0, 0, 700, 650000, 500, 34500, 10000, 2000, 105000, 6000, 1032500, 2000),
+        snap("2021-10", 10000, 5300, 29700, 14850, 480, 550, 0, 0, 2120000, 2700, 16000, 8000, 0, 0, 700, 655000, 500, 34500, 10000, 2000, 105000, 8000, 1031400, 1500),
+        snap("2021-11", 20000, 4600, 31000, 15000, 500, 600, 0, 0, 2590000, 3800, 15000, 8500, 0, 0, 700, 660000, 500, 34500, 10000, 2000, 107500, 0, 1511300, 1000),
+        snap("2021-12", 25000, 4650, 31550, 15650, 550, 700, 0, 0, 2600000, 5000, 15000, 10500, 0, 0, 800, 665000, 500, 34500, 10000, 2000, 108000, 12000, 1509100, 1000),
+
+        // 2022
+        snap("2022-01", 25000, 4100, 30450, 15300, 650, 600, 850, 0, 2605000, 5000, 15000, 9000, 0, 0, 800, 665000, 500, 34000, 10000, 2000, 104000, 6000, 1509100, 2000),
+        snap("2022-02", 22000, 4000, 28700, 15000, 650, 850, 1000, 0, 2610000, 4500, 15000, 9000, 0, 0, 800, 665000, 500, 34000, 10000, 2000, 102600, 8000, 1505000, 1000),
+        snap("2022-03", 25000, 4000, 29000, 14800, 650, 1000, 1100, 0, 2615000, 5000, 15000, 9000, 0, 0, 850, 670000, 500, 34000, 10000, 2000, 103000, 7000, 1501000, 1000),
+        snap("2022-04", 30000, 3800, 28500, 14500, 650, 1200, 1200, 0, 2620000, 5000, 14000, 8500, 0, 0, 900, 670000, 500, 34000, 10000, 2000, 102500, 5000, 1497000, 1000),
+        snap("2022-05", 37000, 3400, 28100, 14800, 650, 1600, 1250, 0, 2625000, 5000, 12000, 6000, 0, 0, 800, 670000, 500, 33500, 10000, 2000, 101500, 6000, 1495300, 1000),
+        snap("2022-06", 35000, 3200, 26500, 14100, 800, 1700, 1300, 0, 2630000, 6000, 11000, 4000, 0, 0, 750, 670000, 500, 35000, 10000, 2000, 95800, 6000, 1493600, 1000),
+        snap("2022-07", 40000, 3300, 28500, 15200, 850, 1900, 1400, 0, 2635000, 7000, 10000, 5000, 0, 0, 600, 670000, 500, 35000, 10000, 2000, 102700, 10000, 1492000, 1000),
+        snap("2022-08", 30000, 3100, 27800, 15100, 950, 2050, 1450, 0, 2640000, 8000, 10000, 4500, 0, 0, 500, 675000, 500, 35000, 10000, 2000, 102600, 8000, 1490500, 1000),
+        snap("2022-09", 30000, 2800, 29000, 15100, 900, 2100, 1500, 0, 2645000, 8000, 9000, 4000, 0, 0, 700, 675000, 500, 35000, 10000, 2000, 101600, 10000, 1488500, 1000),
+        snap("2022-10", 30000, 2800, 29500, 15300, 900, 2100, 1600, 0, 2650000, 8000, 8000, 3500, 0, 0, 600, 675000, 500, 34000, 10000, 2000, 102000, 10000, 1488000, 1000),
+        snap("2022-11", 30000, 2800, 29500, 15300, 900, 2100, 1600, 0, 2650000, 8000, 8000, 3500, 0, 0, 600, 675000, 500, 34000, 10000, 2000, 104000, 10000, 1485000, 1000),
+        snap("2022-12", 35000, 2700, 30300, 16000, 900, 2100, 1650, 0, 2655000, 8000, 7000, 3000, 0, 0, 800, 675000, 500, 34000, 10000, 2000, 109500, 10000, 1482000, 1000),
+
+        // 2023
+        snap("2023-01", 30000, 2750, 28800, 15400, 900, 2250, 1600, 0, 2660000, 8000, 7000, 3000, 0, 0, 800, 675000, 500, 34000, 10000, 2000, 105100, 5000, 1480000, 1000),
+        snap("2023-02", 6000, 3000, 29200, 16100, 0, 2200, 1700, 0, 2660000, 8000, 5000, 3000, 0, 0, 900, 675000, 500, 55000, 10000, 2000, 111200, 8000, 1475000, 1000),
+        snap("2023-03", 93000, 3000, 30000, 16400, 0, 2200, 1750, 0, 2660000, 8000, 4000, 3000, 0, 0, 900, 675000, 500, 55000, 10000, 2000, 111700, 8000, 1473000, 1000),
+        snap("2023-04", 95000, 2900, 31300, 16700, 0, 2200, 1750, 0, 2665000, 8250, 3000, 3000, 0, 0, 900, 675000, 500, 55000, 10000, 2000, 112500, 7000, 1470300, 1000),
+        snap("2023-05", 100000, 3000, 32000, 16900, 0, 0, 1800, 0, 2665000, 8250, 2000, 3000, 0, 0, 950, 680000, 500, 54000, 10000, 2000, 115600, 7000, 1467800, 1000),
+        snap("2023-06", 105000, 2900, 33700, 17500, 0, 0, 1900, 0, 2665000, 8000, 1500, 3300, 0, 0, 950, 680000, 500, 54000, 10000, 2000, 117100, 5000, 1465000, 1000),
+        snap("2023-07", 113000, 2900, 33700, 17500, 0, 0, 2000, 0, 2675000, 8000, 1000, 3300, 0, 0, 950, 680000, 500, 54000, 10000, 2000, 116000, 7000, 1459576, 1000),
+        snap("2023-08", 118500, 3000, 35500, 18500, 0, 0, 2050, 0, 2675000, 8000, 500, 3300, 0, 0, 900, 680000, 500, 54000, 10000, 2000, 121500, 8000, 1457000, 1000),
+        snap("2023-09", 122000, 2800, 36200, 18800, 0, 0, 2100, 0, 2675000, 8000, 0, 3300, 0, 0, 950, 680000, 500, 54000, 10000, 2000, 123300, 8000, 1455300, 1000),
+        snap("2023-10", 129000, 2650, 34750, 18100, 0, 0, 2050, 0, 2680000, 8000, 0, 3400, 0, 0, 900, 680000, 500, 54000, 10000, 2000, 120300, 10000, 1451400, 1000),
+        snap("2023-11", 135000, 2650, 34000, 17700, 0, 0, 2000, 0, 2685000, 8000, 0, 4000, 0, 0, 1000, 690000, 500, 53000, 10000, 2000, 117000, 10000, 1448900, 1000),
+        snap("2023-12", 137000, 2600, 35900, 18900, 0, 0, 2150, 0, 2685000, 8000, 0, 4500, 0, 0, 1000, 690000, 500, 53000, 10000, 2000, 124500, 5000, 1447000, 1000),
+
+        // 2024
+        snap("2024-01", 141000, 2700, 36400, 19300, 0, 0, 2200, 0, 2685000, 8500, 0, 4500, 0, 0, 1000, 690000, 500, 53000, 10000, 2000, 130000, 12000, 1443000, 1000),
+        snap("2024-02", 150300, 2700, 38600, 20400, 0, 0, 2350, 0, 2685000, 8500, 0, 4500, 0, 0, 1000, 690000, 500, 53000, 10000, 2000, 136000, 12000, 1440700, 1000),
+        snap("2024-03", 150800, 2800, 40800, 21500, 0, 0, 2400, 0, 2685000, 12000, 0, 7000, 0, 0, 900, 690000, 500, 53000, 10000, 2000, 142000, 10000, 1438400, 1000),
+        snap("2024-04", 156800, 2900, 41600, 22000, 0, 0, 2450, 0, 2685000, 11500, 0, 7000, 0, 0, 700, 690000, 500, 53000, 10000, 2000, 146000, 8000, 1435900, 1000),
+        snap("2024-05", 164000, 2800, 40000, 21200, 0, 0, 2500, 0, 2690000, 11000, 0, 7000, 0, 0, 700, 695000, 500, 53000, 10000, 2000, 141000, 8000, 1432100, 1000),
+        snap("2024-06", 162000, 2800, 40800, 21400, 0, 0, 2600, 0, 2690000, 11000, 0, 7000, 0, 0, 900, 695000, 500, 53000, 10000, 2000, 143000, 8000, 1428150, 1000),
+        snap("2024-07", 160500, 2800, 43100, 22200, 0, 0, 2600, 0, 2690000, 11000, 0, 7000, 5650, 0, 950, 695000, 500, 53000, 10000, 2000, 146300, 10000, 1425600, 1000),
+        snap("2024-08", 163500, 3000, 42500, 22900, 0, 0, 2700, 0, 2690000, 13000, 0, 7500, 5650, 0, 950, 695000, 500, 52000, 10000, 2000, 153200, 8000, 1422950, 1000),
+        snap("2024-09", 164000, 3100, 42500, 22600, 0, 0, 2700, 0, 2690000, 13000, 0, 7500, 5650, 0, 1000, 695000, 550, 52000, 10000, 2500, 153700, 8000, 1418950, 1000),
+        snap("2024-10", 164500, 3200, 42200, 22800, 0, 0, 2750, 0, 2690000, 13000, 0, 7000, 5650, 0, 1050, 695000, 550, 62000, 10000, 2500, 154800, 8000, 1416500, 1000),
+        snap("2024-11", 167000, 3100, 44000, 23600, 0, 0, 2800, 0, 2690000, 13000, 0, 7000, 5650, 0, 1050, 695000, 550, 62000, 10000, 2500, 157500, 10000, 1414000, 1000),
+        snap("2024-12", 158400, 3100, 44500, 24600, 0, 0, 2950, 0, 2700000, 14000, 0, 9000, 5650, 0, 1050, 695000, 550, 62000, 10000, 2500, 164000, 10000, 1410300, 1000),
+
+        // 2025
+        snap("2025-01", 159000, 3400, 46900, 24900, 0, 0, 2950, 0, 2700000, 14000, 0, 8000, 5650, 0, 1050, 695000, 550, 62000, 10000, 2500, 163200, 10000, 1407500, 1000),
+        snap("2025-02", 170000, 3700, 48500, 25800, 0, 0, 3100, 0, 2700000, 14500, 0, 10000, 5650, 0, 1050, 695000, 550, 62000, 10000, 2500, 169900, 8000, 1410459, 1000),
+        snap("2025-03", 170800, 3600, 47200, 25000, 0, 0, 3000, 0, 2700000, 14000, 0, 8000, 5650, 0, 1050, 700000, 550, 62000, 10000, 2500, 167900, 5000, 1410000, 1000),
+        snap("2025-04", 165500, 3500, 44400, 23800, 0, 0, 2900, 500, 2700000, 13000, 0, 7000, 5650, 0, 1050, 700000, 550, 62000, 10000, 2500, 163700, 5000, 1409000, 1000),
+        snap("2025-05", 166000, 3900, 47000, 24300, 0, 0, 3000, 600, 2700000, 13500, 0, 7500, 5650, 0, 1100, 700000, 550, 62000, 10000, 2500, 170000, 5000, 1408000, 1000),
+        snap("2025-06", 167000, 3950, 49500, 25000, 0, 0, 3100, 700, 2700000, 13500, 0, 7500, 5650, 0, 1150, 700000, 550, 62000, 10000, 2500, 177500, 5000, 1407000, 1000),
+        snap("2025-07", 172000, 3800, 50000, 25400, 0, 0, 3100, 800, 2710000, 13500, 0, 7500, 5650, 0, 1150, 700000, 550, 62000, 10000, 2500, 178000, 6000, 1406000, 1000),
+        snap("2025-08", 176000, 3900, 52000, 26400, 0, 0, 3200, 900, 2710000, 14000, 0, 8000, 5650, 0, 1150, 700000, 550, 62000, 10000, 2500, 186200, 6000, 1405000, 1000),
+        snap("2025-09", 175000, 4200, 53000, 27000, 0, 0, 3500, 1000, 2710000, 14000, 0, 12000, 5650, 0, 1150, 700000, 550, 62000, 10000, 2500, 191500, 5000, 1404000, 1000),
+        snap("2025-10", 180000, 4300, 54000, 27000, 0, 0, 3700, 1100, 2710000, 14000, 0, 12000, 5650, 0, 1150, 700000, 550, 62000, 10000, 2500, 195000, 5000, 1403000, 1000),
+        snap("2025-11", 183000, 4400, 57000, 28000, 0, 0, 4000, 1200, 2710000, 16000, 0, 11000, 5650, 0, 1150, 700000, 600, 62000, 10000, 2500, 202000, 5000, 1402000, 1000),
+        snap("2025-12", 188000, 4400, 56900, 27600, 0, 0, 3900, 1300, 2720000, 15500, 0, 9000, 5650, 0, 1150, 710000, 600, 61000, 10000, 2500, 202200, 5000, 1400000, 1000),
+
+        // 2026
+        snap("2026-01", 190000, 4100, 56000, 27400, 0, 0, 3900, 1400, 2720000, 15800, 0, 8500, 5650, 0, 1100, 710000, 600, 61000, 10000, 2500, 201500, 5000, 1399000, 1000),
+        snap("2026-02", 195000, 3900, 54000, 26500, 0, 0, 4000, 1500, 2730000, 15200, 0, 8000, 5650, 0, 1200, 710000, 600, 61000, 10000, 2500, 202000, 5000, 1398000, 1000),
+        snap("2026-03", 197000, 3900, 52500, 26200, 0, 0, 4200, 1600, 2735000, 16500, 0, 8000, 5650, 0, 1200, 720000, 600, 61000, 10000, 2500, 202500, 5000, 1396000, 1000),
+        snap("2026-04", 186000, 4000, 53400, 26400, 0, 0, 4100, 1700, 3650000, 16300, 0, 8000, 5650, 3000, 1100, 720000, 600, 61000, 10000, 2500, 198000, 7000, 2284000, 1000),
+        snap("2026-05", 192000, 4100, 56000, 27500, 0, 0, 4500, 1800, 3655000, 16000, 6000, 5650, 3000, 0, 0, 720000, 600, 61000, 10000, 2500, 206000, 8000, 2283000, 1000),
+        snap("2026-06", 199000, 4000, 60000, 28400, 0, 0, 4900, 1900, 3660000, 15900, 6000, 5650, 3000, 0, 0, 720000, 600, 50000, 10000, 2500, 214000, 7000, 2282000, 1000),
+        snap("2026-07", 203000, 4200, 62000, 29000, 0, 0, 4900, 2000, 3670000, 16000, 5000, 5650, 3000, 0, 0, 722500, 600, 50000, 10000, 2500, 216500, 8000, 2281000, 1000),
+        snap("2026-08", 208000, 4300, 61000, 29000, 0, 0, 4700, 2100, 3680000, 16000, 5000, 5650, 3000, 0, 0, 725000, 600, 50000, 10000, 2500, 221500, 7000, 2280000, 1000),
+        snap("2026-09", 217000, 4300, 61500, 29400, 0, 0, 4900, 2200, 3690000, 16000, 4500, 5650, 3000, 0, 0, 727500, 600, 50000, 10000, 2500, 223500, 12000, 2279000, 1000),
+        snap("2026-10", 227000, 4200, 63800, 29800, 0, 0, 4900, 2300, 3700000, 16000, 4500, 5650, 3000, 0, 0, 730000, 600, 50000, 10000, 2500, 229000, 8000, 2278000, 1000),
+        snap("2026-11", 233000, 3800, 62500, 29500, 0, 0, 4650, 2400, 3710000, 15500, 4500, 5650, 3000, 0, 0, 732500, 600, 50000, 10000, 2500, 229500, 7000, 2277000, 1000)
+      ];
     }
 
     // Currency Formatter
@@ -1065,6 +1206,7 @@
 
     // Total Calculations for a Snapshot
     function calculateSnapshotTotals(entry) {
+      if (!entry) return { cash: 0, shares: 0, properties: 0, super: 0, other: 0, liabilities: 0, totalAssets: 0, netWorth: 0, liquidNetWorth: 0, debtRatio: 0 };
       const sum = arr => (arr || []).reduce((acc, curr) => acc + (Number(curr.amount !== undefined ? curr.amount : curr.value) || 0), 0);
 
       const cash = sum(entry.cash);
@@ -1292,23 +1434,45 @@
     // ==========================================
 
     function renderDashboard() {
-      if (!appHistory || appHistory.length === 0) return;
+      const headerUpdate = document.getElementById('headerLastUpdated');
+      const dashSnap = document.getElementById('dashSnapshotDate');
+      const netWorthEl = document.getElementById('dashNetWorth');
+      const liquidEl = document.getElementById('dashLiquidNetWorth');
+      const debtRatioEl = document.getElementById('dashDebtRatio');
+      const runwayEl = document.getElementById('dashCashRunway');
+      const liveCash = document.getElementById('dashLiveCashTotal');
+      const liveSuper = document.getElementById('dashLiveSuperTotal');
+      const badge12m = document.getElementById('dash12mBadge');
+      const text12m = document.getElementById('dash12mText');
+      const badge1m = document.getElementById('dash1mBadge');
+      const text1m = document.getElementById('dash1mText');
+
+      if (!appHistory || appHistory.length === 0) {
+        if (headerUpdate) headerUpdate.innerText = "No snapshots logged yet";
+        if (dashSnap) dashSnap.innerText = "Tap '+ Log Month'";
+        if (netWorthEl) netWorthEl.innerText = "$0";
+        if (liquidEl) liquidEl.innerText = "$0";
+        if (debtRatioEl) debtRatioEl.innerText = "0.0%";
+        if (runwayEl) runwayEl.innerText = "0.0 Mo";
+        if (liveCash) liveCash.innerText = "$0";
+        if (liveSuper) liveSuper.innerText = "$0";
+        if (text12m) text12m.innerText = "$0 (0%)";
+        if (text1m) text1m.innerText = "$0 (0%)";
+
+        renderTrendChart();
+        renderCashSuperChart();
+        renderForecastCard();
+        renderDashboardAssetBreakdown(calculateSnapshotTotals(null));
+        return;
+      }
+
       const latest = appHistory[appHistory.length - 1];
       const totals = calculateSnapshotTotals(latest);
 
-      const headerUpdate = document.getElementById('headerLastUpdated');
       if (headerUpdate) headerUpdate.innerText = `Updated ${latest.month}`;
-
-      const dashSnap = document.getElementById('dashSnapshotDate');
       if (dashSnap) dashSnap.innerText = latest.month;
-
-      const netWorthEl = document.getElementById('dashNetWorth');
       if (netWorthEl) netWorthEl.innerText = formatAUD(totals.netWorth);
-
-      const liquidEl = document.getElementById('dashLiquidNetWorth');
       if (liquidEl) liquidEl.innerText = formatAUD(totals.liquidNetWorth);
-
-      const debtRatioEl = document.getElementById('dashDebtRatio');
       if (debtRatioEl) debtRatioEl.innerText = `${totals.debtRatio.toFixed(1)}%`;
 
       // 12M Trailing Delta Calculation
@@ -1318,8 +1482,6 @@
       const delta12M = totals.netWorth - totals12M.netWorth;
       const pct12M = totals12M.netWorth > 0 ? ((delta12M / totals12M.netWorth) * 100).toFixed(1) : '0.0';
 
-      const badge12m = document.getElementById('dash12mBadge');
-      const text12m = document.getElementById('dash12mText');
       if (text12m && badge12m) {
         text12m.innerText = `${delta12M >= 0 ? '+' : ''}${formatAUD(delta12M, true)} (${pct12M}%)`;
         badge12m.className = delta12M >= 0 
@@ -1334,8 +1496,6 @@
       const delta1Mo = appHistory.length > 1 ? (totals.netWorth - totalsPrevMo.netWorth) : 0;
       const pct1Mo = totalsPrevMo.netWorth > 0 && appHistory.length > 1 ? ((delta1Mo / totalsPrevMo.netWorth) * 100).toFixed(1) : '0.0';
 
-      const badge1m = document.getElementById('dash1mBadge');
-      const text1m = document.getElementById('dash1mText');
       const icon1m = document.getElementById('dash1mIcon');
       if (text1m && badge1m) {
         text1m.innerText = `${delta1Mo >= 0 ? '+' : ''}${formatAUD(delta1Mo, true)} (${pct1Mo}%)`;
@@ -1348,15 +1508,11 @@
       }
 
       // Cash Runway calculation
-      const monthlyMortgagePmt = totals.liabilities * 0.0055; // rough monthly amortisation estimate
+      const monthlyMortgagePmt = totals.liabilities * 0.0055;
       const runwayMonths = monthlyMortgagePmt > 0 ? (totals.cash / monthlyMortgagePmt).toFixed(1) : '99+';
-      const runwayEl = document.getElementById('dashCashRunway');
       if (runwayEl) runwayEl.innerText = `${runwayMonths} Mo`;
 
-      const liveCash = document.getElementById('dashLiveCashTotal');
       if (liveCash) liveCash.innerText = formatAUD(totals.cash);
-
-      const liveSuper = document.getElementById('dashLiveSuperTotal');
       if (liveSuper) liveSuper.innerText = formatAUD(totals.super);
 
       renderTrendChart();
@@ -1377,7 +1533,21 @@
       ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
       ctx.clearRect(0, 0, w, h);
 
-      if (!appHistory || appHistory.length === 0) return;
+      const startLabel = document.getElementById('trendStartLabel');
+      const endLabel = document.getElementById('trendEndLabel');
+
+      if (!appHistory || appHistory.length === 0) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '11px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No snapshot data recorded yet.', w / 2, h / 2 - 8);
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.fillStyle = '#10b981';
+        ctx.fillText("Tap '+ Log Month' to log your first month", w / 2, h / 2 + 10);
+        if (startLabel) startLabel.innerText = '-';
+        if (endLabel) endLabel.innerText = '-';
+        return;
+      }
 
       const filteredHistory = getFilteredHistoryForGraphs();
       if (filteredHistory.length === 0) return;
@@ -1393,7 +1563,6 @@
       const min = Math.min(...points) * 0.95;
       const range = max - min || 1;
 
-      // Margins for axes
       const padLeft = 48;
       const padRight = 14;
       const padTop = 14;
@@ -1477,14 +1646,12 @@
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      // End dot or Active Touch Tooltip
       if (activeTouchTrendIdx !== null && activeTouchTrendIdx >= 0 && activeTouchTrendIdx < points.length) {
         const activeX = getX(activeTouchTrendIdx);
         const activeY = getY(points[activeTouchTrendIdx]);
         const activeVal = points[activeTouchTrendIdx];
         const activeMonth = filteredHistory[activeTouchTrendIdx].month;
 
-        // Vertical indicator line
         ctx.save();
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
         ctx.setLineDash([3, 3]);
@@ -1495,7 +1662,6 @@
         ctx.stroke();
         ctx.restore();
 
-        // Active highlighted dot
         ctx.beginPath();
         ctx.arc(activeX, activeY, 6, 0, 2 * Math.PI);
         ctx.fillStyle = trendMetric === 'debt' ? '#f43f5e' : '#10b981';
@@ -1504,7 +1670,6 @@
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        // Popup tooltip card
         const valText = formatAUD(activeVal);
         const [yr, mo] = (activeMonth || '').split('-');
         const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -1554,8 +1719,6 @@
         ctx.stroke();
       }
 
-      const startLabel = document.getElementById('trendStartLabel');
-      const endLabel = document.getElementById('trendEndLabel');
       if (startLabel) startLabel.innerText = filteredHistory[0].month;
       if (endLabel) endLabel.innerText = filteredHistory[filteredHistory.length - 1].month;
     }
@@ -1572,7 +1735,13 @@
       ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
       ctx.clearRect(0, 0, w, h);
 
-      if (!appHistory || appHistory.length === 0) return;
+      if (!appHistory || appHistory.length === 0) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '11px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No cash & super history yet.', w / 2, h / 2);
+        return;
+      }
 
       const filteredHistory = getFilteredHistoryForGraphs();
       if (filteredHistory.length === 0) return;
@@ -1584,8 +1753,8 @@
       if (cashSuperFilter === 'both' || cashSuperFilter === 'cash') allPts.push(...cashPts);
       if (cashSuperFilter === 'both' || cashSuperFilter === 'super') allPts.push(...superPts);
 
-      const max = Math.max(...allPts) * 1.08;
-      const min = Math.min(...allPts) * 0.92;
+      const max = Math.max(...allPts, 1000) * 1.08;
+      const min = Math.min(...allPts, 0) * 0.92;
       const range = max - min || 1;
 
       const padLeft = 48;
@@ -1618,7 +1787,6 @@
       const getX = i => padLeft + (filteredHistory.length > 1 ? (i / (filteredHistory.length - 1)) * chartW : chartW / 2);
       const getY = val => (padTop + chartH) - ((val - min) / range) * chartH;
 
-      // Vertical grid lines and date labels
       ctx.textAlign = 'center';
       const stepX = Math.max(1, Math.floor((filteredHistory.length - 1) / 3));
       for (let i = 0; i < filteredHistory.length; i += stepX) {
@@ -1663,109 +1831,34 @@
 
       if (cashSuperFilter === 'both' || cashSuperFilter === 'cash') drawSeries(cashPts, '#2dd4bf');
       if (cashSuperFilter === 'both' || cashSuperFilter === 'super') drawSeries(superPts, '#38bdf8');
-
-      // Active Touch Tooltip for Cash vs Super
-      if (activeTouchCSIdx !== null && activeTouchCSIdx >= 0 && activeTouchCSIdx < filteredHistory.length) {
-        const activeX = getX(activeTouchCSIdx);
-        const activeMonth = filteredHistory[activeTouchCSIdx].month;
-        const curCash = cashPts[activeTouchCSIdx];
-        const curSuper = superPts[activeTouchCSIdx];
-
-        ctx.save();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-        ctx.setLineDash([3, 3]);
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.moveTo(activeX, padTop);
-        ctx.lineTo(activeX, padTop + chartH);
-        ctx.stroke();
-        ctx.restore();
-
-        // Highlight dots
-        if (cashSuperFilter === 'both' || cashSuperFilter === 'cash') {
-          const yC = getY(curCash);
-          ctx.beginPath();
-          ctx.arc(activeX, yC, 5.5, 0, 2 * Math.PI);
-          ctx.fillStyle = '#2dd4bf';
-          ctx.fill();
-          ctx.strokeStyle = '#ffffff';
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
-        if (cashSuperFilter === 'both' || cashSuperFilter === 'super') {
-          const yS = getY(curSuper);
-          ctx.beginPath();
-          ctx.arc(activeX, yS, 5.5, 0, 2 * Math.PI);
-          ctx.fillStyle = '#38bdf8';
-          ctx.fill();
-          ctx.strokeStyle = '#ffffff';
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
-
-        // Popup Tooltip Card
-        const [yr, mo] = (activeMonth || '').split('-');
-        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-        const dateText = mo ? `${monthNames[parseInt(mo, 10)-1] || mo} ${yr}` : activeMonth;
-
-        const tipW = 120;
-        const tipH = cashSuperFilter === 'both' ? 48 : 34;
-        let tipX = activeX - tipW / 2;
-        if (tipX < padLeft + 2) tipX = padLeft + 2;
-        if (tipX + tipW > w - padRight - 2) tipX = w - padRight - tipW - 2;
-        let tipY = padTop + 4;
-
-        ctx.save();
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(tipX, tipY, tipW, tipH, 8);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '9px -apple-system, sans-serif';
-        ctx.fillText(dateText, tipX + 8, tipY + 12);
-
-        if (cashSuperFilter === 'both') {
-          ctx.fillStyle = '#2dd4bf';
-          ctx.font = 'bold 10px monospace';
-          ctx.fillText(`Cash:  ${formatAUD(curCash, true)}`, tipX + 8, tipY + 26);
-
-          ctx.fillStyle = '#38bdf8';
-          ctx.font = 'bold 10px monospace';
-          ctx.fillText(`Super: ${formatAUD(curSuper, true)}`, tipX + 8, tipY + 40);
-        } else if (cashSuperFilter === 'cash') {
-          ctx.fillStyle = '#2dd4bf';
-          ctx.font = 'bold 11px monospace';
-          ctx.fillText(`Cash: ${formatAUD(curCash)}`, tipX + 8, tipY + 27);
-        } else {
-          ctx.fillStyle = '#38bdf8';
-          ctx.font = 'bold 11px monospace';
-          ctx.fillText(`Super: ${formatAUD(curSuper)}`, tipX + 8, tipY + 27);
-        }
-        ctx.restore();
-      }
     }
 
     function renderForecastCard() {
-      if (!appHistory || appHistory.length < 3) return;
+      const el1Y = document.getElementById('dashForecast1Y');
+      const el3Y = document.getElementById('dashForecast3Y');
+      const el5Y = document.getElementById('dashForecast5Y');
+
+      if (!appHistory || appHistory.length === 0) {
+        if (el1Y) el1Y.innerText = "$0";
+        if (el3Y) el3Y.innerText = "$0";
+        if (el5Y) el5Y.innerText = "$0";
+        renderForecastChart();
+        return;
+      }
+
       const latest = calculateSnapshotTotals(appHistory[appHistory.length - 1]);
       const prev = calculateSnapshotTotals(appHistory[Math.max(0, appHistory.length - 1 - forecastBasis)]);
 
       const monthsElapsed = Math.min(forecastBasis, appHistory.length - 1);
-      const growthRatePerMonth = monthsElapsed > 0 ? Math.pow(latest.netWorth / prev.netWorth, 1 / monthsElapsed) - 1 : 0.007;
+      const growthRatePerMonth = (monthsElapsed > 0 && prev.netWorth > 0) 
+        ? Math.pow(latest.netWorth / prev.netWorth, 1 / monthsElapsed) - 1 
+        : 0.007;
       const annualisedRate = Math.max(0.02, Math.min(0.25, (growthRatePerMonth * 12)));
 
       const proj1Y = latest.netWorth * Math.pow(1 + annualisedRate, 1);
       const proj3Y = latest.netWorth * Math.pow(1 + annualisedRate, 3);
       const proj5Y = latest.netWorth * Math.pow(1 + annualisedRate, 5);
 
-      const el1Y = document.getElementById('dashForecast1Y');
-      const el3Y = document.getElementById('dashForecast3Y');
-      const el5Y = document.getElementById('dashForecast5Y');
       if (el1Y) el1Y.innerText = formatAUD(proj1Y, true);
       if (el3Y) el3Y.innerText = formatAUD(proj3Y, true);
       if (el5Y) el5Y.innerText = formatAUD(proj5Y, true);
@@ -1785,7 +1878,14 @@
       ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
       ctx.clearRect(0, 0, w, h);
 
-      if (!appHistory || appHistory.length === 0) return;
+      if (!appHistory || appHistory.length === 0) {
+        ctx.fillStyle = '#64748b';
+        ctx.font = '11px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Forecast unlocks with your first log.', w / 2, h / 2);
+        return;
+      }
+
       const latestNW = calculateSnapshotTotals(appHistory[appHistory.length - 1]).netWorth;
       const histSlice = appHistory.slice(-6).map(e => calculateSnapshotTotals(e).netWorth);
 
@@ -1796,15 +1896,15 @@
       const projPts = [];
       let running = latestNW;
       for (let i = 1; i <= monthsAhead; i++) {
-        running = running * (1 + monthlyRate) + (3500); // compounding + ongoing savings
+        running = running * (1 + monthlyRate) + (3500);
         if (i % (forecastHorizon === 1 ? 2 : (forecastHorizon === 3 ? 6 : 10)) === 0 || i === monthsAhead) {
           projPts.push(running);
         }
       }
 
       const all = [...histSlice, ...projPts];
-      const max = Math.max(...all) * 1.05;
-      const min = Math.min(...all) * 0.95;
+      const max = Math.max(...all, 1000) * 1.05;
+      const min = Math.min(...all, 0) * 0.95;
       const range = max - min || 1;
 
       const padLeft = 48;
@@ -1814,7 +1914,6 @@
       const chartW = w - padLeft - padRight;
       const chartH = h - padTop - padBottom;
 
-      // Draw horizontal grid lines & Y-axis values
       ctx.strokeStyle = '#1e293b';
       ctx.lineWidth = 1;
       ctx.fillStyle = '#64748b';
@@ -1838,7 +1937,6 @@
       const getX = idx => padLeft + (idx / totalSteps) * chartW;
       const getY = val => (padTop + chartH) - ((val - min) / range) * chartH;
 
-      // X-axis time markers (History boundary & Forecast Horizon)
       ctx.textAlign = 'center';
       const nowX = getX(histSlice.length - 1);
       ctx.beginPath();
@@ -1855,11 +1953,6 @@
       ctx.fillStyle = '#38bdf8';
       ctx.fillText(`+${forecastHorizon}Y`, endX, h - 6);
 
-      const startX = getX(0);
-      ctx.fillStyle = '#64748b';
-      ctx.fillText('-6M', startX, h - 6);
-
-      // Historical solid line
       ctx.beginPath();
       ctx.moveTo(getX(0), getY(histSlice[0]));
       for (let i = 1; i < histSlice.length; i++) {
@@ -1869,7 +1962,6 @@
       ctx.lineWidth = 2.2;
       ctx.stroke();
 
-      // Forecast dashed line
       ctx.beginPath();
       ctx.setLineDash([4, 4]);
       ctx.moveTo(getX(histSlice.length - 1), getY(histSlice[histSlice.length - 1]));
@@ -1881,26 +1973,16 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // End projected dot
-      const lastProjX = getX(totalSteps);
-      const lastProjY = getY(projPts[projPts.length - 1]);
-      ctx.beginPath();
-      ctx.arc(lastProjX, lastProjY, 4, 0, 2 * Math.PI);
-      ctx.fillStyle = '#38bdf8';
-      ctx.fill();
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      // Active Touch Tooltip on Forecast
-      if (activeTouchForecastIdx !== null && activeTouchForecastIdx >= 0 && activeTouchForecastIdx <= totalSteps) {
+      // Interactive Touch & Hover Tooltip Popup for Forecast
+      if (activeTouchForecastIdx !== null && activeTouchForecastIdx >= 0 && activeTouchForecastIdx < all.length) {
         const activeX = getX(activeTouchForecastIdx);
+        const activeY = getY(all[activeTouchForecastIdx]);
         const activeVal = all[activeTouchForecastIdx];
-        const activeY = getY(activeVal);
-        const isProjected = activeTouchForecastIdx >= histSlice.length;
+        const isHistorical = activeTouchForecastIdx < histSlice.length;
 
+        // Vertical Guide Crosshair
         ctx.save();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.strokeStyle = isHistorical ? 'rgba(16, 185, 129, 0.45)' : 'rgba(56, 189, 248, 0.45)';
         ctx.setLineDash([3, 3]);
         ctx.lineWidth = 1.2;
         ctx.beginPath();
@@ -1909,27 +1991,50 @@
         ctx.stroke();
         ctx.restore();
 
+        // Active Node Dot
         ctx.beginPath();
         ctx.arc(activeX, activeY, 5.5, 0, 2 * Math.PI);
-        ctx.fillStyle = isProjected ? '#38bdf8' : '#10b981';
+        ctx.fillStyle = isHistorical ? '#10b981' : '#38bdf8';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        const tagText = isProjected ? 'Projected' : 'Historical';
-        const valText = formatAUD(activeVal, true);
-        const tipW = 96;
+        // Determine Date / Forecast Horizon Label
+        let dateLabel = '';
+        if (isHistorical) {
+          const histEntry = appHistory[appHistory.length - histSlice.length + activeTouchForecastIdx];
+          const [yr, mo] = (histEntry?.month || '').split('-');
+          const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+          dateLabel = mo ? `${monthNames[parseInt(mo, 10)-1] || mo} ${yr} (Actual)` : 'Actual';
+        } else {
+          const projIndex = activeTouchForecastIdx - histSlice.length + 1;
+          const stepDiv = (forecastHorizon === 1 ? 2 : (forecastHorizon === 3 ? 6 : 10));
+          const forwardMonths = Math.min(monthsAhead, projIndex * stepDiv);
+          const forwardYears = (forwardMonths / 12).toFixed(1).replace('.0', '');
+          dateLabel = `+${forwardYears} Yr Forecast (${forwardMonths} Mo)`;
+        }
+
+        const valText = formatAUD(activeVal);
+
+        ctx.font = 'bold 11px monospace';
+        const valMetrics = ctx.measureText(valText);
+        ctx.font = '10px -apple-system, sans-serif';
+        const dateMetrics = ctx.measureText(dateLabel);
+        const tipW = Math.max(valMetrics.width, dateMetrics.width) + 20;
         const tipH = 34;
+
         let tipX = activeX - tipW / 2;
         if (tipX < padLeft + 2) tipX = padLeft + 2;
         if (tipX + tipW > w - padRight - 2) tipX = w - padRight - tipW - 2;
-        let tipY = activeY - tipH - 8;
-        if (tipY < padTop) tipY = activeY + 10;
 
+        let tipY = activeY - tipH - 10;
+        if (tipY < padTop) tipY = activeY + 12;
+
+        // Popup Container
         ctx.save();
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
-        ctx.strokeStyle = isProjected ? 'rgba(56, 189, 248, 0.6)' : 'rgba(16, 185, 129, 0.6)';
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+        ctx.strokeStyle = isHistorical ? 'rgba(16, 185, 129, 0.65)' : 'rgba(56, 189, 248, 0.65)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.roundRect(tipX, tipY, tipW, tipH, 8);
@@ -1937,9 +2042,9 @@
         ctx.stroke();
 
         ctx.textAlign = 'center';
-        ctx.fillStyle = isProjected ? '#38bdf8' : '#10b981';
-        ctx.font = '9px -apple-system, sans-serif';
-        ctx.fillText(tagText, tipX + tipW / 2, tipY + 13);
+        ctx.fillStyle = isHistorical ? '#6ee7b7' : '#7dd3fc';
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.fillText(dateLabel, tipX + tipW / 2, tipY + 13);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 11px monospace';
@@ -1949,21 +2054,20 @@
     }
 
     function renderDashboardAssetBreakdown(totals) {
-      const totalAssets = totals.totalAssets || 1;
+      const totalAssets = totals.totalAssets || 0;
       const gridContainer = document.getElementById('dashAssetPctGrid');
       const badge = document.getElementById('dashTotalAssetsBadge');
 
-      if (badge) badge.innerText = `${formatAUD(totals.totalAssets, true)} Assets`;
+      if (badge) badge.innerText = `${formatAUD(totalAssets, true)} Assets`;
 
       const classes = [
-        { name: 'Real Estate', amount: totals.properties, color: '#f59e0b', bgClass: 'bg-amber-400' },
-        { name: 'Superannuation', amount: totals.super, color: '#38bdf8', bgClass: 'bg-sky-400' },
-        { name: 'Equities & ETFs', amount: totals.shares, color: '#10b981', bgClass: 'bg-emerald-400' },
-        { name: 'Cash & Offsets', amount: totals.cash, color: '#2dd4bf', bgClass: 'bg-teal-400' },
-        { name: 'Alternatives', amount: totals.other, color: '#818cf8', bgClass: 'bg-indigo-400' }
+        { name: 'Real Estate', amount: totals.properties || 0, color: '#f59e0b', bgClass: 'bg-amber-400' },
+        { name: 'Superannuation', amount: totals.super || 0, color: '#38bdf8', bgClass: 'bg-sky-400' },
+        { name: 'Equities & ETFs', amount: totals.shares || 0, color: '#10b981', bgClass: 'bg-emerald-400' },
+        { name: 'Cash & Offsets', amount: totals.cash || 0, color: '#2dd4bf', bgClass: 'bg-teal-400' },
+        { name: 'Alternatives', amount: totals.other || 0, color: '#818cf8', bgClass: 'bg-indigo-400' }
       ];
 
-      // Draw Donut/Pie Chart
       const canvas = document.getElementById('dashAssetPieCanvas');
       if (canvas && canvas.parentElement) {
         const ctx = canvas.getContext('2d');
@@ -1980,27 +2084,34 @@
         const outerRadius = Math.min(centerX, centerY) - 14;
         const innerRadius = outerRadius * 0.58;
 
-        let startAngle = -0.5 * Math.PI;
+        if (totalAssets > 0) {
+          let startAngle = -0.5 * Math.PI;
+          classes.forEach(c => {
+            const sliceAngle = (c.amount / totalAssets) * 2 * Math.PI;
+            if (sliceAngle > 0.001) {
+              ctx.beginPath();
+              ctx.arc(centerX, centerY, outerRadius, startAngle, startAngle + sliceAngle);
+              ctx.arc(centerX, centerY, innerRadius, startAngle + sliceAngle, startAngle, true);
+              ctx.closePath();
+              ctx.fillStyle = c.color;
+              ctx.fill();
 
-        classes.forEach(c => {
-          const sliceAngle = (c.amount / totalAssets) * 2 * Math.PI;
-          if (sliceAngle > 0.001) {
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, outerRadius, startAngle, startAngle + sliceAngle);
-            ctx.arc(centerX, centerY, innerRadius, startAngle + sliceAngle, startAngle, true);
-            ctx.closePath();
-            ctx.fillStyle = c.color;
-            ctx.fill();
+              ctx.strokeStyle = '#020617';
+              ctx.lineWidth = 2;
+              ctx.stroke();
 
-            ctx.strokeStyle = '#020617';
-            ctx.lineWidth = 2;
-            ctx.stroke();
+              startAngle += sliceAngle;
+            }
+          });
+        } else {
+          // Empty state placeholder ring
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
+          ctx.arc(centerX, centerY, innerRadius, 2 * Math.PI, 0, true);
+          ctx.fillStyle = '#1e293b';
+          ctx.fill();
+        }
 
-            startAngle += sliceAngle;
-          }
-        });
-
-        // Center cutout text
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 13px -apple-system, sans-serif';
         ctx.textAlign = 'center';
@@ -2013,7 +2124,7 @@
       if (gridContainer) {
         gridContainer.innerHTML = '';
         classes.forEach(c => {
-          const pct = ((c.amount / totalAssets) * 100).toFixed(1);
+          const pct = totalAssets > 0 ? ((c.amount / totalAssets) * 100).toFixed(1) : '0.0';
           const item = document.createElement('div');
           item.className = "p-2.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between";
           item.innerHTML = `
@@ -2036,38 +2147,66 @@
     // ==========================================
 
     function renderAssetsView() {
-      if (!appHistory || appHistory.length === 0) return;
-      const latest = appHistory[appHistory.length - 1];
-
       const badge = document.getElementById('assetsDateBadge');
-      if (badge) badge.innerText = latest.month || '';
-
       const container = document.getElementById('assetsHoldingsContainer');
-      const totalDisplay = document.getElementById('assetsTotalFilteredDisplay');
+      const grossTotalDisplay = document.getElementById('assetsGrossTotalDisplay');
+      const owingTotalDisplay = document.getElementById('assetsOwingTotalDisplay');
       const countBadge = document.getElementById('assetsItemCountBadge');
+      const owingBadge = document.getElementById('assetsOwingCountBadge');
       if (!container) return;
       container.innerHTML = '';
 
-      let items = [];
-      if (assetTabFilter === 'all' || assetTabFilter === 'cash') {
-        (latest.cash || []).forEach(i => items.push({ ...i, category: 'Cash & Offsets', icon: 'fa-wallet', color: 'text-teal-400', isDebt: false }));
-      }
-      if (assetTabFilter === 'all' || assetTabFilter === 'shares') {
-        (latest.shares || []).forEach(i => items.push({ ...i, category: 'Shares & ETFs', icon: 'fa-arrow-trend-up', color: 'text-emerald-400', isDebt: false }));
-      }
-      if (assetTabFilter === 'all' || assetTabFilter === 'properties') {
-        (latest.properties || []).forEach(i => items.push({ ...i, amount: i.value, category: 'Real Estate', icon: 'fa-house-chimney', color: 'text-amber-400', isDebt: false }));
-      }
-      if (assetTabFilter === 'all' || assetTabFilter === 'super') {
-        (latest.super || []).forEach(i => items.push({ ...i, category: 'Superannuation', icon: 'fa-vault', color: 'text-sky-400', isDebt: false }));
-      }
-      if (assetTabFilter === 'all' || assetTabFilter === 'liabilities') {
-        (latest.liabilities || []).forEach(i => items.push({ ...i, category: 'Liabilities', icon: 'fa-credit-card', color: 'text-rose-400', isDebt: true }));
+      if (!appHistory || appHistory.length === 0) {
+        if (badge) badge.innerText = "No Data";
+        if (grossTotalDisplay) grossTotalDisplay.innerText = "$0";
+        if (owingTotalDisplay) owingTotalDisplay.innerText = "$0";
+        if (countBadge) countBadge.innerText = "0 Assets";
+        if (owingBadge) owingBadge.innerText = "0 Loans";
+        container.innerHTML = `<div class="p-8 text-center space-y-2 bg-slate-900/40 rounded-3xl border border-slate-800">
+          <i class="fa-solid fa-wallet text-2xl text-slate-600"></i>
+          <p class="text-xs text-slate-400">No portfolio snapshot logged yet.</p>
+          <button onclick="openLogModal()" class="px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold inline-flex items-center gap-1 shadow-md">
+            <i class="fa-solid fa-plus text-[10px]"></i> Log Your First Month
+          </button>
+        </div>`;
+        return;
       }
 
-      const totalVal = items.reduce((acc, curr) => acc + (Number(curr.amount !== undefined ? curr.amount : curr.value) || 0), 0);
-      if (totalDisplay) totalDisplay.innerText = formatAUD(totalVal);
-      if (countBadge) countBadge.innerText = `${items.length} Items`;
+      const latest = appHistory[appHistory.length - 1];
+      if (badge) badge.innerText = latest.month || '';
+
+      // Compute Gross Total (Strictly excluding loans) and Total Owing
+      const sumVal = arr => (arr || []).reduce((acc, curr) => acc + (Number(curr.amount !== undefined ? curr.amount : curr.value) || 0), 0);
+      const grossTotalVal = sumVal(latest.cash) + sumVal(latest.shares) + sumVal(latest.properties) + sumVal(latest.super) + sumVal(latest.other);
+      const owingTotalVal = sumVal(latest.liabilities);
+
+      const totalAssetCount = (latest.cash?.length || 0) + (latest.shares?.length || 0) + (latest.properties?.length || 0) + (latest.super?.length || 0) + (latest.other?.length || 0);
+      const totalLoanCount = latest.liabilities?.length || 0;
+
+      if (grossTotalDisplay) grossTotalDisplay.innerText = formatAUD(grossTotalVal);
+      if (owingTotalDisplay) owingTotalDisplay.innerText = formatAUD(owingTotalVal);
+      if (countBadge) countBadge.innerText = `${totalAssetCount} Assets`;
+      if (owingBadge) owingBadge.innerText = `${totalLoanCount} Loans`;
+
+      let items = [];
+      if (assetTabFilter === 'all' || assetTabFilter === 'cash') {
+        (latest.cash || []).forEach(i => items.push({ ...i, category: 'Savings', icon: 'fa-wallet', color: 'text-teal-400', isDebt: false }));
+      }
+      if (assetTabFilter === 'all' || assetTabFilter === 'shares') {
+        (latest.shares || []).forEach(i => items.push({ ...i, category: 'Shares', icon: 'fa-arrow-trend-up', color: 'text-emerald-400', isDebt: false }));
+      }
+      if (assetTabFilter === 'all' || assetTabFilter === 'properties') {
+        (latest.properties || []).forEach(i => items.push({ ...i, amount: i.value, category: 'Property', icon: 'fa-house-chimney', color: 'text-amber-400', isDebt: false }));
+      }
+      if (assetTabFilter === 'all' || assetTabFilter === 'super') {
+        (latest.super || []).forEach(i => items.push({ ...i, category: 'Super', icon: 'fa-vault', color: 'text-sky-400', isDebt: false }));
+      }
+      if (assetTabFilter === 'all') {
+        (latest.other || []).forEach(i => items.push({ ...i, category: 'Personal', icon: 'fa-coins', color: 'text-indigo-400', isDebt: false }));
+      }
+      if (assetTabFilter === 'all' || assetTabFilter === 'liabilities') {
+        (latest.liabilities || []).forEach(i => items.push({ ...i, category: 'Loans', icon: 'fa-credit-card', color: 'text-rose-400', isDebt: true }));
+      }
 
       if (items.length === 0) {
         container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500 bg-slate-900/50 rounded-2xl border border-slate-800">No items found in this category.</div>`;
@@ -2078,14 +2217,17 @@
         const row = document.createElement('div');
         row.className = "p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between shadow-sm";
         const val = Number(item.amount !== undefined ? item.amount : item.value) || 0;
+        const displayName = item.platform || item.name;
         row.innerHTML = `
           <div class="flex items-center gap-3 truncate pr-2">
             <div class="w-8 h-8 rounded-xl bg-slate-950 flex items-center justify-center ${item.color} flex-shrink-0">
               <i class="fa-solid ${item.icon} text-xs"></i>
             </div>
             <div class="truncate">
-              <p class="text-xs font-bold text-white truncate">${item.name}</p>
-              <p class="text-[10px] text-slate-400">${item.category}</p>
+              <p class="text-xs font-bold text-white truncate">${displayName}</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="text-[10px] text-slate-400 font-medium">${item.category}</span>
+              </div>
             </div>
           </div>
           <div class="text-right flex-shrink-0">
@@ -2101,11 +2243,27 @@
     // ==========================================
 
     function renderBreakdown() {
-      if (!appHistory || appHistory.length === 0) return;
+      const badge = document.getElementById('breakdownDateBadge');
+      const listContainer = document.getElementById('breakdownCategoryList');
+      const canvas = document.getElementById('assetClassPerfChart');
+
+      if (!appHistory || appHistory.length === 0) {
+        if (badge) badge.innerText = "No Data";
+        if (listContainer) {
+          listContainer.innerHTML = `<div class="p-8 text-center text-xs text-slate-500 bg-slate-900/40 rounded-3xl border border-slate-800">
+            Log monthly snapshots to calculate returns and compare trailing performance.
+          </div>`;
+        }
+        if (canvas && canvas.parentElement) {
+          const ctx = canvas.getContext('2d');
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        return;
+      }
+
       const latest = appHistory[appHistory.length - 1];
       const oldest = appHistory[Math.max(0, appHistory.length - 13)];
 
-      const badge = document.getElementById('breakdownDateBadge');
       if (badge) badge.innerText = `${oldest.month} vs ${latest.month}`;
 
       const tLatest = calculateSnapshotTotals(latest);
@@ -2121,8 +2279,6 @@
         { name: "Cash & Offsets", return: calcReturn(tLatest.cash, tOldest.cash), current: tLatest.cash, color: "#2dd4bf" }
       ].sort((a, b) => b.return - a.return);
 
-      // Render Horizontal Bar Chart
-      const canvas = document.getElementById('assetClassPerfChart');
       if (canvas && canvas.parentElement) {
         const ctx = canvas.getContext('2d');
         const rect = canvas.parentElement.getBoundingClientRect();
@@ -2159,7 +2315,6 @@
         });
       }
 
-      const listContainer = document.getElementById('breakdownCategoryList');
       if (listContainer) {
         listContainer.innerHTML = '';
         classes.forEach((c, idx) => {
@@ -2261,9 +2416,35 @@
       }
     }
 
+    function syncPlannerPropertiesFromLatest() {
+      if (!appHistory || appHistory.length === 0) {
+        plannerParams.properties = [];
+        return;
+      }
+      const latest = appHistory[appHistory.length - 1];
+      if (latest && latest.properties) {
+        // If properties list changed in logged month, sync them into planner
+        if (plannerParams.properties.length !== latest.properties.length) {
+          plannerParams.properties = latest.properties.map(p => {
+            const displayName = p.platform ? `${p.name}: ${p.platform}` : p.name;
+            const isPpor = (p.platform || p.name).toLowerCase().includes('pp') || (p.platform || p.name).toLowerCase().includes('home');
+            return {
+              name: displayName,
+              value: p.value || 0,
+              rentWk: isPpor ? 0 : 550,
+              holdingPct: isPpor ? 0.15 : 0.22,
+              loan: 0,
+              rate: 0.061,
+              termYrs: 20,
+              strategy: 'hold'
+            };
+          });
+        }
+      }
+    }
+
     function renderPlanner() {
-      if (!appHistory || appHistory.length === 0) return;
-      const latest = calculateSnapshotTotals(appHistory[appHistory.length - 1]);
+      syncPlannerPropertiesFromLatest();
 
       const container = document.getElementById('plannerPropertiesContainer');
       const payoffPillsContainer = document.getElementById('plannerDebtPayoffPills');
@@ -2274,88 +2455,95 @@
 
       if (container) {
         container.innerHTML = '';
-        plannerParams.properties.forEach((prop, idx) => {
-          const effectiveRate = prop.rate + rateStressShock;
-          const grossAnnual = prop.rentWk * 52;
-          const holdingExpenses = grossAnnual * prop.holdingPct;
-          
-          // Monthly loan repayment (P&I)
-          const monthlyRate = effectiveRate / 12;
-          const totalMonths = (prop.termYrs || 20) * 12;
-          const monthlyPmt = prop.loan > 0 
-            ? (prop.loan * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
-            : 0;
-          const annualDebtService = monthlyPmt * 12;
+        if (plannerParams.properties.length === 0) {
+          container.innerHTML = `<div class="p-4 text-center text-xs text-slate-500 bg-slate-900/50 rounded-2xl border border-slate-800">
+            No properties registered. Add properties when logging a month.
+          </div>`;
+        } else {
+          plannerParams.properties.forEach((prop, idx) => {
+            const effectiveRate = prop.rate + rateStressShock;
+            const grossAnnual = prop.rentWk * 52;
+            const holdingExpenses = grossAnnual * prop.holdingPct;
+            
+            const monthlyRate = effectiveRate / 12;
+            const totalMonths = (prop.termYrs || 20) * 12;
+            const monthlyPmt = prop.loan > 0 
+              ? (prop.loan * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
+              : 0;
+            const annualDebtService = monthlyPmt * 12;
 
-          const netCashFlow = grossAnnual - holdingExpenses - annualDebtService;
-          combinedGrossWk += prop.rentWk;
-          combinedNetAnnual += netCashFlow;
+            const netCashFlow = grossAnnual - holdingExpenses - annualDebtService;
+            combinedGrossWk += prop.rentWk;
+            combinedNetAnnual += netCashFlow;
 
-          // Pure debt-free cash flow (after loan is paid off)
-          const debtFreeNet = grossAnnual - holdingExpenses;
-          totalDebtFreeRental += debtFreeNet;
+            const debtFreeNet = grossAnnual - holdingExpenses;
+            totalDebtFreeRental += debtFreeNet;
 
-          const payoffAge = plannerParams.currentAge + (prop.termYrs || 20);
-          debtFreeAges.push({ name: prop.name.split(' ')[0], age: payoffAge });
+            const payoffAge = plannerParams.currentAge + (prop.termYrs || 20);
+            debtFreeAges.push({ name: prop.name.split(' ')[0], age: payoffAge });
 
-          const card = document.createElement('div');
-          card.className = "rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-sm";
-          card.innerHTML = `
-            <div onclick="togglePropertyAccordion(${idx})" class="p-3 flex items-center justify-between cursor-pointer hover:bg-slate-800/40">
-              <div class="flex items-center gap-2.5 truncate pr-2">
-                <i class="fa-solid fa-house text-amber-400 text-xs flex-shrink-0"></i>
-                <div class="truncate">
-                  <p class="text-xs font-bold text-white truncate">${prop.name}</p>
-                  <p class="text-[10px] text-slate-400 font-mono">${formatAUD(prop.value)} | Loan: ${formatAUD(prop.loan)} • Paid off Age ${payoffAge}</p>
+            const card = document.createElement('div');
+            card.className = "rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-sm";
+            card.innerHTML = `
+              <div onclick="togglePropertyAccordion(${idx})" class="p-3 flex items-center justify-between cursor-pointer hover:bg-slate-800/40">
+                <div class="flex items-center gap-2.5 truncate pr-2">
+                  <i class="fa-solid fa-house text-amber-400 text-xs flex-shrink-0"></i>
+                  <div class="truncate">
+                    <p class="text-xs font-bold text-white truncate">${prop.name}</p>
+                    <p class="text-[10px] text-slate-400 font-mono">${formatAUD(prop.value)} | Loan: ${formatAUD(prop.loan)} • Paid off Age ${payoffAge}</p>
+                  </div>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[10px] font-mono font-bold ${netCashFlow >= 0 ? 'text-emerald-400' : 'text-rose-400'}">
+                    ${netCashFlow >= 0 ? '+' : ''}${formatAUD(netCashFlow)}/yr
+                  </span>
+                  <i class="fa-solid fa-chevron-down text-[9px] text-slate-500 block"></i>
                 </div>
               </div>
-              <div class="text-right flex-shrink-0">
-                <span class="text-[10px] font-mono font-bold ${netCashFlow >= 0 ? 'text-emerald-400' : 'text-rose-400'}">
-                  ${netCashFlow >= 0 ? '+' : ''}${formatAUD(netCashFlow)}/yr
-                </span>
-                <i class="fa-solid fa-chevron-down text-[9px] text-slate-500 block"></i>
-              </div>
-            </div>
 
-            <div id="propAccordionContent-${idx}" class="hidden p-3 border-t border-slate-800 bg-slate-950/60 space-y-2 text-xs">
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="text-[9px] text-slate-400 block">Weekly Rent ($)</label>
-                  <input type="number" value="${prop.rentWk}" onchange="updatePropertyField(${idx}, 'rentWk', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+              <div id="propAccordionContent-${idx}" class="hidden p-3 border-t border-slate-800 bg-slate-950/60 space-y-2 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="text-[9px] text-slate-400 block">Weekly Rent ($)</label>
+                    <input type="number" value="${prop.rentWk}" onchange="updatePropertyField(${idx}, 'rentWk', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="text-[9px] text-slate-400 block">Holding Costs (%)</label>
+                    <input type="number" step="0.01" value="${prop.holdingPct}" onchange="updatePropertyField(${idx}, 'holdingPct', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                  </div>
                 </div>
-                <div>
-                  <label class="text-[9px] text-slate-400 block">Holding Costs (%)</label>
-                  <input type="number" step="0.01" value="${prop.holdingPct}" onchange="updatePropertyField(${idx}, 'holdingPct', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="text-[9px] text-slate-400 block">Mortgage Rate (%)</label>
+                    <input type="number" step="0.001" value="${prop.rate}" onchange="updatePropertyField(${idx}, 'rate', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="text-[9px] text-slate-400 block">Remaining Term (Yrs)</label>
+                    <input type="number" value="${prop.termYrs}" onchange="updatePropertyField(${idx}, 'termYrs', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                  </div>
                 </div>
               </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="text-[9px] text-slate-400 block">Mortgage Rate (%)</label>
-                  <input type="number" step="0.001" value="${prop.rate}" onchange="updatePropertyField(${idx}, 'rate', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
-                </div>
-                <div>
-                  <label class="text-[9px] text-slate-400 block">Remaining Term (Yrs)</label>
-                  <input type="number" value="${prop.termYrs}" onchange="updatePropertyField(${idx}, 'termYrs', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
-                </div>
-              </div>
-            </div>
-          `;
-          container.appendChild(card);
-        });
+            `;
+            container.appendChild(card);
+          });
+        }
       }
 
-      // Populate debt payoff pills
       if (payoffPillsContainer) {
         payoffPillsContainer.innerHTML = '';
-        debtFreeAges.sort((a,b) => a.age - b.age).forEach(d => {
-          const pill = document.createElement('span');
-          pill.className = "px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-[10px] text-slate-300 font-mono";
-          pill.innerHTML = `<span class="text-amber-400">${d.name}</span>: Age ${d.age}`;
-          payoffPillsContainer.appendChild(pill);
-        });
+        if (debtFreeAges.length === 0) {
+          payoffPillsContainer.innerHTML = '<span class="text-[10px] text-slate-500">No loans active.</span>';
+        } else {
+          debtFreeAges.sort((a,b) => a.age - b.age).forEach(d => {
+            const pill = document.createElement('span');
+            pill.className = "px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-[10px] text-slate-300 font-mono";
+            pill.innerHTML = `<span class="text-amber-400">${d.name}</span>: Age ${d.age}`;
+            payoffPillsContainer.appendChild(pill);
+          });
+        }
       }
 
-      const maxDebtFreeAge = Math.max(...debtFreeAges.map(d => d.age), 60);
+      const maxDebtFreeAge = debtFreeAges.length > 0 ? Math.max(...debtFreeAges.map(d => d.age)) : plannerParams.currentAge;
       const markerDFA = document.getElementById('planMarkerDebtFreeAge');
       if (markerDFA) markerDFA.innerText = `Age ${maxDebtFreeAge}`;
 
@@ -2369,40 +2557,32 @@
         totalNetPassiveEl.className = combinedNetAnnual >= 0 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold";
       }
 
-      // ==========================================
-      // ACCURATE AUSTRALIAN FIRE ENGINE CALCULATIONS
-      // ==========================================
+      const latestTotals = (appHistory && appHistory.length > 0) ? calculateSnapshotTotals(appHistory[appHistory.length - 1]) : calculateSnapshotTotals(null);
       const yearsToRetire = Math.max(0, plannerParams.retireAge - plannerParams.currentAge);
       
-      // Super Concessional Contributions Modeling ($30k cap)
       const mandatedSG = plannerParams.annualSalary * 0.12;
       let totalConcessional = mandatedSG;
       if (plannerParams.salarySacrifice === 'max') {
-        totalConcessional = Math.max(mandatedSG, 30000); // 2024-2026 AU concessional cap
+        totalConcessional = Math.max(mandatedSG, 30000);
       }
-      const netSuperContribution = totalConcessional * 0.85; // 15% contributions tax
+      const netSuperContribution = totalConcessional * 0.85;
 
       const annualOutsideSavings = (plannerParams.monthlySavings * 12) + Math.max(0, combinedNetAnnual);
 
-      // Accumulation to Retirement Age
-      let outsideAtRetire = latest.cash + latest.shares + latest.other;
-      let superAtRetire = latest.super;
+      let outsideAtRetire = latestTotals.cash + latestTotals.shares + latestTotals.other;
+      let superAtRetire = latestTotals.super;
 
       for (let y = 0; y < yearsToRetire; y++) {
         outsideAtRetire = (outsideAtRetire + annualOutsideSavings) * (1 + plannerParams.realReturn);
         superAtRetire = (superAtRetire + netSuperContribution) * (1 + plannerParams.realReturn);
       }
 
-      // Target FIRE Nest Egg (Net of debt-free rental cash flow)
       const netLivingExpenseNeeded = Math.max(20000, plannerParams.annualExpenses - Math.max(0, totalDebtFreeRental));
       const targetNestEgg = netLivingExpenseNeeded / (plannerParams.swr || 0.04);
 
-      // Pre-Super Bridge (from Retire Age to Age 60 Preservation)
       const bridgeYears = Math.max(0, 60 - plannerParams.retireAge);
-      let bridgeRequired = 0;
       let testOutside = outsideAtRetire;
       for (let by = 0; by < bridgeYears; by++) {
-        bridgeRequired += plannerParams.annualExpenses;
         testOutside = (testOutside - plannerParams.annualExpenses) * (1 + plannerParams.realReturn);
       }
 
@@ -2440,8 +2620,8 @@
           feasBadge.innerText = 'Pre-60 Bridge Gap';
           feasBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400';
         } else {
-          feasBadge.innerText = 'Capital Shortfall';
-          feasBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400';
+          feasBadge.innerText = 'Accumulating';
+          feasBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300';
         }
       }
 
@@ -2460,15 +2640,15 @@
       ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
       ctx.clearRect(0, 0, w, h);
 
-      if (!appHistory || appHistory.length === 0) return;
+      const latestTotals = (appHistory && appHistory.length > 0) ? calculateSnapshotTotals(appHistory[appHistory.length - 1]) : calculateSnapshotTotals(null);
 
       const ages = [];
       const wealthTrajectory = [];
       const outsideTrajectory = [];
       const superTrajectory = [];
 
-      let runningOutside = calculateSnapshotTotals(appHistory[appHistory.length - 1]).cash + calculateSnapshotTotals(appHistory[appHistory.length - 1]).shares;
-      let runningSuper = calculateSnapshotTotals(appHistory[appHistory.length - 1]).super;
+      let runningOutside = latestTotals.cash + latestTotals.shares + latestTotals.other;
+      let runningSuper = latestTotals.super;
 
       const mandatedSG = plannerParams.annualSalary * 0.12;
       const annualSuperAddition = (plannerParams.salarySacrifice === 'max' ? Math.max(mandatedSG, 30000) : mandatedSG) * 0.85;
@@ -2477,16 +2657,13 @@
         ages.push(age);
         const yearsPassed = age - plannerParams.currentAge;
 
-        // Calculate dynamic rental cash flow in each specific year based on mortgage payoffs
         let yearRentalNet = 0;
         plannerParams.properties.forEach(prop => {
           const grossAnnual = prop.rentWk * 52;
           const holding = grossAnnual * prop.holdingPct;
           if (yearsPassed >= (prop.termYrs || 20)) {
-            // Mortgage paid off
             yearRentalNet += (grossAnnual - holding);
           } else {
-            // Still servicing loan
             const effRate = prop.rate + rateStressShock;
             const mRate = effRate / 12;
             const tMonths = (prop.termYrs || 20) * 12;
@@ -2496,25 +2673,16 @@
         });
 
         if (age < plannerParams.retireAge) {
-          // Accumulation
           runningOutside = (runningOutside + (plannerParams.monthlySavings * 12) + Math.max(0, yearRentalNet)) * (1 + plannerParams.realReturn);
           runningSuper = (runningSuper + annualSuperAddition) * (1 + plannerParams.realReturn);
         } else {
-          // Decumulation Phase
-          // Net drawdown needed from portfolios after passive rental cash flow
           const livingCostNeed = Math.max(0, plannerParams.annualExpenses - Math.max(0, yearRentalNet));
 
           if (age < 60) {
-            // Must draw from outside super exclusively
             runningOutside = Math.max(0, runningOutside - livingCostNeed) * (1 + plannerParams.realReturn);
             runningSuper = runningSuper * (1 + plannerParams.realReturn);
           } else {
-            // Super Unlocked at Age 60 into 0% Tax Account-Based Pension (ABP)
-            // Transfer balance cap is ~$1.9M. Balances in ABP experience tax-free earnings (+0.75% real return boost)
             const combinedLiquid = runningOutside + runningSuper;
-            const remaining = Math.max(0, combinedLiquid - livingCostNeed);
-            
-            // Prioritize preserving tax-free Super / ABP
             if (runningOutside > 0) {
               const drawFromOutside = Math.min(runningOutside, livingCostNeed);
               runningOutside = Math.max(0, runningOutside - drawFromOutside) * (1 + plannerParams.realReturn);
@@ -2526,9 +2694,7 @@
           }
         }
 
-        // Age Pension Safety Net (Age 67+) - If liquid capital drops low, government pension provides a floor
         if (age >= 67 && (runningOutside + runningSuper) < 350000) {
-          // Partial/Full Age Pension kicks in (~$28k single / $42k couple), arresting depletion
           runningOutside = Math.max(runningOutside, 50000);
         }
 
@@ -2537,11 +2703,10 @@
         wealthTrajectory.push(runningOutside + runningSuper);
       }
 
-      const max = Math.max(...wealthTrajectory) * 1.08;
+      const max = Math.max(...wealthTrajectory, 10000) * 1.08;
       const min = 0;
       const range = max - min || 1;
 
-      // Margins for axes
       const padLeft = 48;
       const padRight = 14;
       const padTop = 14;
@@ -2549,7 +2714,6 @@
       const chartW = w - padLeft - padRight;
       const chartH = h - padTop - padBottom;
 
-      // Draw subtle horizontal gridlines & Y-axis labels
       ctx.strokeStyle = '#1e293b';
       ctx.lineWidth = 1;
       ctx.fillStyle = '#64748b';
@@ -2572,7 +2736,6 @@
       const getX = idx => padLeft + (ages.length > 1 ? (idx / (ages.length - 1)) * chartW : chartW / 2);
       const getY = val => (padTop + chartH) - ((val - min) / range) * chartH;
 
-      // Vertical grid lines and selected X-axis age labels
       ctx.textAlign = 'center';
       const keyAges = [plannerParams.currentAge, plannerParams.retireAge, 60, 67, 90].sort((a,b) => a-b);
       const uniqueAges = keyAges.filter((a, idx) => keyAges.indexOf(a) === idx);
@@ -2594,7 +2757,6 @@
         }
       });
 
-      // Shaded Area Fill
       const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
       grad.addColorStop(0, 'rgba(16, 185, 129, 0.25)');
       grad.addColorStop(1, 'rgba(2, 6, 23, 0.0)');
@@ -2615,7 +2777,6 @@
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // Combined Trajectory Line
       ctx.beginPath();
       ctx.moveTo(getX(0), getY(wealthTrajectory[0]));
       for (let i = 1; i < wealthTrajectory.length; i++) {
@@ -2629,114 +2790,6 @@
       ctx.strokeStyle = '#10b981';
       ctx.lineWidth = 2.5;
       ctx.stroke();
-
-      // Outside-Super Dotted Line (The Bridge)
-      ctx.beginPath();
-      ctx.setLineDash([3, 3]);
-      ctx.moveTo(getX(0), getY(outsideTrajectory[0]));
-      for (let i = 1; i < outsideTrajectory.length; i++) {
-        ctx.lineTo(getX(i), getY(outsideTrajectory[i]));
-      }
-      ctx.strokeStyle = '#34d399';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Milestone Dots (Retirement, Age 60, Age 67)
-      const drawMilestone = (targetAge, color) => {
-        const idx = ages.indexOf(targetAge);
-        if (idx !== -1) {
-          const mx = getX(idx);
-          const my = getY(wealthTrajectory[idx]);
-          ctx.beginPath();
-          ctx.arc(mx, my, 4.5, 0, 2 * Math.PI);
-          ctx.fillStyle = color;
-          ctx.fill();
-          ctx.strokeStyle = '#ffffff';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-        }
-      };
-
-      drawMilestone(plannerParams.retireAge, '#10b981');
-      drawMilestone(60, '#38bdf8');
-      drawMilestone(67, '#f59e0b');
-
-      // Interactive Touch / Hover Tooltip Card
-      if (activeTouchRetireIdx !== null && activeTouchRetireIdx >= 0 && activeTouchRetireIdx < ages.length) {
-        const activeX = getX(activeTouchRetireIdx);
-        const activeAge = ages[activeTouchRetireIdx];
-        const activeVal = wealthTrajectory[activeTouchRetireIdx];
-        const activeY = getY(activeVal);
-        const curOutside = outsideTrajectory[activeTouchRetireIdx];
-        const curSuper = superTrajectory[activeTouchRetireIdx];
-
-        // Vertical indicator crosshair
-        ctx.save();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-        ctx.setLineDash([3, 3]);
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.moveTo(activeX, padTop);
-        ctx.lineTo(activeX, padTop + chartH);
-        ctx.stroke();
-        ctx.restore();
-
-        // Highlight dot
-        ctx.beginPath();
-        ctx.arc(activeX, activeY, 5.5, 0, 2 * Math.PI);
-        ctx.fillStyle = activeAge < plannerParams.retireAge ? '#10b981' : (activeAge < 60 ? '#38bdf8' : '#f59e0b');
-        ctx.fill();
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        // Popup card formatting
-        let phaseLabel = 'Accumulation';
-        if (activeAge === plannerParams.retireAge) phaseLabel = 'FIRE Date';
-        else if (activeAge > plannerParams.retireAge && activeAge < 60) phaseLabel = 'Pre-60 Bridge';
-        else if (activeAge >= 60 && activeAge < 67) phaseLabel = 'Super ABP (0% Tax)';
-        else if (activeAge >= 67) phaseLabel = 'Age Pension Window';
-
-        const titleText = `Age ${activeAge} • ${phaseLabel}`;
-        const totalText = `Total: ${formatAUD(activeVal)}`;
-        const tipW = 146;
-        const tipH = 46;
-
-        let tipX = activeX - tipW / 2;
-        if (tipX < padLeft + 2) tipX = padLeft + 2;
-        if (tipX + tipW > w - padRight - 2) tipX = w - padRight - tipW - 2;
-
-        let tipY = activeY - tipH - 10;
-        if (tipY < padTop) tipY = activeY + 12;
-
-        ctx.save();
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.6)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(tipX, tipY, tipW, tipH, 8);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '9px -apple-system, sans-serif';
-        ctx.fillText(titleText, tipX + 8, tipY + 13);
-
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 11px monospace';
-        ctx.fillText(totalText, tipX + 8, tipY + 27);
-
-        ctx.fillStyle = '#38bdf8';
-        ctx.font = '9px monospace';
-        if (activeAge < 60) {
-          ctx.fillText(`Bridge: ${formatAUD(curOutside, true)} | Super: ${formatAUD(curSuper, true)}`, tipX + 8, tipY + 39);
-        } else {
-          ctx.fillText(`Outside: ${formatAUD(curOutside, true)} | ABP: ${formatAUD(curSuper, true)}`, tipX + 8, tipY + 39);
-        }
-        ctx.restore();
-      }
 
       const markerRetireAge = document.getElementById('planMarkerRetireAge');
       if (markerRetireAge) markerRetireAge.innerText = `Age ${plannerParams.retireAge}`;
@@ -2807,7 +2860,10 @@
         const set = new Set();
         appHistory.forEach(h => {
           (h[categoryKey] || []).forEach(item => {
-            if (item && item.name) set.add(item.name);
+            if (item) {
+              const label = item.platform ? `${item.platform} (${item.name})` : item.name;
+              set.add(label);
+            }
           });
         });
         return Array.from(set);
@@ -2883,12 +2939,12 @@
       const cashVals = snapshotTotals.map(t => formatAUD(t.cash, true));
       tbody.appendChild(createTableRow('Cash & Offsets', cashVals, { isCategoryHeader: true, icon: 'fa-wallet', iconColor: 'text-teal-400' }));
       if (historyTableShowDetails) {
-        cashItems.forEach(name => {
+        cashItems.forEach(label => {
           const vals = sortedHistory.map(h => {
-            const item = (h.cash || []).find(i => i.name === name);
+            const item = (h.cash || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
             return item ? formatAUD(item.amount, true) : '-';
           });
-          tbody.appendChild(createTableRow(name, vals, { isSubItem: true }));
+          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
         });
       }
 
@@ -2896,12 +2952,12 @@
       const sharesVals = snapshotTotals.map(t => formatAUD(t.shares, true));
       tbody.appendChild(createTableRow('Shares & ETFs', sharesVals, { isCategoryHeader: true, icon: 'fa-arrow-trend-up', iconColor: 'text-emerald-400' }));
       if (historyTableShowDetails) {
-        shareItems.forEach(name => {
+        shareItems.forEach(label => {
           const vals = sortedHistory.map(h => {
-            const item = (h.shares || []).find(i => i.name === name);
+            const item = (h.shares || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
             return item ? formatAUD(item.amount, true) : '-';
           });
-          tbody.appendChild(createTableRow(name, vals, { isSubItem: true }));
+          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
         });
       }
 
@@ -2909,12 +2965,12 @@
       const propVals = snapshotTotals.map(t => formatAUD(t.properties, true));
       tbody.appendChild(createTableRow('Real Estate', propVals, { isCategoryHeader: true, icon: 'fa-house-chimney', iconColor: 'text-amber-400' }));
       if (historyTableShowDetails) {
-        propertyItems.forEach(name => {
+        propertyItems.forEach(label => {
           const vals = sortedHistory.map(h => {
-            const item = (h.properties || []).find(i => i.name === name);
+            const item = (h.properties || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
             return item ? formatAUD(item.value, true) : '-';
           });
-          tbody.appendChild(createTableRow(name, vals, { isSubItem: true }));
+          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
         });
       }
 
@@ -2922,12 +2978,12 @@
       const superVals = snapshotTotals.map(t => formatAUD(t.super, true));
       tbody.appendChild(createTableRow('Superannuation', superVals, { isCategoryHeader: true, icon: 'fa-vault', iconColor: 'text-sky-400' }));
       if (historyTableShowDetails) {
-        superItems.forEach(name => {
+        superItems.forEach(label => {
           const vals = sortedHistory.map(h => {
-            const item = (h.super || []).find(i => i.name === name);
+            const item = (h.super || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
             return item ? formatAUD(item.amount, true) : '-';
           });
-          tbody.appendChild(createTableRow(name, vals, { isSubItem: true }));
+          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
         });
       }
 
@@ -2935,12 +2991,12 @@
       const otherVals = snapshotTotals.map(t => formatAUD(t.other, true));
       tbody.appendChild(createTableRow('Alternatives', otherVals, { isCategoryHeader: true, icon: 'fa-coins', iconColor: 'text-indigo-400' }));
       if (historyTableShowDetails) {
-        otherItems.forEach(name => {
+        otherItems.forEach(label => {
           const vals = sortedHistory.map(h => {
-            const item = (h.other || []).find(i => i.name === name);
+            const item = (h.other || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
             return item ? formatAUD(item.amount, true) : '-';
           });
-          tbody.appendChild(createTableRow(name, vals, { isSubItem: true }));
+          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
         });
       }
 
@@ -2948,12 +3004,12 @@
       const liabVals = snapshotTotals.map(t => formatAUD(t.liabilities, true));
       tbody.appendChild(createTableRow('Total Liabilities', liabVals, { isCategoryHeader: true, icon: 'fa-credit-card', iconColor: 'text-rose-400', valColor: 'text-rose-400' }));
       if (historyTableShowDetails) {
-        liabilityItems.forEach(name => {
+        liabilityItems.forEach(label => {
           const vals = sortedHistory.map(h => {
-            const item = (h.liabilities || []).find(i => i.name === name);
+            const item = (h.liabilities || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
             return item ? formatAUD(item.amount, true) : '-';
           });
-          tbody.appendChild(createTableRow(name, vals, { isSubItem: true, valColor: 'text-rose-400/80' }));
+          tbody.appendChild(createTableRow(label, vals, { isSubItem: true, valColor: 'text-rose-400/80' }));
         });
       }
 
@@ -2985,16 +3041,15 @@
 
     function onLogDateSelectionChange() {
       const targetMonthStr = getSelectedLogMonthString();
-      // If snapshot already exists for selected month/year, load it for easy editing; otherwise clone latest
       const existing = appHistory.find(e => e.month === targetMonthStr);
       const latest = appHistory[appHistory.length - 1];
-      renderLogModalForm(existing || latest || getSampleDataset()[0]);
+      // Use existing entry, or recent account lineup, or a blank template structure
+      renderLogModalForm(existing || latest || getDefaultBlankSnapshot(targetMonthStr));
     }
 
     function openLogModal() {
       populateLogYearDropdown();
 
-      // Default to the current real-world Year and Month
       const now = new Date();
       const currentYear = now.getFullYear();
       const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
@@ -3046,18 +3101,21 @@
         const group = sec.querySelector(`#logCategoryGroup-${cat.key}`);
         (sourceData[cat.key] || []).forEach(item => {
           const val = item.amount !== undefined ? item.amount : item.value;
-          group.appendChild(createLogRow(cat.key, item.name, val));
+          group.appendChild(createLogRow(cat.key, item.name, item.platform || '', val));
         });
       });
     }
 
-    function createLogRow(catKey, name = '', amount = 0) {
+    function createLogRow(catKey, name = '', platform = '', amount = 0) {
       const row = document.createElement('div');
       row.className = "flex items-center gap-2 log-item-row";
       row.dataset.category = catKey;
       row.innerHTML = `
-        <input type="text" value="${name}" placeholder="Name/Platform" class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white log-item-name">
-        <input type="number" value="${amount}" placeholder="AUD" class="w-28 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white font-mono text-right log-item-amount">
+        <div class="flex-1 grid grid-cols-2 gap-1.5">
+          <input type="text" value="${name}" placeholder="Asset Name" class="bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white log-item-name" title="Asset (Column A)">
+          <input type="text" value="${platform}" placeholder="Platform" class="bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-300 log-item-platform" title="Platform (Column B)">
+        </div>
+        <input type="number" value="${amount}" placeholder="AUD" class="w-24 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white font-mono text-right log-item-amount">
         <button type="button" onclick="this.parentElement.remove()" class="w-6 h-6 rounded-lg bg-slate-950 text-slate-500 hover:text-rose-400 flex items-center justify-center flex-shrink-0">
           <i class="fa-solid fa-trash-can text-[10px]"></i>
         </button>
@@ -3067,7 +3125,7 @@
 
     function addLogItemRow(catKey) {
       const group = document.getElementById(`logCategoryGroup-${catKey}`);
-      if (group) group.appendChild(createLogRow(catKey, '', 0));
+      if (group) group.appendChild(createLogRow(catKey, '', '', 0));
     }
 
     function submitLogMonth() {
@@ -3086,13 +3144,15 @@
 
       document.querySelectorAll('.log-item-row').forEach(row => {
         const cat = row.dataset.category;
-        const name = row.querySelector('.log-item-name').value.trim() || 'Untitled';
+        const name = row.querySelector('.log-item-name').value.trim() || 'Untitled Asset';
+        const platformInput = row.querySelector('.log-item-platform');
+        const platform = platformInput ? platformInput.value.trim() : '';
         const amount = parseFloat(row.querySelector('.log-item-amount').value) || 0;
 
         if (cat === 'properties') {
-          newEntry.properties.push({ name, value: amount });
+          newEntry.properties.push({ name, platform: platform || 'Property', value: amount });
         } else if (newEntry[cat]) {
-          newEntry[cat].push({ name, amount });
+          newEntry[cat].push({ name, platform, amount });
         }
       });
 
@@ -3122,14 +3182,25 @@
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
-          appHistory = JSON.parse(stored);
-        } else {
-          appHistory = getSampleDataset();
-          saveData();
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            appHistory = parsed;
+            return;
+          }
         }
+        // Load the 69-month dataset directly into storage
+        appHistory = getHistoricalSeedDataset();
+        saveData();
       } catch (e) {
-        appHistory = getSampleDataset();
+        appHistory = getHistoricalSeedDataset();
       }
+    }
+
+    function clearAllPortfolioData() {
+      appHistory = [];
+      saveData();
+      closeSettingsModal();
+      renderAll();
     }
 
     function exportDataBackup() {
@@ -3516,8 +3587,12 @@
           const histSlice = appHistory.slice(-6);
           const monthsAhead = forecastHorizon * 12;
           const stepDiv = (forecastHorizon === 1 ? 2 : (forecastHorizon === 3 ? 6 : 10));
-          const numProj = Math.floor(monthsAhead / stepDiv);
+          let numProj = 0;
+          for (let i = 1; i <= monthsAhead; i++) {
+            if (i % stepDiv === 0 || i === monthsAhead) numProj++;
+          }
           const totalPoints = histSlice.length + numProj;
+          if (totalPoints <= 0) return;
 
           const padLeft = 48;
           const padRight = 14;
@@ -3604,6 +3679,7 @@
 
     // App Startup
     window.onload = function() {
+      generateGuaranteedAppleIcon();
       initData();
       checkPinOnLaunch();
       renderAll();
@@ -3613,6 +3689,121 @@
         requestAnimationFrame(() => renderAll());
       });
     };
+
+    // Guaranteed High-Res iOS Apple Touch Icon (Canvas-to-PNG Rasterizer)
+    function generateGuaranteedAppleIcon() {
+      try {
+        const size = 192;
+        const iconCanvas = document.createElement('canvas');
+        iconCanvas.width = size;
+        iconCanvas.height = size;
+        const ctx = iconCanvas.getContext('2d');
+        if (!ctx) return;
+
+        // 1. Deep Obsidian to Forest Emerald Radial Gradient Background
+        const bgGrad = ctx.createRadialGradient(size * 0.35, size * 0.3, 10, size * 0.5, size * 0.5, size * 0.75);
+        bgGrad.addColorStop(0, '#064e3b'); // Emerald-900
+        bgGrad.addColorStop(0.55, '#022c22'); // Emerald-950
+        bgGrad.addColorStop(1, '#020617'); // Slate-950
+
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, size, size);
+
+        // 2. Subtle Luxury Inner Bezel / Border Ring
+        ctx.strokeStyle = 'rgba(52, 211, 153, 0.35)'; // Emerald-400
+        ctx.lineWidth = 4;
+        ctx.strokeRect(3, 3, size - 6, size - 6);
+
+        // 3. Southern Cross Star Cluster (Gold Stars)
+        const drawStar = (cx, cy, r, fill = '#fef08a') => {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+          ctx.fillStyle = fill;
+          ctx.shadowColor = 'rgba(250, 204, 21, 0.75)';
+          ctx.shadowBlur = 8;
+          ctx.fill();
+          ctx.restore();
+        };
+
+        drawStar(146, 38, 4.2);
+        drawStar(160, 62, 3.2);
+        drawStar(132, 58, 3.5);
+        drawStar(146, 82, 4.0);
+        drawStar(155, 74, 2.0);
+
+        // 4. Ascending Growth Trajectory Line
+        ctx.save();
+        ctx.strokeStyle = '#34d399';
+        ctx.lineWidth = 11;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.shadowColor = 'rgba(16, 185, 129, 0.8)';
+        ctx.shadowBlur = 14;
+
+        ctx.beginPath();
+        ctx.moveTo(34, 142);
+        ctx.lineTo(72, 110);
+        ctx.lineTo(104, 122);
+        ctx.lineTo(152, 62);
+        ctx.stroke();
+        ctx.restore();
+
+        // 5. Golden Apex Glow Node
+        drawStar(152, 62, 7.5, '#fef08a');
+        ctx.beginPath();
+        ctx.arc(152, 62, 9, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#ca8a04';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // 6. Bold "AU" Currency / Wealth Monogram
+        ctx.save();
+        ctx.font = '900 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#fef08a';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+        ctx.shadowBlur = 6;
+        ctx.fillText('$ AUD', size / 2, 166);
+        ctx.restore();
+
+        // 7. Convert rendered canvas to Base64 PNG format (iOS Safari strictly requires PNG)
+        const pngDataUrl = iconCanvas.toDataURL('image/png');
+
+        // Apply to apple-touch-icon tags
+        const appleIcon = document.getElementById('dynamicAppleTouchIcon');
+        if (appleIcon) appleIcon.href = pngDataUrl;
+
+        const allAppleLinks = document.querySelectorAll('link[rel*="apple-touch-icon"]');
+        allAppleLinks.forEach(link => { link.href = pngDataUrl; });
+
+        // 8. Build matching Web App Manifest Data URI
+        const manifest = {
+          name: "AU Wealth & FIRE",
+          short_name: "AU Wealth",
+          start_url: window.location.href,
+          display: "standalone",
+          background_color: "#020617",
+          theme_color: "#020617",
+          icons: [
+            {
+              src: pngDataUrl,
+              sizes: "192x192",
+              type: "image/png",
+              purpose: "any maskable"
+            }
+          ]
+        };
+
+        const manifestLink = document.getElementById('dynamicAppManifest');
+        if (manifestLink) {
+          manifestLink.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifest));
+        }
+      } catch (e) {
+        console.warn('Icon generator fallback notice:', e);
+      }
+    }
   </script>
 </body>
 </html>
