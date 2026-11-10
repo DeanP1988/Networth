@@ -464,6 +464,34 @@
             Full Australian rules modeling: Pre-Super Bridge (A60), 0% Account-Based Pension phase, $1.9M Transfer Balance Cap (TBC), and 7-property debt runoff.
           </p>
 
+          <!-- Starting Net Worth & Assets Reconciliation Card -->
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between text-[10px]">
+              <span class="font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                <i class="fa-solid fa-wallet text-emerald-400 text-xs"></i>
+                Current Starting Portfolio Basis
+              </span>
+              <span id="planStartMonthBadge" class="font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Latest Month</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs pt-0.5">
+              <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 block truncate">Total Net Worth</span>
+                <span id="planStartNetWorth" class="text-xs font-mono font-bold text-emerald-400">$0</span>
+                <span class="text-[8px] text-slate-500 block truncate">Assets − Loans</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 block truncate">Liquid + Super</span>
+                <span id="planStartLiquidSuper" class="text-xs font-mono font-bold text-teal-300">$0</span>
+                <span class="text-[8px] text-slate-500 block truncate">Cash, Shares, Super</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900 border border-slate-800/80">
+                <span class="text-[9px] text-slate-400 block truncate">Property Equity</span>
+                <span id="planStartPropertyEquity" class="text-xs font-mono font-bold text-amber-300">$0</span>
+                <span class="text-[8px] text-slate-500 block truncate">Props − Mortgages</span>
+              </div>
+            </div>
+          </div>
+
           <!-- 4-Block Key FIRE Metrics -->
           <div class="grid grid-cols-2 gap-2 text-xs pt-1">
             <div class="p-2.5 rounded-2xl bg-slate-950/70 border border-slate-800">
@@ -488,6 +516,99 @@
               <span class="text-[9px] text-slate-400 block">Passive Rent at Debt-Free</span>
               <span id="planDebtFreeRental" class="text-sm font-mono font-bold text-amber-300">$0 / yr</span>
               <span class="text-[8px] text-slate-500 block">Mortgages at $0</span>
+            </div>
+          </div>
+
+          <!-- Shares & Equities Modeling Explainer Card -->
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+            <div class="flex items-center justify-between text-[10px]">
+              <span class="font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-trend-up text-emerald-400 text-xs"></i>
+                Shares & Equities in FIRE Model
+              </span>
+              <span id="planSharesCurrentBadge" class="font-mono text-white bg-slate-900 px-2 py-0.5 rounded-md border border-slate-800">Current: $0</span>
+            </div>
+            <p class="text-[10px] text-slate-400 leading-relaxed">
+              Your shares/ETFs (CommSec, Pocket, Stake, etc.) combine with cash to form your <strong class="text-teal-300">Outside-Super Capital</strong>. In career years, your monthly savings compound in this pool. In early retirement, shortfalls between living expenses and net rent are funded by liquidating from this outside shares balance until Super preservation age 60.
+            </p>
+          </div>
+
+          <!-- Optimal FIRE Age Guidance Box -->
+        <div class="p-3 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-calculator text-xs"></i>
+            </div>
+            <div>
+              <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider block">Optimal Retirement Age</span>
+              <p id="planOptimalRetireText" class="text-xs font-bold text-emerald-300">Calculating optimal date...</p>
+            </div>
+          </div>
+          <button onclick="applyOptimalRetireAge()" id="btnApplyOptimalAge" class="px-2.5 py-1 rounded-xl bg-emerald-500 text-slate-950 font-bold text-[10px] hover:bg-emerald-400 active:scale-95 transition hidden">
+            Set Target
+          </button>
+        </div>
+
+        <!-- Career vs Retirement Cash Flow Phase Box (Clean Stacked Layout) -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-briefcase text-teal-400 text-xs"></i>
+              Income & Super Phase Breakdown
+            </span>
+            <span class="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Salary Drops to $0 at Retire</span>
+          </div>
+
+          <!-- Vertical Stacked Cards (Top: Pre-Retirement, Bottom: Post-Retirement) -->
+          <div class="space-y-2 text-[11px] pt-0.5">
+            <!-- 1. Pre-Retirement (Working) -->
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wide flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  1. Pre-Retirement (Working)
+                </span>
+                <span class="text-[9px] font-mono text-slate-400">Career Accumulation</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center pt-0.5">
+                <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+                  <span class="text-[9px] text-slate-400 block">Gross Salary</span>
+                  <span id="planWorkSalaryDisplay" class="font-mono text-white font-bold text-xs">$160k/yr</span>
+                </div>
+                <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+                  <span class="text-[9px] text-slate-400 block">Super Added</span>
+                  <span id="planWorkSuperDisplay" class="font-mono text-sky-400 font-bold text-xs">$30k/yr</span>
+                </div>
+                <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+                  <span class="text-[9px] text-slate-400 block">Outside Savings</span>
+                  <span id="planWorkSavingsDisplay" class="font-mono text-emerald-400 font-bold text-xs">$42k/yr</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Post-Retirement (FIRE) placed underneath -->
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  2. Post-Retirement (FIRE)
+                </span>
+                <span class="text-[9px] font-mono text-rose-400 bg-rose-500/10 px-1.5 py-0.2 rounded border border-rose-500/20">Salary = $0/yr</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center pt-0.5">
+                <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+                  <span class="text-[9px] text-slate-400 block">Salary / SG</span>
+                  <span class="font-mono text-rose-400 font-bold text-xs">$0 / yr</span>
+                </div>
+                <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+                  <span class="text-[9px] text-slate-400 block">Living Drawdown</span>
+                  <span id="planPostLivingDisplay" class="font-mono text-amber-300 font-bold text-xs">$90k/yr</span>
+                </div>
+                <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+                  <span class="text-[9px] text-slate-400 block">Passive Income</span>
+                  <span class="font-mono text-emerald-400 font-bold text-xs">Rent & 0% ABP</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -518,12 +639,26 @@
               <span class="text-xs font-bold text-sky-400">A60</span>
               <span class="text-[7px] text-slate-500 block">Super (0% Tax)</span>
             </div>
-            <div class="p-2 rounded-xl bg-slate-950/60 border border-slate-800 border-l-2 border-l-amber-500">
-              <span class="text-[8px] text-slate-400 block">Age Pension</span>
-              <span class="text-xs font-bold text-amber-400">A67</span>
-              <span class="text-[7px] text-slate-500 block">Safety Net</span>
+            <div class="p-2 rounded-xl bg-slate-950/30 border border-slate-800/50 border-l-2 border-l-slate-700 opacity-40">
+              <span class="text-[8px] text-slate-500 line-through block">Age Pension</span>
+              <span class="text-xs font-bold text-slate-500 line-through">A67</span>
+              <span class="text-[7px] text-rose-400/90 font-sans font-semibold block">$0 (Disqualified)</span>
             </div>
           </div>
+        </div>
+
+        <!-- Centrelink Age Pension Means-Test Assessment Card -->
+        <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-1.5">
+          <div class="flex items-center justify-between text-[10px]">
+            <span class="font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-landmark text-slate-500 text-xs"></i>
+              Centrelink Age Pension Assessment (Age 67)
+            </span>
+            <span class="font-mono text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20 text-[9px] font-bold">100% Ineligible ($0/yr)</span>
+          </div>
+          <p class="text-[10px] text-slate-400 leading-relaxed">
+            Under Services Australia rules, assessable assets exclude your PPOR home but include all cash, shares, super, and <strong class="text-white">investment real estate equity</strong>. The asset cut-off ceiling is <strong class="text-slate-300">~$733k (Single) / ~$1.10M (Couple)</strong>. Your projected assessable assets at Age 67 exceed this ceiling by multiple millions, disqualifying you from the Age Pension. Your retirement is completely self-funded by passive rents, super, and investments with $0 government assistance modeled.
+          </p>
         </div>
 
         <!-- Interactive Sliders Panel -->
@@ -621,6 +756,19 @@
                 <input type="range" id="inputPlanInflation" min="1.5" max="5.0" step="0.25" value="2.5" oninput="updatePlannerParams()">
               </div>
             </div>
+
+            <!-- Living Expenses Post-FIRE Clarification -->
+            <div class="p-2.5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="text-slate-300 font-semibold flex items-center gap-1">
+                  <i class="fa-solid fa-cart-shopping text-emerald-400"></i> Post-FIRE Living Expense Indexing
+                </span>
+                <span id="planIndexedExpenseDisplay" class="font-mono text-emerald-300">$90k/yr (Real AUD)</span>
+              </div>
+              <p class="text-[9px] text-slate-400 leading-tight">
+                Living expenses are continuously funded every year in retirement: first by net rental income, with any shortfall drawn from liquid outside capital (pre-60) and Account-Based Pension Super (age 60+).
+              </p>
+            </div>
           </div>
         </div>
 
@@ -630,13 +778,16 @@
             <div>
               <h3 class="text-xs font-bold text-slate-100 flex items-center gap-1.5">
                 <i class="fa-solid fa-building-wheat text-amber-400"></i>
-                Real Estate Portfolio (7 Properties)
+                Real Estate & Property Strategies
               </h3>
-              <p class="text-[9px] text-slate-400">Independent loans, rent growth & amortisation timeline</p>
+              <p class="text-[9px] text-slate-400">Set mortgage debt, rental yields, or add/remove properties</p>
             </div>
-            <div class="flex items-center space-x-1">
-              <button onclick="toggleAllPropertyAccordions(true)" class="text-[9px] px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Expand</button>
-              <button onclick="toggleAllPropertyAccordions(false)" class="text-[9px] px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Collapse</button>
+            <div class="flex items-center space-x-1.5">
+              <button onclick="addNewPlannerProperty()" class="text-[9px] px-2.5 py-1 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 active:scale-95 transition flex items-center gap-1 shadow-sm">
+                <i class="fa-solid fa-plus text-[8px]"></i> Add Property
+              </button>
+              <button onclick="toggleAllPropertyAccordions(true)" class="text-[9px] px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Expand</button>
+              <button onclick="toggleAllPropertyAccordions(false)" class="text-[9px] px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Collapse</button>
             </div>
           </div>
 
@@ -651,14 +802,14 @@
           </div>
 
           <div id="plannerPropertiesContainer" class="space-y-2">
-            <!-- Dynamically populated 7 property cards -->
+            <!-- Dynamically populated property & mortgage cards -->
           </div>
 
-          <!-- Debt Payoff Milestones Timeline -->
+          <!-- Debt Payoff Milestones Timeline & Total Mortgage Summary -->
           <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2 text-xs">
             <div class="flex items-center justify-between text-[10px] text-slate-400">
               <span class="font-semibold text-slate-300">Staggered Debt-Free Timeline</span>
-              <span>All 7 loans amortise to $0</span>
+              <span id="planTotalMortgageDebt" class="font-mono text-rose-400 font-bold">Total Mortgages: $0</span>
             </div>
             <div id="plannerDebtPayoffPills" class="flex flex-wrap gap-1.5 pt-0.5">
               <!-- Dynamically populated debt payoff age badges -->
@@ -669,7 +820,7 @@
                 <span id="planTotalGrossRent" class="text-white font-bold">$0 / wk</span>
               </div>
               <div class="text-slate-400 text-right">
-                <span class="text-[9px] block">Current Net Passive Yield:</span>
+                <span class="text-[9px] block">Current Net Cashflow (After Repayments):</span>
                 <span id="planTotalNetPassive" class="text-emerald-400 font-bold">$0 / yr</span>
               </div>
             </div>
@@ -681,11 +832,27 @@
           <div class="flex items-center justify-between text-xs">
             <div>
               <span class="font-bold text-slate-100">Projected Wealth through Age 90</span>
-              <p class="text-[9px] text-slate-400">Outside-Super Capital vs. Superannuation (ABP)</p>
+              <p class="text-[9px] text-slate-400">Incorporates property debt runoff and compounding</p>
             </div>
-            <div class="flex items-center gap-2 text-[9px] font-mono">
-              <span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Outside</span>
-              <span class="flex items-center gap-1 text-sky-400"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Super</span>
+            <div class="flex items-center space-x-0.5 bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[9px]">
+              <button onclick="setPlannerViewMode('total')" id="btnPlanMode-total" class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-medium">Total Net Worth</button>
+              <button onclick="setPlannerViewMode('liquid')" id="btnPlanMode-liquid" class="px-2 py-0.5 rounded-md text-slate-400 font-medium">Liquid & Super</button>
+            </div>
+          </div>
+
+          <!-- Tightened Dotted Lines & Series Legend Strip -->
+          <div class="flex flex-wrap items-center gap-2.5 text-[9px] bg-slate-950/60 px-2.5 py-1 rounded-lg border border-slate-800/60 font-mono">
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 h-0.5 bg-emerald-400 rounded-full inline-block"></span>
+              <span class="text-slate-300 font-sans font-medium text-[9px]">Total Net Worth</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 border-t border-dashed border-teal-400 inline-block"></span>
+              <span class="text-teal-300 font-sans font-medium text-[9px]">Outside Capital</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 border-t border-dashed border-sky-400 inline-block"></span>
+              <span class="text-sky-300 font-sans font-medium text-[9px]">Super (A60)</span>
             </div>
           </div>
 
@@ -706,9 +873,9 @@
               <span class="block text-slate-500">Debt Free</span>
               <span id="planMarkerDebtFreeAge" class="text-amber-400 font-bold">Age 60</span>
             </div>
-            <div>
-              <span class="block text-slate-500">Age Pension</span>
-              <span class="text-indigo-400 font-bold">Age 67</span>
+            <div class="opacity-40">
+              <span class="block text-slate-500 line-through">Age Pension</span>
+              <span class="text-slate-500 font-bold line-through">Age 67 ($0)</span>
             </div>
           </div>
         </div>
@@ -993,6 +1160,8 @@
     let assetTabFilter = 'all';
     let historyViewMode = 'cards'; // 'cards' or 'table'
     let historyTableShowDetails = false;
+    let plannerViewMode = 'total'; // 'total' (Total Net Worth with Property Equity) or 'liquid' (Liquid + Super only)
+    let openedPropertyAccordions = new Set(); // Preserves open/collapsed state across re-renders
 
     // Interactive Touch Tooltip States
     let activeTouchTrendIdx = null;
@@ -1017,6 +1186,8 @@
       salarySacrifice: 'max', // 'max' or 'no'
       properties: []
     };
+
+    let calculatedOptimalAge = 55;
 
     // Clean Default Portfolio Template matching Column A (Asset) and Column B (Platform)
     function getDefaultBlankSnapshot(targetMonth) {
@@ -1382,6 +1553,22 @@
           btn.className = "px-2 py-0.5 rounded-lg bg-slate-950 text-slate-400 text-[10px]";
         }
       });
+      renderPlanner();
+    }
+
+    function setPlannerViewMode(mode) {
+      plannerViewMode = mode;
+      const btnTotal = document.getElementById('btnPlanMode-total');
+      const btnLiquid = document.getElementById('btnPlanMode-liquid');
+      if (btnTotal && btnLiquid) {
+        if (mode === 'total') {
+          btnTotal.className = "px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-medium";
+          btnLiquid.className = "px-2 py-0.5 rounded-md text-slate-400 font-medium";
+        } else {
+          btnTotal.className = "px-2 py-0.5 rounded-md text-slate-400 font-medium";
+          btnLiquid.className = "px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-medium";
+        }
+      }
       renderPlanner();
     }
 
@@ -2398,7 +2585,12 @@
     }
 
     function toggleAllPropertyAccordions(expand) {
-      document.querySelectorAll('[id^="propAccordionContent-"]').forEach(el => {
+      if (expand) {
+        plannerParams.properties.forEach((_, idx) => openedPropertyAccordions.add(idx));
+      } else {
+        openedPropertyAccordions.clear();
+      }
+      document.querySelectorAll('[id^="propAccordionContent-"]').forEach((el, idx) => {
         if (expand) el.classList.remove('hidden');
         else el.classList.add('hidden');
       });
@@ -2406,229 +2598,585 @@
 
     function togglePropertyAccordion(index) {
       const el = document.getElementById(`propAccordionContent-${index}`);
-      if (el) el.classList.toggle('hidden');
+      if (el) {
+        if (el.classList.contains('hidden')) {
+          el.classList.remove('hidden');
+          openedPropertyAccordions.add(index);
+        } else {
+          el.classList.add('hidden');
+          openedPropertyAccordions.delete(index);
+        }
+      }
     }
 
     function updatePropertyField(index, field, value) {
       if (plannerParams.properties[index]) {
-        plannerParams.properties[index][field] = parseFloat(value) || 0;
+        plannerParams.properties[index][field] = (field === 'strategy') ? value : (parseFloat(value) || 0);
+        
+        // If the user updates sellAge, automatically ensure strategy reflects 'sell'
+        if (field === 'sellAge') {
+          plannerParams.properties[index].strategy = 'sell';
+        }
+        
+        openedPropertyAccordions.add(index); // Ensure card stays open when editing
         renderPlanner();
       }
     }
 
     function syncPlannerPropertiesFromLatest() {
       if (!appHistory || appHistory.length === 0) {
-        plannerParams.properties = [];
+        if (!plannerParams.properties) plannerParams.properties = [];
         return;
       }
       const latest = appHistory[appHistory.length - 1];
       if (latest && latest.properties) {
-        // If properties list changed in logged month, sync them into planner
-        if (plannerParams.properties.length !== latest.properties.length) {
-          plannerParams.properties = latest.properties.map(p => {
+        const totalMortgages = (latest.liabilities || [])
+          .filter(l => (l.platform || l.name).toLowerCase().includes('mortgage'))
+          .reduce((acc, curr) => acc + (curr.amount || 0), 0);
+
+        // Check if property list has never been initialized
+        if (plannerParams.properties.length === 0) {
+          const numProperties = Math.max(1, latest.properties.length);
+          const totalPropVal = latest.properties.reduce((acc, p) => acc + (p.value || 0), 0);
+
+          plannerParams.properties = latest.properties.map((p, idx) => {
             const displayName = p.platform ? `${p.name}: ${p.platform}` : p.name;
             const isPpor = (p.platform || p.name).toLowerCase().includes('pp') || (p.platform || p.name).toLowerCase().includes('home');
+            
+            let propShare = totalPropVal > 0 ? (p.value || 0) / totalPropVal : (1 / numProperties);
+            let loanAmount = Math.round(totalMortgages * propShare);
+            if (p.loan !== undefined) loanAmount = p.loan;
+
             return {
               name: displayName,
               value: p.value || 0,
               rentWk: isPpor ? 0 : 550,
               holdingPct: isPpor ? 0.15 : 0.22,
-              loan: 0,
+              loan: loanAmount,
               rate: 0.061,
-              termYrs: 20,
-              strategy: 'hold'
+              termYrs: 22,
+              strategy: 'hold',
+              sellAge: 60
             };
           });
         }
       }
     }
 
-    function renderPlanner() {
-      syncPlannerPropertiesFromLatest();
+    function addNewPlannerProperty() {
+      const newIndex = plannerParams.properties.length + 1;
+      plannerParams.properties.push({
+        name: `Property: NEW PROPERTY ${newIndex}`,
+        value: 650000,
+        rentWk: 600,
+        holdingPct: 0.20,
+        loan: 500000,
+        rate: 0.061,
+        termYrs: 25,
+        strategy: 'hold',
+        sellAge: 60
+      });
+      openedPropertyAccordions.add(plannerParams.properties.length - 1);
+      renderPlanner();
+    }
 
-      const container = document.getElementById('plannerPropertiesContainer');
-      const payoffPillsContainer = document.getElementById('plannerDebtPayoffPills');
-      let combinedGrossWk = 0;
-      let combinedNetAnnual = 0;
-      let totalDebtFreeRental = 0;
-      const debtFreeAges = [];
+    function deletePlannerProperty(index) {
+      if (plannerParams.properties.length <= 1) {
+        if (!confirm("Remove this property? Your portfolio will have 0 properties in the plan.")) return;
+      }
+      plannerParams.properties.splice(index, 1);
+      openedPropertyAccordions.delete(index);
+      renderPlanner();
+    }
 
-      if (container) {
-        container.innerHTML = '';
-        if (plannerParams.properties.length === 0) {
-          container.innerHTML = `<div class="p-4 text-center text-xs text-slate-500 bg-slate-900/50 rounded-2xl border border-slate-800">
-            No properties registered. Add properties when logging a month.
-          </div>`;
-        } else {
-          plannerParams.properties.forEach((prop, idx) => {
-            const effectiveRate = prop.rate + rateStressShock;
-            const grossAnnual = prop.rentWk * 52;
-            const holdingExpenses = grossAnnual * prop.holdingPct;
-            
-            const monthlyRate = effectiveRate / 12;
-            const totalMonths = (prop.termYrs || 20) * 12;
-            const monthlyPmt = prop.loan > 0 
-              ? (prop.loan * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
-              : 0;
-            const annualDebtService = monthlyPmt * 12;
+  function applyOptimalRetireAge() {
+    if (calculatedOptimalAge && calculatedOptimalAge >= 40 && calculatedOptimalAge <= 75) {
+      document.getElementById('inputPlanRetireAge').value = calculatedOptimalAge;
+      updatePlannerParams();
+    }
+  }
 
-            const netCashFlow = grossAnnual - holdingExpenses - annualDebtService;
-            combinedGrossWk += prop.rentWk;
-            combinedNetAnnual += netCashFlow;
+  function renderPlanner() {
+    syncPlannerPropertiesFromLatest();
 
-            const debtFreeNet = grossAnnual - holdingExpenses;
+    const container = document.getElementById('plannerPropertiesContainer');
+    const payoffPillsContainer = document.getElementById('plannerDebtPayoffPills');
+    let combinedGrossWk = 0;
+    let combinedNetAnnual = 0;
+    let totalDebtFreeRental = 0;
+    let totalMortgageDebt = 0;
+    const debtFreeAges = [];
+
+    if (container) {
+      container.innerHTML = '';
+      if (plannerParams.properties.length === 0) {
+        container.innerHTML = `<div class="p-4 text-center text-xs text-slate-500 bg-slate-900/50 rounded-2xl border border-slate-800">
+          No properties registered. Add properties when logging a month.
+        </div>`;
+      } else {
+        plannerParams.properties.forEach((prop, idx) => {
+          const effectiveRate = prop.rate + rateStressShock;
+          const grossAnnual = prop.rentWk * 52;
+          const holdingExpenses = grossAnnual * prop.holdingPct;
+          
+          const monthlyRate = effectiveRate / 12;
+          const totalMonths = (prop.termYrs || 20) * 12;
+          const monthlyPmt = prop.loan > 0 
+            ? (prop.loan * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
+            : 0;
+          const annualDebtService = monthlyPmt * 12;
+
+          const netCashFlow = grossAnnual - holdingExpenses - annualDebtService;
+          combinedGrossWk += prop.rentWk;
+          combinedNetAnnual += netCashFlow;
+          totalMortgageDebt += (prop.loan || 0);
+
+          const isHeldLongTerm = (prop.strategy || 'hold') === 'hold';
+          const debtFreeNet = grossAnnual - holdingExpenses;
+          if (isHeldLongTerm) {
             totalDebtFreeRental += debtFreeNet;
+          }
 
-            const payoffAge = plannerParams.currentAge + (prop.termYrs || 20);
-            debtFreeAges.push({ name: prop.name.split(' ')[0], age: payoffAge });
+          const payoffAge = plannerParams.currentAge + (prop.termYrs || 20);
+          debtFreeAges.push({ name: prop.name.split(':')[1]?.trim() || prop.name.split(' ')[0], age: payoffAge, pmt: monthlyPmt });
 
-            const card = document.createElement('div');
-            card.className = "rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-sm";
-            card.innerHTML = `
-              <div onclick="togglePropertyAccordion(${idx})" class="p-3 flex items-center justify-between cursor-pointer hover:bg-slate-800/40">
-                <div class="flex items-center gap-2.5 truncate pr-2">
-                  <i class="fa-solid fa-house text-amber-400 text-xs flex-shrink-0"></i>
-                  <div class="truncate">
+          const isSelling = prop.strategy === 'sell';
+          const sellAge = prop.sellAge || 60;
+          const isOpen = openedPropertyAccordions.has(idx);
+
+          const card = document.createElement('div');
+          card.className = "rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden shadow-sm";
+          card.innerHTML = `
+            <div onclick="togglePropertyAccordion(${idx})" class="p-3 flex items-center justify-between cursor-pointer hover:bg-slate-800/40">
+              <div class="flex items-center gap-2.5 truncate pr-2">
+                <i class="fa-solid fa-house ${isSelling ? 'text-amber-400' : 'text-emerald-400'} text-xs flex-shrink-0"></i>
+                <div class="truncate">
+                  <div class="flex items-center gap-1.5 truncate">
                     <p class="text-xs font-bold text-white truncate">${prop.name}</p>
-                    <p class="text-[10px] text-slate-400 font-mono">${formatAUD(prop.value)} | Loan: ${formatAUD(prop.loan)} • Paid off Age ${payoffAge}</p>
+                    ${isSelling ? `<span class="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono">Sell @ A${sellAge}</span>` : ''}
                   </div>
+                  <p class="text-[10px] text-slate-400 font-mono">
+                    Val: ${formatAUD(prop.value, true)} | Loan: <span class="text-rose-400 font-bold">${formatAUD(prop.loan, true)}</span> • Repay: ${formatAUD(monthlyPmt)}/mo
+                  </p>
                 </div>
+              </div>
+              <div class="flex items-center gap-2">
                 <div class="text-right flex-shrink-0">
                   <span class="text-[10px] font-mono font-bold ${netCashFlow >= 0 ? 'text-emerald-400' : 'text-rose-400'}">
                     ${netCashFlow >= 0 ? '+' : ''}${formatAUD(netCashFlow)}/yr
                   </span>
-                  <i class="fa-solid fa-chevron-down text-[9px] text-slate-500 block"></i>
+                  <i class="fa-solid ${isOpen ? 'fa-chevron-up' : 'fa-chevron-down'} text-[9px] text-slate-500 block"></i>
+                </div>
+                <button onclick="event.stopPropagation(); deletePlannerProperty(${idx})" class="w-6 h-6 rounded-lg bg-slate-950 border border-slate-800 text-slate-500 hover:text-rose-400 hover:border-rose-500/40 flex items-center justify-center transition active:scale-95" title="Delete Property">
+                  <i class="fa-solid fa-trash text-[9px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="propAccordionContent-${idx}" class="${isOpen ? '' : 'hidden'} p-3 border-t border-slate-800 bg-slate-950/60 space-y-2.5 text-xs">
+              
+              <!-- Property Name & Value Editable Inputs -->
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="text-[9px] text-slate-400 block mb-0.5">Property Name / Label</label>
+                  <input type="text" value="${prop.name}" onchange="updatePropertyField(${idx}, 'name', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-sans text-xs focus:border-emerald-500 outline-none truncate">
+                </div>
+                <div>
+                  <label class="text-[9px] text-slate-400 block mb-0.5">Estimated Value ($)</label>
+                  <input type="number" step="10000" value="${prop.value}" onchange="updatePropertyField(${idx}, 'value', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-emerald-400 font-mono text-xs focus:border-emerald-500 outline-none">
                 </div>
               </div>
 
-              <div id="propAccordionContent-${idx}" class="hidden p-3 border-t border-slate-800 bg-slate-950/60 space-y-2 text-xs">
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="text-[9px] text-slate-400 block">Weekly Rent ($)</label>
-                    <input type="number" value="${prop.rentWk}" onchange="updatePropertyField(${idx}, 'rentWk', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
-                  </div>
-                  <div>
-                    <label class="text-[9px] text-slate-400 block">Holding Costs (%)</label>
-                    <input type="number" step="0.01" value="${prop.holdingPct}" onchange="updatePropertyField(${idx}, 'holdingPct', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
-                  </div>
+              <!-- Strategy Selector: Hold vs Sell -->
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1">
+                    <i class="fa-solid fa-hand-holding-dollar text-amber-400"></i> Property Strategy
+                  </span>
+                  <span class="text-[9px] text-slate-400">Hold for passive rent or divest to boost nest egg</span>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                   <div>
-                    <label class="text-[9px] text-slate-400 block">Mortgage Rate (%)</label>
-                    <input type="number" step="0.001" value="${prop.rate}" onchange="updatePropertyField(${idx}, 'rate', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                    <label class="text-[9px] text-slate-400 block mb-0.5">Strategy</label>
+                    <select onchange="updatePropertyField(${idx}, 'strategy', this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs focus:border-emerald-500 outline-none">
+                      <option value="hold" ${!isSelling ? 'selected' : ''}>Hold Long-Term</option>
+                      <option value="sell" ${isSelling ? 'selected' : ''}>Sell & Cash In</option>
+                    </select>
                   </div>
                   <div>
-                    <label class="text-[9px] text-slate-400 block">Remaining Term (Yrs)</label>
-                    <input type="number" value="${prop.termYrs}" onchange="updatePropertyField(${idx}, 'termYrs', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs">
+                    <label class="text-[9px] text-slate-400 block mb-0.5">Sell at Age</label>
+                    <input type="number" min="40" max="85" value="${sellAge}" oninput="updatePropertyField(${idx}, 'sellAge', this.value)" class="w-full bg-slate-950 border ${isSelling ? 'border-amber-500/70 text-amber-300' : 'border-slate-800 text-slate-300'} rounded-lg px-2 py-1 font-mono text-xs focus:border-amber-400 outline-none">
                   </div>
                 </div>
               </div>
-            `;
-            container.appendChild(card);
-          });
-        }
+
+              <!-- Loan & Mortgage Inputs -->
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="font-bold text-rose-300 uppercase tracking-wider flex items-center gap-1">
+                    <i class="fa-solid fa-file-invoice-dollar text-rose-400"></i> Current Mortgage / Loan
+                  </span>
+                  <span class="font-mono text-slate-400">P&I Repay: <strong class="text-white">${formatAUD(monthlyPmt)}/mo</strong></span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="col-span-1">
+                    <label class="text-[9px] text-slate-400 block mb-0.5">Mortgage ($)</label>
+                    <input type="number" step="5000" value="${prop.loan}" onchange="updatePropertyField(${idx}, 'loan', this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-rose-300 font-mono text-xs focus:border-rose-500 outline-none">
+                  </div>
+                  <div>
+                    <label class="text-[9px] text-slate-400 block mb-0.5">Rate (%)</label>
+                    <input type="number" step="0.001" value="${prop.rate}" onchange="updatePropertyField(${idx}, 'rate', this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs focus:border-emerald-500 outline-none">
+                  </div>
+                  <div>
+                    <label class="text-[9px] text-slate-400 block mb-0.5">Term (Yrs)</label>
+                    <input type="number" min="1" max="35" value="${prop.termYrs}" onchange="updatePropertyField(${idx}, 'termYrs', this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs focus:border-emerald-500 outline-none">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rental & Costs Inputs -->
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="text-[9px] text-slate-400 block mb-0.5">Weekly Rent ($/wk)</label>
+                  <input type="number" step="25" value="${prop.rentWk}" onchange="updatePropertyField(${idx}, 'rentWk', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs focus:border-emerald-500 outline-none">
+                </div>
+                <div>
+                  <label class="text-[9px] text-slate-400 block mb-0.5">Holding Costs (Rates/Maint %)</label>
+                  <input type="number" step="0.01" value="${prop.holdingPct}" onchange="updatePropertyField(${idx}, 'holdingPct', this.value)" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-white font-mono text-xs focus:border-emerald-500 outline-none">
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-800/60">
+                <span>Gross Rent: ${formatAUD(grossAnnual)}/yr</span>
+                <span>Debt Free: <strong class="text-amber-300">Age ${payoffAge}</strong></span>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
       }
+    }
 
-      if (payoffPillsContainer) {
-        payoffPillsContainer.innerHTML = '';
-        if (debtFreeAges.length === 0) {
-          payoffPillsContainer.innerHTML = '<span class="text-[10px] text-slate-500">No loans active.</span>';
+    // Initialize baseline numbers from the latest snapshot
+    const latest = appHistory && appHistory.length > 0 ? appHistory[appHistory.length - 1] : null;
+    const latestTotals = calculateSnapshotTotals(latest);
+
+    // Initialise liquid and Super baseline values
+    let runningOutside = latestTotals.cash + latestTotals.shares + latestTotals.other;
+    let runningSuper = latestTotals.super;
+
+    // Simulation series arrays
+    const ages = [];
+    const wealthTrajectory = [];
+    const outsideTrajectory = [];
+    const superTrajectory = [];
+    const propertyEquityTrajectory = [];
+
+    // Mandated Super Guarantee (12% SG) and concessional contributions
+    const mandatedSG = (plannerParams.annualSalary || 0) * 0.12;
+    const annualSuperAddition = (plannerParams.salarySacrifice === 'max' ? Math.max(mandatedSG, 30000) : mandatedSG) * 0.85;
+
+    // Realistic Australian Post-Retirement Simulation
+    for (let age = plannerParams.currentAge; age <= 90; age++) {
+      ages.push(age);
+      const yearsPassed = age - plannerParams.currentAge;
+
+        // Calculate net passive rental income, property sales, and mortgage balances for this year
+        let yearRentalNet = 0;
+        let yearRemainingMortgageTotal = 0;
+        let yearTotalPropertyValue = 0;
+        let propertySaleNetProceeds = 0;
+
+        plannerParams.properties.forEach(prop => {
+          const isSold = prop.strategy === 'sell' && age >= (prop.sellAge || 60);
+          const isSoldThisYear = prop.strategy === 'sell' && age === (prop.sellAge || 60);
+
+          // Calculate property appreciation
+          const propValAtYear = yearsPassed === 0 
+            ? (prop.value || 0)
+            : (prop.value || 0) * Math.pow(1 + (plannerParams.inflation * 0.8), yearsPassed);
+
+          // Calculate mortgage balance at this age
+          const effRate = prop.rate + rateStressShock;
+          const mRate = effRate / 12;
+          const tMonths = (prop.termYrs || 20) * 12;
+          const monthsPassed = yearsPassed * 12;
+          let remainingLoan = 0;
+          if (yearsPassed === 0) {
+            remainingLoan = prop.loan || 0;
+          } else if (monthsPassed < tMonths && prop.loan > 0) {
+            const balanceFactor = (Math.pow(1 + mRate, tMonths) - Math.pow(1 + mRate, monthsPassed)) / (Math.pow(1 + mRate, tMonths) - 1);
+            remainingLoan = Math.max(0, prop.loan * balanceFactor);
+          }
+
+          // If sold this year, convert equity into liquid outside capital (net of 7% selling costs and CGT)
+          if (isSoldThisYear) {
+            const grossEquity = Math.max(0, propValAtYear - remainingLoan);
+            const netProceeds = grossEquity * 0.93; // 7% reserve for agent commission, conveyancing, and CGT
+            propertySaleNetProceeds += netProceeds;
+          }
+
+          // If already sold, property no longer generates rent, debt, or property equity
+          if (isSold) {
+            return;
+          }
+
+          yearTotalPropertyValue += propValAtYear;
+          yearRemainingMortgageTotal += remainingLoan;
+
+          // Rent & Debt service if not sold
+          const grossAnnual = prop.rentWk * 52;
+          const holding = grossAnnual * prop.holdingPct;
+
+          if (yearsPassed >= (prop.termYrs || 20) || remainingLoan === 0) {
+            yearRentalNet += (grossAnnual - holding);
+          } else {
+            const pmt = prop.loan > 0 ? (prop.loan * (mRate * Math.pow(1 + mRate, tMonths))) / (Math.pow(1 + mRate, tMonths) - 1) : 0;
+            yearRentalNet += (grossAnnual - holding - (pmt * 12));
+          }
+        });
+
+        // Exact baseline anchor for Year 0 (Age == currentAge)
+        let currentPropertyEquity;
+        if (yearsPassed === 0) {
+          currentPropertyEquity = Math.max(0, latestTotals.properties - latestTotals.liabilities);
         } else {
-          debtFreeAges.sort((a,b) => a.age - b.age).forEach(d => {
-            const pill = document.createElement('span');
-            pill.className = "px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-[10px] text-slate-300 font-mono";
-            pill.innerHTML = `<span class="text-amber-400">${d.name}</span>: Age ${d.age}`;
-            payoffPillsContainer.appendChild(pill);
-          });
+          currentPropertyEquity = Math.max(0, yearTotalPropertyValue - yearRemainingMortgageTotal);
         }
+        propertyEquityTrajectory.push(Math.round(currentPropertyEquity));
+
+        // Inject any property sale liquid cash proceeds into outside capital
+        if (propertySaleNetProceeds > 0) {
+          runningOutside += propertySaleNetProceeds;
+        }
+
+        // Year 0 (Now) records exact current balances without premature forward-compounding
+        if (yearsPassed === 0) {
+          outsideTrajectory.push(Math.round(runningOutside));
+          superTrajectory.push(Math.round(runningSuper));
+          const plottedVal = plannerViewMode === 'total' 
+            ? Math.round(latestTotals.netWorth)
+            : Math.round(runningOutside + runningSuper);
+          wealthTrajectory.push(plottedVal);
+          continue;
+        }
+
+        // 1. PRE-RETIREMENT (Career active: Salary, Savings & Super SG active)
+        if (age < plannerParams.retireAge) {
+          runningOutside = (runningOutside + (plannerParams.monthlySavings * 12) + yearRentalNet) * (1 + plannerParams.realReturn);
+          runningSuper = (runningSuper + annualSuperAddition) * (1 + plannerParams.realReturn);
+        } 
+        // 2. POST-RETIREMENT (Salary = $0, Super contributions = $0, Outside monthly savings = $0)
+        // Living expenses are actively and continuously funded year-by-year:
+        else {
+          const netCashGap = plannerParams.annualExpenses - yearRentalNet;
+
+          // 2A. Pre-60 Bridge Phase (Super locked until age 60)
+          if (age < 60) {
+            if (netCashGap > 0) {
+              // Living expenses exceed net rent: deduct from outside liquid capital
+              runningOutside = Math.max(0, runningOutside - netCashGap) * (1 + plannerParams.realReturn);
+            } else {
+              // Rental cash surplus after living expenses is parked in cash/conservative yield (~2.5% real)
+              runningOutside = (runningOutside * (1 + plannerParams.realReturn)) + Math.abs(netCashGap);
+            }
+            // Super continues compound growth undisturbed
+            runningSuper = runningSuper * (1 + plannerParams.realReturn);
+          } 
+          // 2B. Age 60+ (Super unlocked into 0% Account-Based Pension phase)
+          else {
+            // Statutory Australian Minimum Pension Drawdown Rate (ATO rules)
+            let minPensionDrawRate = 0.04; // 4% at 65-74
+            if (age >= 85) minPensionDrawRate = 0.07;
+            else if (age >= 80) minPensionDrawRate = 0.06;
+            else if (age >= 75) minPensionDrawRate = 0.05;
+            else if (age < 65) minPensionDrawRate = 0.02; // Flexible transition to retirement
+
+            const mandatoryPensionDraw = runningSuper * minPensionDrawRate;
+
+            if (netCashGap > 0) {
+              // Living expenses exceed passive rent: draw needed capital
+              const neededFromPortfolio = Math.max(netCashGap, mandatoryPensionDraw);
+              if (runningOutside > 0) {
+                const drawFromOutside = Math.min(runningOutside, neededFromPortfolio * 0.4);
+                runningOutside = Math.max(0, runningOutside - drawFromOutside) * (1 + plannerParams.realReturn);
+                const drawFromSuper = neededFromPortfolio - drawFromOutside;
+                runningSuper = Math.max(0, runningSuper - drawFromSuper) * (1 + plannerParams.realReturn);
+              } else {
+                runningSuper = Math.max(0, runningSuper - neededFromPortfolio) * (1 + plannerParams.realReturn);
+              }
+            } else {
+              // Passive rental income exceeds living expenses (Surplus cash flow)
+              const rentalSurplus = Math.abs(netCashGap);
+              runningOutside = (runningOutside * (1 + (plannerParams.realReturn * 0.5))) + rentalSurplus;
+              runningSuper = Math.max(0, runningSuper - mandatoryPensionDraw) * (1 + plannerParams.realReturn);
+              runningOutside += mandatoryPensionDraw;
+            }
+          }
+        }
+
+        // Australian Age Pension Means-Test:
+        // Assessable assets = Outside capital + Super + Investment property equity (PPOR is exempt).
+        // If assessable assets exceed the Services Australia cut-off (~$733k single / ~$1.10M couple), pension entitlement is strictly $0.
+        // Therefore, self-funded retirees receive $0 from the Age Pension.
+
+        outsideTrajectory.push(Math.round(runningOutside));
+        superTrajectory.push(Math.round(runningSuper));
+        
+        // Choose plotted trajectory based on user toggle: Total Net Worth (including property equity) vs Liquid/Super only
+        const plottedVal = plannerViewMode === 'total' 
+          ? Math.round(runningOutside + runningSuper + currentPropertyEquity)
+          : Math.round(runningOutside + runningSuper);
+
+        wealthTrajectory.push(plottedVal);
       }
 
-      const maxDebtFreeAge = debtFreeAges.length > 0 ? Math.max(...debtFreeAges.map(d => d.age)) : plannerParams.currentAge;
-      const markerDFA = document.getElementById('planMarkerDebtFreeAge');
-      if (markerDFA) markerDFA.innerText = `Age ${maxDebtFreeAge}`;
+      // Update Top Card Metrics
+      const totalOwingDisplay = document.getElementById('planTotalMortgageDebt');
+      if (totalOwingDisplay) totalOwingDisplay.innerText = `Total Mortgages: ${formatAUD(totalMortgageDebt)}`;
 
       const totalGrossRentEl = document.getElementById('planTotalGrossRent');
-      const totalNetPassiveEl = document.getElementById('planTotalNetPassive');
-      const debtFreeRentEl = document.getElementById('planDebtFreeRental');
       if (totalGrossRentEl) totalGrossRentEl.innerText = `${formatAUD(combinedGrossWk)} / wk`;
-      if (debtFreeRentEl) debtFreeRentEl.innerText = `${formatAUD(totalDebtFreeRental, true)} / yr`;
+
+      const totalNetPassiveEl = document.getElementById('planTotalNetPassive');
       if (totalNetPassiveEl) {
         totalNetPassiveEl.innerText = `${combinedNetAnnual >= 0 ? '+' : ''}${formatAUD(combinedNetAnnual)} / yr`;
         totalNetPassiveEl.className = combinedNetAnnual >= 0 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold";
       }
 
-      const latestTotals = (appHistory && appHistory.length > 0) ? calculateSnapshotTotals(appHistory[appHistory.length - 1]) : calculateSnapshotTotals(null);
-      const yearsToRetire = Math.max(0, plannerParams.retireAge - plannerParams.currentAge);
-      
-      const mandatedSG = plannerParams.annualSalary * 0.12;
-      let totalConcessional = mandatedSG;
-      if (plannerParams.salarySacrifice === 'max') {
-        totalConcessional = Math.max(mandatedSG, 30000);
-      }
-      const netSuperContribution = totalConcessional * 0.85;
-
-      const annualOutsideSavings = (plannerParams.monthlySavings * 12) + Math.max(0, combinedNetAnnual);
-
-      let outsideAtRetire = latestTotals.cash + latestTotals.shares + latestTotals.other;
-      let superAtRetire = latestTotals.super;
-
-      for (let y = 0; y < yearsToRetire; y++) {
-        outsideAtRetire = (outsideAtRetire + annualOutsideSavings) * (1 + plannerParams.realReturn);
-        superAtRetire = (superAtRetire + netSuperContribution) * (1 + plannerParams.realReturn);
+      // Staggered Debt Payoff timeline pills
+      if (payoffPillsContainer) {
+        payoffPillsContainer.innerHTML = '';
+        debtFreeAges.sort((a, b) => a.age - b.age).forEach(d => {
+          const pill = document.createElement('span');
+          pill.className = "text-[9px] px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-mono";
+          pill.innerHTML = `<span class="text-white font-semibold">${d.name}</span>: <strong class="text-amber-400">A${d.age}</strong>`;
+          payoffPillsContainer.appendChild(pill);
+        });
       }
 
-      const netLivingExpenseNeeded = Math.max(20000, plannerParams.annualExpenses - Math.max(0, totalDebtFreeRental));
-      const targetNestEgg = netLivingExpenseNeeded / (plannerParams.swr || 0.04);
+      // Target FIRE Nest Egg (Net living expenses divided by SWR)
+      const targetNestEgg = Math.max(0, (plannerParams.annualExpenses - totalDebtFreeRental) / plannerParams.swr);
+      const targetNestEggEl = document.getElementById('planTargetNestEgg');
+      if (targetNestEggEl) targetNestEggEl.innerText = formatAUD(targetNestEgg, true);
 
+      // Capital at Retirement Age
+      const retireIdx = Math.max(0, plannerParams.retireAge - plannerParams.currentAge);
+      const capitalAtRetire = (outsideTrajectory[retireIdx] || 0) + (superTrajectory[retireIdx] || 0);
+      const capRetEl = document.getElementById('planCapitalAtRetirement');
+      if (capRetEl) capRetEl.innerText = formatAUD(capitalAtRetire, true);
+
+      // Pre-Super Bridge Analysis (Funding to Age 60)
       const bridgeYears = Math.max(0, 60 - plannerParams.retireAge);
-      let testOutside = outsideAtRetire;
-      for (let by = 0; by < bridgeYears; by++) {
-        testOutside = (testOutside - plannerParams.annualExpenses) * (1 + plannerParams.realReturn);
-      }
+      const annualGapTo60 = Math.max(0, plannerParams.annualExpenses - combinedNetAnnual);
+      const bridgeRequired = bridgeYears * annualGapTo60;
+      const outsideCapitalAtRetire = outsideTrajectory[retireIdx] || 0;
+      const bridgeSurplus = outsideCapitalAtRetire - bridgeRequired;
 
-      const targetEggEl = document.getElementById('planTargetNestEgg');
-      const capRetireEl = document.getElementById('planCapitalAtRetirement');
       const bridgeStatusEl = document.getElementById('planBridgeStatus');
       const bridgeLabelEl = document.getElementById('planBridgeLabel');
-      const feasBadge = document.getElementById('planFeasibilityBadge');
-
-      if (targetEggEl) targetEggEl.innerText = formatAUD(targetNestEgg, true);
-      if (capRetireEl) capRetireEl.innerText = formatAUD(outsideAtRetire + superAtRetire, true);
-
       if (bridgeStatusEl && bridgeLabelEl) {
-        if (bridgeYears === 0) {
-          bridgeStatusEl.innerText = 'Unrestricted';
-          bridgeStatusEl.className = 'text-sm font-mono font-bold text-sky-300';
-          bridgeLabelEl.innerText = 'Retiring at or after Age 60';
-        } else if (testOutside >= 0) {
-          bridgeStatusEl.innerText = `Funded (+${formatAUD(testOutside, true)})`;
-          bridgeStatusEl.className = 'text-sm font-mono font-bold text-emerald-300';
-          bridgeLabelEl.innerText = `${bridgeYears}yr Bridge to A60 Solved`;
+        if (plannerParams.retireAge >= 60) {
+          bridgeStatusEl.innerText = "No Bridge Needed";
+          bridgeStatusEl.className = "text-sm font-mono font-bold text-emerald-300";
+          bridgeLabelEl.innerText = "Super unlocks immediately (Age 60+)";
+        } else if (bridgeSurplus >= 0) {
+          bridgeStatusEl.innerText = `+${formatAUD(bridgeSurplus, true)} Solvent`;
+          bridgeStatusEl.className = "text-sm font-mono font-bold text-emerald-300";
+          bridgeLabelEl.innerText = `Covers ${bridgeYears} yrs to A60 ($${formatAUD(bridgeRequired, true)} req)`;
         } else {
-          bridgeStatusEl.innerText = `Short by ${formatAUD(Math.abs(testOutside), true)}`;
-          bridgeStatusEl.className = 'text-sm font-mono font-bold text-rose-400';
-          bridgeLabelEl.innerText = `Needs outside-super capital`;
+          bridgeStatusEl.innerText = `-${formatAUD(Math.abs(bridgeSurplus), true)} Shortfall`;
+          bridgeStatusEl.className = "text-sm font-mono font-bold text-rose-400";
+          bridgeLabelEl.innerText = `Outside capital runs out before age 60`;
         }
       }
 
+      const debtFreeRentEl = document.getElementById('planDebtFreeRental');
+      if (debtFreeRentEl) debtFreeRentEl.innerText = `${formatAUD(totalDebtFreeRental, true)} / yr`;
+
+      // Calculate Earliest Sustainable Retirement Age (40 to 70)
+      let optimalAgeFound = null;
+      for (let testAge = 40; testAge <= 70; testAge++) {
+        const testRetireIdx = Math.max(0, testAge - plannerParams.currentAge);
+        const testCapAtRetire = (outsideTrajectory[testRetireIdx] || 0) + (superTrajectory[testRetireIdx] || 0);
+        const testOutsideAtRetire = outsideTrajectory[testRetireIdx] || 0;
+        const testBridgeYrs = Math.max(0, 60 - testAge);
+        const testBridgeReq = testBridgeYrs * annualGapTo60;
+
+        if (testCapAtRetire >= targetNestEgg && (testAge >= 60 || testOutsideAtRetire >= testBridgeReq)) {
+          optimalAgeFound = testAge;
+          break;
+        }
+      }
+
+      calculatedOptimalAge = optimalAgeFound || 55;
+      const optText = document.getElementById('planOptimalRetireText');
+      const btnApply = document.getElementById('btnApplyOptimalAge');
+      if (optText) {
+        if (optimalAgeFound) {
+          optText.innerText = `Age ${optimalAgeFound} (${optimalAgeFound - plannerParams.currentAge} yrs) - Fully solvent with $0 debt stress`;
+          if (btnApply && optimalAgeFound !== plannerParams.retireAge) {
+            btnApply.classList.remove('hidden');
+            btnApply.innerText = `Set Target (A${optimalAgeFound})`;
+          } else if (btnApply) {
+            btnApply.classList.add('hidden');
+          }
+        } else {
+          optText.innerText = `Age 62+ recommended based on current savings rate`;
+          if (btnApply) btnApply.classList.add('hidden');
+        }
+      }
+
+      // Feasibility Badge
+      const feasBadge = document.getElementById('planFeasibilityBadge');
       if (feasBadge) {
-        const isFunded = (outsideAtRetire + superAtRetire) >= targetNestEgg && (bridgeYears === 0 || testOutside >= 0);
-        if (isFunded) {
-          feasBadge.innerText = 'FIRE Ready (Solvent)';
-          feasBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400';
-        } else if ((outsideAtRetire + superAtRetire) >= targetNestEgg && testOutside < 0) {
-          feasBadge.innerText = 'Pre-60 Bridge Gap';
-          feasBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400';
+        if (capitalAtRetire >= targetNestEgg && (plannerParams.retireAge >= 60 || bridgeSurplus >= 0)) {
+          feasBadge.innerText = "FIRE Target Achievable";
+          feasBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400";
         } else {
-          feasBadge.innerText = 'Accumulating';
-          feasBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300';
+          feasBadge.innerText = "Bridge or Capital Shortfall";
+          feasBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400";
         }
       }
 
-      renderRetirementChart(outsideAtRetire, superAtRetire, yearsToRetire);
+      // Starting Balance Breakdown Card (Reconciliation)
+      const startNWEl = document.getElementById('planStartNetWorth');
+      const startLiquidSuperEl = document.getElementById('planStartLiquidSuper');
+      const startPropEqEl = document.getElementById('planStartPropertyEquity');
+      const startMonthEl = document.getElementById('planStartMonthBadge');
+      const sharesBadge = document.getElementById('planSharesCurrentBadge');
+
+      if (latest) {
+        if (startMonthEl) startMonthEl.innerText = latest.month;
+        if (startNWEl) startNWEl.innerText = formatAUD(latestTotals.netWorth, true);
+        if (startLiquidSuperEl) startLiquidSuperEl.innerText = formatAUD(latestTotals.cash + latestTotals.shares + latestTotals.super + latestTotals.other, true);
+        const loggedPropertyEquity = Math.max(0, latestTotals.properties - latestTotals.liabilities);
+        if (startPropEqEl) startPropEqEl.innerText = formatAUD(loggedPropertyEquity, true);
+        if (sharesBadge) sharesBadge.innerText = `Current Shares: ${formatAUD(latestTotals.shares, true)}`;
+      }
+
+      // Work vs Retirement Displays
+      const workSalaryDisp = document.getElementById('planWorkSalaryDisplay');
+      const workSuperDisp = document.getElementById('planWorkSuperDisplay');
+      const workSavingsDisp = document.getElementById('planWorkSavingsDisplay');
+      const postLivingDisp = document.getElementById('planPostLivingDisplay');
+      if (workSalaryDisp) workSalaryDisp.innerText = `${formatAUD(plannerParams.annualSalary, true)}/yr`;
+      if (workSuperDisp) workSuperDisp.innerText = `${formatAUD(annualSuperAddition / 0.85, true)}/yr`;
+      if (workSavingsDisp) workSavingsDisp.innerText = `${formatAUD(plannerParams.monthlySavings * 12, true)}/yr`;
+      if (postLivingDisp) postLivingDisp.innerText = `${formatAUD(plannerParams.annualExpenses, true)}/yr`;
+
+      // Debt-free milestone marker
+      const maxPayoffAge = debtFreeAges.length > 0 ? Math.max(...debtFreeAges.map(d => d.age)) : 60;
+      const markerDF = document.getElementById('planMarkerDebtFreeAge');
+      if (markerDF) markerDF.innerText = `Age ${maxPayoffAge}`;
+
+      const markerRet = document.getElementById('planMarkerRetireAge');
+      if (markerRet) markerRet.innerText = `Age ${plannerParams.retireAge}`;
+
+      renderRetirementChart(ages, wealthTrajectory, outsideTrajectory, superTrajectory, propertyEquityTrajectory);
     }
 
-    function renderRetirementChart(outsideAtRetire, superAtRetire, yearsToRetire) {
+    function renderRetirementChart(ages, wealthTrajectory, outsideTrajectory, superTrajectory, propertyEquityTrajectory) {
       const canvas = document.getElementById('retirementChart');
       if (!canvas || !canvas.parentElement) return;
       const ctx = canvas.getContext('2d');
@@ -2640,80 +3188,20 @@
       ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
       ctx.clearRect(0, 0, w, h);
 
-      const latestTotals = (appHistory && appHistory.length > 0) ? calculateSnapshotTotals(appHistory[appHistory.length - 1]) : calculateSnapshotTotals(null);
+      if (!ages || ages.length === 0) return;
 
-      const ages = [];
-      const wealthTrajectory = [];
-      const outsideTrajectory = [];
-      const superTrajectory = [];
-
-      let runningOutside = latestTotals.cash + latestTotals.shares + latestTotals.other;
-      let runningSuper = latestTotals.super;
-
-      const mandatedSG = plannerParams.annualSalary * 0.12;
-      const annualSuperAddition = (plannerParams.salarySacrifice === 'max' ? Math.max(mandatedSG, 30000) : mandatedSG) * 0.85;
-
-      for (let age = plannerParams.currentAge; age <= 90; age++) {
-        ages.push(age);
-        const yearsPassed = age - plannerParams.currentAge;
-
-        let yearRentalNet = 0;
-        plannerParams.properties.forEach(prop => {
-          const grossAnnual = prop.rentWk * 52;
-          const holding = grossAnnual * prop.holdingPct;
-          if (yearsPassed >= (prop.termYrs || 20)) {
-            yearRentalNet += (grossAnnual - holding);
-          } else {
-            const effRate = prop.rate + rateStressShock;
-            const mRate = effRate / 12;
-            const tMonths = (prop.termYrs || 20) * 12;
-            const pmt = prop.loan > 0 ? (prop.loan * (mRate * Math.pow(1 + mRate, tMonths))) / (Math.pow(1 + mRate, tMonths) - 1) : 0;
-            yearRentalNet += (grossAnnual - holding - (pmt * 12));
-          }
-        });
-
-        if (age < plannerParams.retireAge) {
-          runningOutside = (runningOutside + (plannerParams.monthlySavings * 12) + Math.max(0, yearRentalNet)) * (1 + plannerParams.realReturn);
-          runningSuper = (runningSuper + annualSuperAddition) * (1 + plannerParams.realReturn);
-        } else {
-          const livingCostNeed = Math.max(0, plannerParams.annualExpenses - Math.max(0, yearRentalNet));
-
-          if (age < 60) {
-            runningOutside = Math.max(0, runningOutside - livingCostNeed) * (1 + plannerParams.realReturn);
-            runningSuper = runningSuper * (1 + plannerParams.realReturn);
-          } else {
-            const combinedLiquid = runningOutside + runningSuper;
-            if (runningOutside > 0) {
-              const drawFromOutside = Math.min(runningOutside, livingCostNeed);
-              runningOutside = Math.max(0, runningOutside - drawFromOutside) * (1 + plannerParams.realReturn);
-              const remainderDraw = livingCostNeed - drawFromOutside;
-              runningSuper = Math.max(0, runningSuper - remainderDraw) * (1 + plannerParams.realReturn + 0.0075);
-            } else {
-              runningSuper = Math.max(0, runningSuper - livingCostNeed) * (1 + plannerParams.realReturn + 0.0075);
-            }
-          }
-        }
-
-        if (age >= 67 && (runningOutside + runningSuper) < 350000) {
-          runningOutside = Math.max(runningOutside, 50000);
-        }
-
-        outsideTrajectory.push(runningOutside);
-        superTrajectory.push(runningSuper);
-        wealthTrajectory.push(runningOutside + runningSuper);
-      }
-
-      const max = Math.max(...wealthTrajectory, 10000) * 1.08;
+      const max = Math.max(...wealthTrajectory, 100000) * 1.08;
       const min = 0;
       const range = max - min || 1;
 
       const padLeft = 48;
       const padRight = 14;
       const padTop = 14;
-      const padBottom = 22;
+      const padBottom = 24;
       const chartW = w - padLeft - padRight;
       const chartH = h - padTop - padBottom;
 
+      // Draw horizontal grid lines & Y-axis values
       ctx.strokeStyle = '#1e293b';
       ctx.lineWidth = 1;
       ctx.fillStyle = '#64748b';
@@ -2733,53 +3221,47 @@
         ctx.fillText(formatAUD(yVal, true), padLeft - 6, y + 3);
       }
 
-      const getX = idx => padLeft + (ages.length > 1 ? (idx / (ages.length - 1)) * chartW : chartW / 2);
+      const getX = idx => padLeft + (idx / (ages.length - 1)) * chartW;
       const getY = val => (padTop + chartH) - ((val - min) / range) * chartH;
 
+      // X-Axis Age Milestones (Current, Retire, 60, 67, 90)
       ctx.textAlign = 'center';
-      const keyAges = [plannerParams.currentAge, plannerParams.retireAge, 60, 67, 90].sort((a,b) => a-b);
-      const uniqueAges = keyAges.filter((a, idx) => keyAges.indexOf(a) === idx);
-
-      uniqueAges.forEach(targetAge => {
-        const idx = ages.indexOf(targetAge);
+      const milestoneAges = [plannerParams.currentAge, plannerParams.retireAge, 60, 67, 85];
+      milestoneAges.forEach(milestone => {
+        const idx = ages.indexOf(milestone);
         if (idx !== -1) {
           const x = getX(idx);
           ctx.beginPath();
-          ctx.strokeStyle = (targetAge === plannerParams.retireAge || targetAge === 60 || targetAge === 67)
-            ? 'rgba(51, 65, 85, 0.8)' 
-            : '#1e293b';
+          ctx.strokeStyle = '#1e293b';
           ctx.moveTo(x, padTop);
           ctx.lineTo(x, padTop + chartH);
           ctx.stroke();
 
-          ctx.fillStyle = targetAge === plannerParams.retireAge ? '#10b981' : (targetAge === 60 ? '#38bdf8' : (targetAge === 67 ? '#f59e0b' : '#64748b'));
-          ctx.fillText(`A${targetAge}`, x, h - 6);
+          ctx.fillStyle = milestone === plannerParams.retireAge ? '#10b981' : (milestone === 60 ? '#38bdf8' : '#64748b');
+          ctx.fillText(`A${milestone}`, x, h - 6);
         }
       });
 
-      const grad = ctx.createLinearGradient(0, padTop, 0, padTop + chartH);
-      grad.addColorStop(0, 'rgba(16, 185, 129, 0.25)');
-      grad.addColorStop(1, 'rgba(2, 6, 23, 0.0)');
+      // Shaded Vertical Zones: Career vs Bridge vs Super
+      const retireIdx = ages.indexOf(plannerParams.retireAge);
+      const a60Idx = ages.indexOf(60);
 
-      ctx.beginPath();
-      ctx.moveTo(getX(0), getY(wealthTrajectory[0]));
-      for (let i = 1; i < wealthTrajectory.length; i++) {
-        const prevX = getX(i - 1);
-        const prevY = getY(wealthTrajectory[i - 1]);
-        const curX = getX(i);
-        const curY = getY(wealthTrajectory[i]);
-        const midX = (prevX + curX) / 2;
-        ctx.bezierCurveTo(midX, prevY, midX, curY, curX, curY);
+      if (retireIdx > 0) {
+        // Career Phase Fill
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.04)';
+        ctx.fillRect(padLeft, padTop, getX(retireIdx) - padLeft, chartH);
       }
-      ctx.lineTo(getX(wealthTrajectory.length - 1), padTop + chartH);
-      ctx.lineTo(getX(0), padTop + chartH);
-      ctx.closePath();
-      ctx.fillStyle = grad;
-      ctx.fill();
 
+      if (retireIdx !== -1 && a60Idx !== -1 && a60Idx > retireIdx) {
+        // Pre-60 Bridge Phase Fill
+        ctx.fillStyle = 'rgba(245, 158, 11, 0.08)';
+        ctx.fillRect(getX(retireIdx), padTop, getX(a60Idx) - getX(retireIdx), chartH);
+      }
+
+      // Draw Main Wealth Trajectory
       ctx.beginPath();
       ctx.moveTo(getX(0), getY(wealthTrajectory[0]));
-      for (let i = 1; i < wealthTrajectory.length; i++) {
+      for (let i = 1; i < ages.length; i++) {
         const prevX = getX(i - 1);
         const prevY = getY(wealthTrajectory[i - 1]);
         const curX = getX(i);
@@ -2791,12 +3273,118 @@
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      const markerRetireAge = document.getElementById('planMarkerRetireAge');
-      if (markerRetireAge) markerRetireAge.innerText = `Age ${plannerParams.retireAge}`;
+      // Subtle Secondary Series: Outside Capital (Teal) and Super (Sky Blue)
+      const drawSubtleSeries = (series, color) => {
+        ctx.beginPath();
+        ctx.setLineDash([3, 3]);
+        ctx.moveTo(getX(0), getY(series[0]));
+        for (let i = 1; i < ages.length; i++) {
+          ctx.lineTo(getX(i), getY(series[i]));
+        }
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      };
+
+      drawSubtleSeries(outsideTrajectory, '#2dd4bf');
+      drawSubtleSeries(superTrajectory, '#38bdf8');
+
+      // Key Milestone Dots
+      const drawMilestoneDot = (ageVal, color) => {
+        const idx = ages.indexOf(ageVal);
+        if (idx !== -1) {
+          const x = getX(idx);
+          const y = getY(wealthTrajectory[idx]);
+          ctx.beginPath();
+          ctx.arc(x, y, 4.5, 0, 2 * Math.PI);
+          ctx.fillStyle = color;
+          ctx.fill();
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+      };
+
+      drawMilestoneDot(plannerParams.retireAge, '#10b981');
+      drawMilestoneDot(60, '#38bdf8');
+
+      // Interactive Touch & Hover Tooltip for Retirement Chart
+      if (activeTouchRetireIdx !== null && activeTouchRetireIdx >= 0 && activeTouchRetireIdx < ages.length) {
+        const activeX = getX(activeTouchRetireIdx);
+        const activeY = getY(wealthTrajectory[activeTouchRetireIdx]);
+        const activeAge = ages[activeTouchRetireIdx];
+        const activeTotal = wealthTrajectory[activeTouchRetireIdx];
+        const activeOutside = outsideTrajectory[activeTouchRetireIdx];
+        const activeSuper = superTrajectory[activeTouchRetireIdx];
+
+        // Vertical Crosshair
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.setLineDash([3, 3]);
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(activeX, padTop);
+        ctx.lineTo(activeX, padTop + chartH);
+        ctx.stroke();
+        ctx.restore();
+
+        // Active Node Dot
+        ctx.beginPath();
+        ctx.arc(activeX, activeY, 5.5, 0, 2 * Math.PI);
+        ctx.fillStyle = '#10b981';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Phase Title
+        let phaseText = `Age ${activeAge}`;
+        if (activeAge < plannerParams.retireAge) phaseText += ` (Working)`;
+        else if (activeAge < 60) phaseText += ` (Pre-60 Bridge)`;
+        else phaseText += ` (0% ABP Super)`;
+
+        const tipW = 168;
+        const tipH = 58;
+
+        let tipX = activeX - tipW / 2;
+        if (tipX < padLeft + 2) tipX = padLeft + 2;
+        if (tipX + tipW > w - padRight - 2) tipX = w - padRight - tipW - 2;
+
+        let tipY = activeY - tipH - 10;
+        if (tipY < padTop) tipY = activeY + 12;
+
+        ctx.save();
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.96)';
+        ctx.strokeStyle = 'rgba(16, 185, 129, 0.65)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(tipX, tipY, tipW, tipH, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.fillText(phaseText, tipX + tipW / 2, tipY + 13);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px monospace';
+        ctx.fillText(`Total: ${formatAUD(activeTotal, true)}`, tipX + tipW / 2, tipY + 28);
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#2dd4bf';
+        ctx.font = '9px monospace';
+        ctx.fillText(`-- Outside: ${formatAUD(activeOutside, true)}`, tipX + 10, tipY + 41);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillText(`-- Super:   ${formatAUD(activeSuper, true)}`, tipX + 10, tipY + 52);
+        ctx.restore();
+      }
     }
 
     // ==========================================
-    // VIEW 5: HISTORY & LOGGING MODAL
+    // VIEW 5: HISTORY & SPREADSHEET TABLE
     // ==========================================
 
     function renderHistory() {
@@ -2813,25 +3401,35 @@
       container.innerHTML = '';
 
       if (!appHistory || appHistory.length === 0) {
-        container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500">No monthly snapshots logged yet.</div>`;
+        container.innerHTML = `<div class="p-8 text-center text-xs text-slate-500 bg-slate-900/40 rounded-3xl border border-slate-800">
+          No snapshots logged yet. Tap '+ Log Month' to create your first entry.
+        </div>`;
         return;
       }
 
-      [...appHistory].reverse().forEach((entry, idx) => {
-        const t = calculateSnapshotTotals(entry);
+      const reversed = [...appHistory].reverse();
+      reversed.forEach((entry, idx) => {
+        const totals = calculateSnapshotTotals(entry);
         const card = document.createElement('div');
         card.className = "p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between shadow-sm";
         card.innerHTML = `
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-white font-mono">${entry.month}</span>
-              ${idx === 0 ? '<span class="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">Latest</span>' : ''}
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-slate-950 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold border border-slate-800">
+              ${entry.month.slice(5)}
             </div>
-            <p class="text-[10px] text-slate-400 mt-0.5">Assets: ${formatAUD(t.totalAssets, true)} | Debt: ${formatAUD(t.liabilities, true)}</p>
+            <div>
+              <p class="text-xs font-bold text-white">${entry.month}</p>
+              <p class="text-[10px] text-slate-400 font-mono">Assets: ${formatAUD(totals.totalAssets, true)} | Debt: ${formatAUD(totals.liabilities, true)}</p>
+            </div>
           </div>
-          <div class="text-right">
-            <span class="text-xs font-mono font-bold text-emerald-400">${formatAUD(t.netWorth)}</span>
-            <span class="text-[9px] text-slate-500 block">Net Worth</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono font-bold text-emerald-400">${formatAUD(totals.netWorth)}</span>
+            <button onclick="editHistoricalMonth('${entry.month}')" class="w-7 h-7 rounded-lg bg-slate-950 text-slate-400 hover:text-white flex items-center justify-center">
+              <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+            </button>
+            <button onclick="deleteHistoricalMonth('${entry.month}')" class="w-7 h-7 rounded-lg bg-slate-950 text-slate-400 hover:text-rose-400 flex items-center justify-center">
+              <i class="fa-solid fa-trash text-[10px]"></i>
+            </button>
           </div>
         `;
         container.appendChild(card);
@@ -2844,370 +3442,281 @@
       table.innerHTML = '';
 
       if (!appHistory || appHistory.length === 0) {
-        table.innerHTML = `<tbody><tr><td class="p-4 text-center text-slate-500">No data available</td></tr></tbody>`;
+        table.innerHTML = `<tr><td class="p-4 text-center text-slate-500 text-xs">No snapshots recorded yet.</td></tr>`;
         return;
       }
 
-      // Chronological snapshots (latest first for immediate viewing)
-      const sortedHistory = [...appHistory].reverse();
-      const months = sortedHistory.map(h => h.month);
+      // Collect months in chronological order
+      const months = appHistory.map(e => e.month);
 
-      // Pre-calculate totals for each snapshot
-      const snapshotTotals = sortedHistory.map(h => calculateSnapshotTotals(h));
-
-      // Collect unique item names across history for detailed expansion
-      const getUniqueNames = (categoryKey, isProp = false) => {
-        const set = new Set();
-        appHistory.forEach(h => {
-          (h[categoryKey] || []).forEach(item => {
-            if (item) {
-              const label = item.platform ? `${item.platform} (${item.name})` : item.name;
-              set.add(label);
-            }
-          });
-        });
-        return Array.from(set);
-      };
-
-      const cashItems = getUniqueNames('cash');
-      const shareItems = getUniqueNames('shares');
-      const propertyItems = getUniqueNames('properties', true);
-      const superItems = getUniqueNames('super');
-      const otherItems = getUniqueNames('other');
-      const liabilityItems = getUniqueNames('liabilities');
-
-      // Table Header Row: Empty top-left cell, then month/year columns
-      const thead = document.createElement('thead');
-      thead.className = "bg-slate-900/90 text-slate-400 uppercase text-[9px] tracking-wider border-b border-slate-800";
-      let headerHtml = `<tr>
-        <th class="p-2.5 sticky left-0 z-20 bg-slate-900 border-r border-slate-800 text-slate-300 font-bold min-w-[130px]">
-          Category / Asset
-        </th>`;
+      // 1. Table Header (Month columns with sticky category column)
+      let thead = `<thead class="bg-slate-900/90 text-slate-300 border-b border-slate-800 sticky top-0 z-10"><tr>`;
+      thead += `<th class="p-2.5 font-bold sticky left-0 bg-slate-900 border-r border-slate-800 z-20 min-w-[130px]">Category / Account</th>`;
       months.forEach(m => {
-        const [yr, mo] = m.split('-');
-        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-        const label = mo ? `${monthNames[parseInt(mo, 10)-1] || mo} '${yr.slice(2)}` : m;
-        headerHtml += `<th class="p-2.5 text-right font-mono min-w-[95px] text-slate-200 border-r border-slate-850">${label}</th>`;
+        thead += `<th class="p-2.5 text-center font-mono min-w-[90px] border-r border-slate-800/40">${m}</th>`;
       });
-      headerHtml += `</tr>`;
-      thead.innerHTML = headerHtml;
-      table.appendChild(thead);
+      thead += `</tr></thead>`;
 
-      const tbody = document.createElement('tbody');
-      tbody.className = "divide-y divide-slate-900/60";
+      // 2. Table Body
+      let tbody = `<tbody class="divide-y divide-slate-800/60">`;
 
-      // Helper to generate a table row
-      const createTableRow = (title, values, options = {}) => {
-        const tr = document.createElement('tr');
-        if (options.isMaster) {
-          tr.className = "bg-slate-900/80 font-bold border-y border-slate-700/60";
-        } else if (options.isCategoryHeader) {
-          tr.className = "bg-slate-950 font-semibold border-t border-slate-800 text-slate-200";
-        } else if (options.isSubItem) {
-          tr.className = "bg-slate-950/40 text-slate-400 hover:bg-slate-900/40 text-[10px]";
-        } else {
-          tr.className = "hover:bg-slate-900/40";
-        }
+      // Helper to generate a matrix row
+      const makeRow = (label, values, isHeader = false, isDebt = false, isNetWorth = false) => {
+        let cls = isHeader ? "bg-slate-900/50 font-bold text-slate-200" : "hover:bg-slate-900/30 text-slate-300";
+        if (isNetWorth) cls = "bg-emerald-950/20 font-bold text-emerald-400 border-y border-emerald-500/30";
 
-        let stickyBg = options.isMaster ? 'bg-slate-900 text-white' : (options.isCategoryHeader ? 'bg-slate-950 text-slate-200' : 'bg-slate-950 text-slate-400');
-        let titleClass = options.isMaster ? 'text-white font-extrabold' : (options.isCategoryHeader ? 'text-slate-200 font-bold' : 'text-slate-400 pl-4 font-normal');
-
-        let rowHtml = `<td class="p-2 sticky left-0 z-10 ${stickyBg} border-r border-slate-800 ${titleClass} truncate max-w-[140px]">
-          ${options.icon ? `<i class="fa-solid ${options.icon} mr-1.5 ${options.iconColor || 'text-slate-400'} text-[10px]"></i>` : ''}
-          ${title}
-        </td>`;
-
-        values.forEach(val => {
-          let valClass = options.valColor || 'text-slate-300';
-          if (options.isMaster) valClass = 'text-emerald-400 font-bold text-xs';
-          rowHtml += `<td class="p-2 text-right border-r border-slate-900/70 font-mono ${valClass}">${val}</td>`;
+        let html = `<tr class="${cls}">`;
+        html += `<td class="p-2.5 sticky left-0 bg-slate-950 border-r border-slate-800 z-10 truncate ${isHeader ? 'font-bold text-slate-200' : ''}">${label}</td>`;
+        values.forEach(v => {
+          const formatted = isNaN(v) ? '-' : formatAUD(v, true);
+          const colorClass = isNetWorth ? 'text-emerald-400 font-bold' : (isDebt ? 'text-rose-400' : 'text-slate-200');
+          html += `<td class="p-2.5 text-right font-mono border-r border-slate-800/40 ${colorClass}">${formatted}</td>`;
         });
-
-        tr.innerHTML = rowHtml;
-        return tr;
+        html += `</tr>`;
+        return html;
       };
 
-      // 1. TOTAL NET WORTH (Top Master Row)
-      const netWorthVals = snapshotTotals.map(t => formatAUD(t.netWorth, true));
-      tbody.appendChild(createTableRow('NET WORTH', netWorthVals, { isMaster: true, icon: 'fa-chart-line', iconColor: 'text-emerald-400' }));
+      // Summary Rows
+      const netWorthValues = appHistory.map(e => calculateSnapshotTotals(e).netWorth);
+      const totalAssetsValues = appHistory.map(e => calculateSnapshotTotals(e).totalAssets);
+      const totalDebtValues = appHistory.map(e => calculateSnapshotTotals(e).liabilities);
 
-      // 2. TOTAL ASSETS
-      const totalAssetsVals = snapshotTotals.map(t => formatAUD(t.totalAssets, true));
-      tbody.appendChild(createTableRow('Total Assets', totalAssetsVals, { isCategoryHeader: true, icon: 'fa-circle-dollar-to-slot', iconColor: 'text-teal-400', valColor: 'text-teal-300' }));
+      tbody += makeRow("TOTAL NET WORTH", netWorthValues, true, false, true);
+      tbody += makeRow("Gross Assets", totalAssetsValues, true);
+      tbody += makeRow("Total Liabilities", totalDebtValues, true, true);
 
-      // 2.1 Cash & Offsets Category
-      const cashVals = snapshotTotals.map(t => formatAUD(t.cash, true));
-      tbody.appendChild(createTableRow('Cash & Offsets', cashVals, { isCategoryHeader: true, icon: 'fa-wallet', iconColor: 'text-teal-400' }));
+      // Asset Class Summary Rows
+      const cashValues = appHistory.map(e => calculateSnapshotTotals(e).cash);
+      const sharesValues = appHistory.map(e => calculateSnapshotTotals(e).shares);
+      const propsValues = appHistory.map(e => calculateSnapshotTotals(e).properties);
+      const superValues = appHistory.map(e => calculateSnapshotTotals(e).super);
+      const otherValues = appHistory.map(e => calculateSnapshotTotals(e).other);
+
+      tbody += makeRow("Cash & Offsets", cashValues);
+      tbody += makeRow("Shares & ETFs", sharesValues);
+      tbody += makeRow("Real Estate", propsValues);
+      tbody += makeRow("Superannuation", superValues);
+      tbody += makeRow("Alternatives / Personal", otherValues);
+
+      // Detailed Itemised Rows (If expanded)
       if (historyTableShowDetails) {
-        cashItems.forEach(label => {
-          const vals = sortedHistory.map(h => {
-            const item = (h.cash || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
-            return item ? formatAUD(item.amount, true) : '-';
+        // Collect distinct platforms/accounts across history
+        const latest = appHistory[appHistory.length - 1];
+        const allPlatforms = new Set();
+        appHistory.forEach(e => {
+          [...(e.cash || []), ...(e.shares || []), ...(e.properties || []), ...(e.super || []), ...(e.other || []), ...(e.liabilities || [])].forEach(i => {
+            allPlatforms.add(i.platform || i.name);
           });
-          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
+        });
+
+        tbody += `<tr class="bg-slate-900/60 font-bold text-emerald-400"><td class="p-2 sticky left-0 bg-slate-900 border-r border-slate-800" colspan="${months.length + 1}">Itemised Accounts</td></tr>`;
+
+        allPlatforms.forEach(plat => {
+          const platValues = appHistory.map(e => {
+            const match = [...(e.cash || []), ...(e.shares || []), ...(e.properties || []), ...(e.super || []), ...(e.other || []), ...(e.liabilities || [])].find(i => (i.platform || i.name) === plat);
+            return match ? (Number(match.amount !== undefined ? match.amount : match.value) || 0) : 0;
+          });
+          tbody += makeRow(`• ${plat}`, platValues);
         });
       }
 
-      // 2.2 Shares & ETFs Category
-      const sharesVals = snapshotTotals.map(t => formatAUD(t.shares, true));
-      tbody.appendChild(createTableRow('Shares & ETFs', sharesVals, { isCategoryHeader: true, icon: 'fa-arrow-trend-up', iconColor: 'text-emerald-400' }));
-      if (historyTableShowDetails) {
-        shareItems.forEach(label => {
-          const vals = sortedHistory.map(h => {
-            const item = (h.shares || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
-            return item ? formatAUD(item.amount, true) : '-';
-          });
-          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
-        });
-      }
-
-      // 2.3 Real Estate Category
-      const propVals = snapshotTotals.map(t => formatAUD(t.properties, true));
-      tbody.appendChild(createTableRow('Real Estate', propVals, { isCategoryHeader: true, icon: 'fa-house-chimney', iconColor: 'text-amber-400' }));
-      if (historyTableShowDetails) {
-        propertyItems.forEach(label => {
-          const vals = sortedHistory.map(h => {
-            const item = (h.properties || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
-            return item ? formatAUD(item.value, true) : '-';
-          });
-          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
-        });
-      }
-
-      // 2.4 Superannuation Category
-      const superVals = snapshotTotals.map(t => formatAUD(t.super, true));
-      tbody.appendChild(createTableRow('Superannuation', superVals, { isCategoryHeader: true, icon: 'fa-vault', iconColor: 'text-sky-400' }));
-      if (historyTableShowDetails) {
-        superItems.forEach(label => {
-          const vals = sortedHistory.map(h => {
-            const item = (h.super || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
-            return item ? formatAUD(item.amount, true) : '-';
-          });
-          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
-        });
-      }
-
-      // 2.5 Alternatives
-      const otherVals = snapshotTotals.map(t => formatAUD(t.other, true));
-      tbody.appendChild(createTableRow('Alternatives', otherVals, { isCategoryHeader: true, icon: 'fa-coins', iconColor: 'text-indigo-400' }));
-      if (historyTableShowDetails) {
-        otherItems.forEach(label => {
-          const vals = sortedHistory.map(h => {
-            const item = (h.other || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
-            return item ? formatAUD(item.amount, true) : '-';
-          });
-          tbody.appendChild(createTableRow(label, vals, { isSubItem: true }));
-        });
-      }
-
-      // 3. TOTAL LIABILITIES
-      const liabVals = snapshotTotals.map(t => formatAUD(t.liabilities, true));
-      tbody.appendChild(createTableRow('Total Liabilities', liabVals, { isCategoryHeader: true, icon: 'fa-credit-card', iconColor: 'text-rose-400', valColor: 'text-rose-400' }));
-      if (historyTableShowDetails) {
-        liabilityItems.forEach(label => {
-          const vals = sortedHistory.map(h => {
-            const item = (h.liabilities || []).find(i => (i.platform ? `${i.platform} (${i.name})` : i.name) === label);
-            return item ? formatAUD(item.amount, true) : '-';
-          });
-          tbody.appendChild(createTableRow(label, vals, { isSubItem: true, valColor: 'text-rose-400/80' }));
-        });
-      }
-
-      table.appendChild(tbody);
+      tbody += `</tbody>`;
+      table.innerHTML = thead + tbody;
     }
 
-    // Log Month Modal Handlers
-    function populateLogYearDropdown() {
-      const yearSelect = document.getElementById('selectLogYear');
-      if (!yearSelect) return;
-      yearSelect.innerHTML = '';
-      const startYear = 2020;
-      const endYear = 2050;
-      for (let y = startYear; y <= endYear; y++) {
-        const opt = document.createElement('option');
-        opt.value = String(y);
-        opt.innerText = y;
-        yearSelect.appendChild(opt);
-      }
-    }
+    // ==========================================
+    // LOG MONTH & EDIT MODAL
+    // ==========================================
 
-    function getSelectedLogMonthString() {
-      const monthSelect = document.getElementById('selectLogMonth');
-      const yearSelect = document.getElementById('selectLogYear');
-      const mo = monthSelect ? monthSelect.value : '01';
-      const yr = yearSelect ? yearSelect.value : String(new Date().getFullYear());
-      return `${yr}-${mo}`;
-    }
+    let modalFormData = null;
 
-    function onLogDateSelectionChange() {
-      const targetMonthStr = getSelectedLogMonthString();
-      const existing = appHistory.find(e => e.month === targetMonthStr);
-      const latest = appHistory[appHistory.length - 1];
-      // Use existing entry, or recent account lineup, or a blank template structure
-      renderLogModalForm(existing || latest || getDefaultBlankSnapshot(targetMonthStr));
-    }
-
-    function openLogModal() {
-      populateLogYearDropdown();
-
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
-
+    function openLogModal(targetMonth = null) {
+      const modal = document.getElementById('logMonthModal');
       const yearSelect = document.getElementById('selectLogYear');
       const monthSelect = document.getElementById('selectLogMonth');
 
-      if (yearSelect) {
-        yearSelect.value = String(currentYear <= 2050 && currentYear >= 2020 ? currentYear : 2026);
-      }
-      if (monthSelect) {
-        monthSelect.value = currentMonth;
+      // Populate years
+      if (yearSelect && yearSelect.children.length === 0) {
+        for (let y = 2020; y <= 2040; y++) {
+          const opt = document.createElement('option');
+          opt.value = String(y);
+          opt.innerText = String(y);
+          yearSelect.appendChild(opt);
+        }
       }
 
-      onLogDateSelectionChange();
-      document.getElementById('logMonthModal').classList.remove('hidden');
+      const activeMonthStr = targetMonth || (appHistory.length > 0 ? getNextMonthString(appHistory[appHistory.length - 1].month) : `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`);
+      const [yr, mo] = activeMonthStr.split('-');
+      if (yearSelect) yearSelect.value = yr;
+      if (monthSelect) monthSelect.value = mo;
+
+      loadModalFormForMonth(activeMonthStr);
+
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeLogModal() {
-      document.getElementById('logMonthModal').classList.add('hidden');
+      const modal = document.getElementById('logMonthModal');
+      if (modal) modal.classList.add('hidden');
     }
 
-    function renderLogModalForm(sourceData) {
+    function getNextMonthString(currentMonthStr) {
+      if (!currentMonthStr) return "2026-12";
+      let [yr, mo] = currentMonthStr.split('-').map(Number);
+      mo += 1;
+      if (mo > 12) {
+        mo = 1;
+        yr += 1;
+      }
+      return `${yr}-${String(mo).padStart(2, '0')}`;
+    }
+
+    function onLogDateSelectionChange() {
+      const yr = document.getElementById('selectLogYear').value;
+      const mo = document.getElementById('selectLogMonth').value;
+      loadModalFormForMonth(`${yr}-${mo}`);
+    }
+
+    function loadModalFormForMonth(monthStr) {
+      // Find existing snapshot or clone latest snapshot template
+      const existing = appHistory.find(e => e.month === monthStr);
+      if (existing) {
+        modalFormData = JSON.parse(JSON.stringify(existing));
+      } else if (appHistory.length > 0) {
+        // Clone latest month as baseline with same platforms
+        const latest = appHistory[appHistory.length - 1];
+        modalFormData = JSON.parse(JSON.stringify(latest));
+        modalFormData.month = monthStr;
+      } else {
+        modalFormData = getDefaultBlankSnapshot(monthStr);
+      }
+
+      renderModalFormSections();
+    }
+
+    function renderModalFormSections() {
       const container = document.getElementById('logModalScrollContainer');
-      if (!container) return;
+      if (!container || !modalFormData) return;
       container.innerHTML = '';
 
-      const categories = [
-        { key: 'cash', title: 'Cash & Offsets' },
-        { key: 'shares', title: 'Shares & ETFs' },
-        { key: 'properties', title: 'Real Estate' },
-        { key: 'super', title: 'Superannuation' },
-        { key: 'other', title: 'Alternatives' },
-        { key: 'liabilities', title: 'Liabilities' }
-      ];
-
-      categories.forEach(cat => {
+      const makeSection = (title, key, icon, isValue = false) => {
         const sec = document.createElement('div');
-        sec.className = "space-y-2";
+        sec.className = "p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-2";
         sec.innerHTML = `
-          <div class="flex items-center justify-between border-b border-slate-800 pb-1">
-            <span class="text-xs font-bold text-slate-300">${cat.title}</span>
-            <button type="button" onclick="addLogItemRow('${cat.key}')" class="text-[10px] text-emerald-400 font-semibold hover:underline">+ Add</button>
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid ${icon} text-emerald-400"></i>
+              ${title}
+            </span>
+            <button onclick="addModalItem('${key}')" class="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-plus text-[8px]"></i> Add
+            </button>
           </div>
-          <div id="logCategoryGroup-${cat.key}" class="space-y-1.5"></div>
+          <div id="modalSecItems-${key}" class="space-y-1.5"></div>
         `;
         container.appendChild(sec);
 
-        const group = sec.querySelector(`#logCategoryGroup-${cat.key}`);
-        (sourceData[cat.key] || []).forEach(item => {
-          const val = item.amount !== undefined ? item.amount : item.value;
-          group.appendChild(createLogRow(cat.key, item.name, item.platform || '', val));
+        const itemsBox = sec.querySelector(`#modalSecItems-${key}`);
+        (modalFormData[key] || []).forEach((item, idx) => {
+          const row = document.createElement('div');
+          row.className = "flex items-center gap-1.5 text-xs";
+          const val = isValue ? (item.value || 0) : (item.amount || 0);
+          row.innerHTML = `
+            <input type="text" value="${item.platform || item.name}" placeholder="Platform" onchange="updateModalItemPlatform('${key}', ${idx}, this.value)" class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-slate-200 text-xs outline-none focus:border-emerald-500 truncate">
+            <input type="number" step="100" value="${val}" onchange="updateModalItemVal('${key}', ${idx}, this.value, ${isValue})" class="w-28 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-right text-emerald-400 font-mono text-xs outline-none focus:border-emerald-500">
+            <button onclick="removeModalItem('${key}', ${idx})" class="w-6 h-6 rounded-lg bg-slate-900 text-slate-500 hover:text-rose-400 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-xmark text-[9px]"></i>
+            </button>
+          `;
+          itemsBox.appendChild(row);
         });
-      });
+      };
+
+      makeSection("Cash & Savings", "cash", "fa-wallet");
+      makeSection("Shares & Equities", "shares", "fa-arrow-trend-up");
+      makeSection("Real Estate (Properties)", "properties", "fa-house-chimney", true);
+      makeSection("Superannuation", "super", "fa-vault");
+      makeSection("Personal & Alternatives", "other", "fa-coins");
+      makeSection("Liabilities & Loans", "liabilities", "fa-credit-card");
     }
 
-    function createLogRow(catKey, name = '', platform = '', amount = 0) {
-      const row = document.createElement('div');
-      row.className = "flex items-center gap-2 log-item-row";
-      row.dataset.category = catKey;
-      row.innerHTML = `
-        <div class="flex-1 grid grid-cols-2 gap-1.5">
-          <input type="text" value="${name}" placeholder="Asset Name" class="bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white log-item-name" title="Asset (Column A)">
-          <input type="text" value="${platform}" placeholder="Platform" class="bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-300 log-item-platform" title="Platform (Column B)">
-        </div>
-        <input type="number" value="${amount}" placeholder="AUD" class="w-24 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white font-mono text-right log-item-amount">
-        <button type="button" onclick="this.parentElement.remove()" class="w-6 h-6 rounded-lg bg-slate-950 text-slate-500 hover:text-rose-400 flex items-center justify-center flex-shrink-0">
-          <i class="fa-solid fa-trash-can text-[10px]"></i>
-        </button>
-      `;
-      return row;
+    function updateModalItemPlatform(key, idx, val) {
+      if (modalFormData[key] && modalFormData[key][idx]) {
+        modalFormData[key][idx].platform = val;
+      }
     }
 
-    function addLogItemRow(catKey) {
-      const group = document.getElementById(`logCategoryGroup-${catKey}`);
-      if (group) group.appendChild(createLogRow(catKey, '', '', 0));
+    function updateModalItemVal(key, idx, val, isValue) {
+      if (modalFormData[key] && modalFormData[key][idx]) {
+        if (isValue) {
+          modalFormData[key][idx].value = parseFloat(val) || 0;
+        } else {
+          modalFormData[key][idx].amount = parseFloat(val) || 0;
+        }
+      }
+    }
+
+    function addModalItem(key) {
+      if (!modalFormData[key]) modalFormData[key] = [];
+      if (key === 'properties') {
+        modalFormData[key].push({ name: "Property", platform: "NEW PROPERTY", value: 0 });
+      } else {
+        modalFormData[key].push({ name: "Asset", platform: "NEW ACCOUNT", amount: 0 });
+      }
+      renderModalFormSections();
+    }
+
+    function removeModalItem(key, idx) {
+      if (modalFormData[key]) {
+        modalFormData[key].splice(idx, 1);
+        renderModalFormSections();
+      }
     }
 
     function submitLogMonth() {
-      const monthVal = getSelectedLogMonthString();
-      if (!monthVal) return;
+      if (!modalFormData || !modalFormData.month) return;
 
-      const newEntry = {
-        month: monthVal,
-        cash: [],
-        shares: [],
-        properties: [],
-        super: [],
-        other: [],
-        liabilities: []
-      };
-
-      document.querySelectorAll('.log-item-row').forEach(row => {
-        const cat = row.dataset.category;
-        const name = row.querySelector('.log-item-name').value.trim() || 'Untitled Asset';
-        const platformInput = row.querySelector('.log-item-platform');
-        const platform = platformInput ? platformInput.value.trim() : '';
-        const amount = parseFloat(row.querySelector('.log-item-amount').value) || 0;
-
-        if (cat === 'properties') {
-          newEntry.properties.push({ name, platform: platform || 'Property', value: amount });
-        } else if (newEntry[cat]) {
-          newEntry[cat].push({ name, platform, amount });
-        }
-      });
-
-      const existingIdx = appHistory.findIndex(e => e.month === monthVal);
+      const existingIdx = appHistory.findIndex(e => e.month === modalFormData.month);
       if (existingIdx !== -1) {
-        appHistory[existingIdx] = newEntry;
+        appHistory[existingIdx] = JSON.parse(JSON.stringify(modalFormData));
       } else {
-        appHistory.push(newEntry);
+        appHistory.push(JSON.parse(JSON.stringify(modalFormData)));
         appHistory.sort((a, b) => a.month.localeCompare(b.month));
       }
 
-      saveData();
+      saveHistoryToStorage();
       closeLogModal();
       renderAll();
     }
 
-    // Persistence
-    function saveData() {
+    function editHistoricalMonth(monthStr) {
+      openLogModal(monthStr);
+    }
+
+    function deleteHistoricalMonth(monthStr) {
+      if (!confirm(`Are you sure you want to delete the snapshot for ${monthStr}?`)) return;
+      appHistory = appHistory.filter(e => e.month !== monthStr);
+      saveHistoryToStorage();
+      renderAll();
+    }
+
+    // ==========================================
+    // BACKUP, PIN, & STORAGE HELPERS
+    // ==========================================
+
+    function saveHistoryToStorage() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appHistory));
       } catch (e) {
-        console.error('Storage error', e);
+        console.error("Storage save failed:", e);
       }
-    }
-
-    function initData() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            appHistory = parsed;
-            return;
-          }
-        }
-        // Load the 69-month dataset directly into storage
-        appHistory = getHistoricalSeedDataset();
-        saveData();
-      } catch (e) {
-        appHistory = getHistoricalSeedDataset();
-      }
-    }
-
-    function clearAllPortfolioData() {
-      appHistory = [];
-      saveData();
-      closeSettingsModal();
-      renderAll();
     }
 
     function exportDataBackup() {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appHistory, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `AU_Net_Worth_Backup_${new Date().toISOString().slice(0, 10)}.json`);
+      downloadAnchor.setAttribute("download", `AU_Wealth_Backup_${new Date().toISOString().slice(0, 10)}.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
@@ -3217,570 +3726,296 @@
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = e => {
+      reader.onload = function(e) {
         try {
-          const parsed = JSON.parse(e.target.result);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            appHistory = parsed;
-            saveData();
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            appHistory = imported;
+            appHistory.sort((a, b) => a.month.localeCompare(b.month));
+            saveHistoryToStorage();
             renderAll();
             closeSettingsModal();
           }
         } catch (err) {
-          console.error("Invalid JSON file", err);
+          console.error("Invalid JSON:", err);
         }
       };
       reader.readAsText(file);
     }
 
-    // Settings Modal & GitHub Deployment Checker
+    function clearAllPortfolioData() {
+      if (!confirm("Are you sure you want to wipe all portfolio snapshots? This cannot be undone unless you have a JSON backup.")) return;
+      appHistory = [];
+      saveHistoryToStorage();
+      renderAll();
+      closeSettingsModal();
+    }
+
+    // Settings Modal
     function openSettingsModal() {
-      const repoInput = document.getElementById('inputGithubRepo');
+      const modal = document.getElementById('settingsModal');
       const savedRepo = localStorage.getItem(GITHUB_REPO_KEY) || '';
+      const repoInput = document.getElementById('inputGithubRepo');
       if (repoInput) repoInput.value = savedRepo;
 
-      const verBadge = document.getElementById('appCurrentVersionBadge');
-      if (verBadge) verBadge.innerText = APP_VERSION;
+      const savedPin = localStorage.getItem(PIN_STORAGE_KEY);
+      const pinBadge = document.getElementById('pinStatusBadge');
+      const removeBtn = document.getElementById('btnRemovePin');
+      if (savedPin) {
+        if (pinBadge) {
+          pinBadge.innerText = "Enabled";
+          pinBadge.className = "text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono";
+        }
+        if (removeBtn) removeBtn.classList.remove('hidden');
+      } else {
+        if (pinBadge) {
+          pinBadge.innerText = "Disabled";
+          pinBadge.className = "text-[9px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono";
+        }
+        if (removeBtn) removeBtn.classList.add('hidden');
+      }
 
-      updateSettingsPinUI();
-
-      document.getElementById('settingsModal').classList.remove('hidden');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeSettingsModal() {
-      document.getElementById('settingsModal').classList.add('hidden');
+      const modal = document.getElementById('settingsModal');
+      if (modal) modal.classList.add('hidden');
     }
 
-    // PIN Management Functions
-    function getSavedPin() {
-      return localStorage.getItem(PIN_STORAGE_KEY) || '';
-    }
-
-    function updateSettingsPinUI() {
-      const savedPin = getSavedPin();
-      const statusBadge = document.getElementById('pinStatusBadge');
-      const removeBtn = document.getElementById('btnRemovePin');
-      const pinInput = document.getElementById('inputSettingsPin');
-      const notice = document.getElementById('settingsPinNotice');
-
-      if (pinInput) pinInput.value = '';
-
-      if (savedPin) {
-        if (statusBadge) {
-          statusBadge.innerText = 'Enabled';
-          statusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono';
-        }
-        if (removeBtn) removeBtn.classList.remove('hidden');
-        if (notice) notice.innerText = 'A PIN is currently protecting this app upon launch.';
-      } else {
-        if (statusBadge) {
-          statusBadge.innerText = 'Disabled';
-          statusBadge.className = 'text-[9px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono';
-        }
-        if (removeBtn) removeBtn.classList.add('hidden');
-        if (notice) notice.innerText = 'Enter 4 numbers above to enable PIN protection.';
+    function saveGithubRepoSetting() {
+      const repoInput = document.getElementById('inputGithubRepo');
+      if (repoInput) {
+        localStorage.setItem(GITHUB_REPO_KEY, repoInput.value.trim());
       }
     }
 
     function savePinSetting() {
       const pinInput = document.getElementById('inputSettingsPin');
       const notice = document.getElementById('settingsPinNotice');
-      if (!pinInput) return;
-      const val = pinInput.value.trim();
-
-      if (!/^\d{4}$/.test(val)) {
-        if (notice) {
-          notice.innerText = 'Please enter exactly 4 numerical digits.';
-          notice.className = 'text-[10px] text-rose-400';
-        }
-        return;
-      }
-
-      localStorage.setItem(PIN_STORAGE_KEY, val);
-      updateSettingsPinUI();
-      if (notice) {
-        notice.innerText = 'PIN successfully set and activated!';
-        notice.className = 'text-[10px] text-emerald-400';
+      if (pinInput && pinInput.value.length === 4) {
+        localStorage.setItem(PIN_STORAGE_KEY, pinInput.value);
+        pinInput.value = '';
+        if (notice) notice.innerText = "Passcode set successfully!";
+        openSettingsModal();
+      } else if (notice) {
+        notice.innerText = "PIN must be exactly 4 digits.";
       }
     }
 
     function removePinSetting() {
       localStorage.removeItem(PIN_STORAGE_KEY);
-      updateSettingsPinUI();
       const notice = document.getElementById('settingsPinNotice');
-      if (notice) {
-        notice.innerText = 'PIN lock has been removed.';
-        notice.className = 'text-[10px] text-slate-400';
-      }
+      if (notice) notice.innerText = "PIN removed.";
+      openSettingsModal();
     }
 
-    // Lock Screen Keypad Handlers
-    function checkPinOnLaunch() {
-      const savedPin = getSavedPin();
+    // PIN Lock Screen
+    function checkPinLock() {
+      const savedPin = localStorage.getItem(PIN_STORAGE_KEY);
       const lockScreen = document.getElementById('pinLockScreen');
       if (savedPin && lockScreen) {
-        enteredPin = '';
-        updatePinDotsUI();
         lockScreen.classList.remove('hidden');
-      } else if (lockScreen) {
-        lockScreen.classList.add('hidden');
+        enteredPin = '';
+        updatePinDots();
       }
     }
 
     function pressPinDigit(digit) {
-      if (enteredPin.length >= 4) return;
-      enteredPin += digit;
-      updatePinDotsUI();
-
-      if (enteredPin.length === 4) {
-        setTimeout(verifyEnteredPin, 100);
+      if (enteredPin.length < 4) {
+        enteredPin += digit;
+        updatePinDots();
+        if (enteredPin.length === 4) {
+          setTimeout(verifyPin, 150);
+        }
       }
     }
 
     function deletePinDigit() {
       if (enteredPin.length > 0) {
         enteredPin = enteredPin.slice(0, -1);
-        updatePinDotsUI();
+        updatePinDots();
       }
     }
 
-    function updatePinDotsUI() {
-      const dots = document.querySelectorAll('#pinDotsContainer .pin-dot');
+    function updatePinDots() {
+      const dots = document.querySelectorAll('.pin-dot');
       dots.forEach((dot, idx) => {
         if (idx < enteredPin.length) {
-          dot.className = "pin-dot w-3.5 h-3.5 rounded-full border-2 border-emerald-400 bg-emerald-400 transition-all shadow-md shadow-emerald-500/50";
+          dot.className = "pin-dot w-3.5 h-3.5 rounded-full border-2 border-emerald-400 bg-emerald-400 transition-all";
         } else {
           dot.className = "pin-dot w-3.5 h-3.5 rounded-full border-2 border-slate-600 bg-transparent transition-all";
         }
       });
     }
 
-    function verifyEnteredPin() {
-      const savedPin = getSavedPin();
+    function verifyPin() {
+      const savedPin = localStorage.getItem(PIN_STORAGE_KEY);
       const lockScreen = document.getElementById('pinLockScreen');
       const dotsContainer = document.getElementById('pinDotsContainer');
       const msg = document.getElementById('pinLockMessage');
 
       if (enteredPin === savedPin) {
         if (lockScreen) lockScreen.classList.add('hidden');
-        enteredPin = '';
-        updatePinDotsUI();
       } else {
         if (dotsContainer) {
           dotsContainer.classList.add('shake-anim');
           setTimeout(() => dotsContainer.classList.remove('shake-anim'), 400);
         }
-        if (msg) {
-          msg.innerText = 'Incorrect passcode. Try again.';
-          msg.className = 'text-xs text-rose-400 font-semibold';
-        }
-        setTimeout(() => {
-          enteredPin = '';
-          updatePinDotsUI();
-        }, 300);
+        if (msg) msg.innerText = "Incorrect PIN, try again";
+        enteredPin = '';
+        updatePinDots();
       }
     }
 
-    function saveGithubRepoSetting() {
-      const repoInput = document.getElementById('inputGithubRepo');
-      if (!repoInput) return;
-      const val = repoInput.value.trim();
-      localStorage.setItem(GITHUB_REPO_KEY, val);
-      const label = document.getElementById('githubStatusLabel');
-      if (label) {
-        label.innerText = 'Repo saved';
-        label.className = 'text-[10px] font-mono text-emerald-400';
-      }
-    }
-
-    async function checkForGithubUpdates() {
-      const repoInput = document.getElementById('inputGithubRepo');
-      let repo = repoInput ? repoInput.value.trim() : '';
-      if (!repo) {
-        repo = localStorage.getItem(GITHUB_REPO_KEY) || '';
-      }
-      if (!repo) {
-        const label = document.getElementById('githubStatusLabel');
-        if (label) {
-          label.innerText = 'Please specify owner/repo';
-          label.className = 'text-[10px] font-mono text-amber-400';
-        }
-        return;
-      }
-
-      const btnText = document.getElementById('btnCheckUpdateText');
-      const label = document.getElementById('githubStatusLabel');
-      const commitInfo = document.getElementById('githubCommitInfo');
-      const btnApply = document.getElementById('btnApplyUpdate');
-
-      if (btnText) btnText.innerText = 'Checking...';
-      if (label) {
-        label.innerText = 'Connecting to GitHub...';
-        label.className = 'text-[10px] font-mono text-slate-300';
-      }
-
-      try {
-        // Query latest commit on default branch
-        const response = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`, {
-          headers: { 'Accept': 'application/vnd.github.v3+json' }
-        });
-
-        if (!response.ok) {
-          throw new Error(`GitHub API error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        if (data && data.length > 0) {
-          const latestCommit = data[0];
-          const shortSha = latestCommit.sha.slice(0, 7);
-          const commitMsg = latestCommit.commit.message.split('\n')[0];
-          const commitDate = new Date(latestCommit.commit.committer.date).toLocaleDateString('en-AU');
-
-          const savedCommitSha = localStorage.getItem('AU_LAST_SEEN_COMMIT') || '';
-
-          if (commitInfo) {
-            commitInfo.classList.remove('hidden');
-            commitInfo.innerText = `Latest: ${shortSha} - ${commitMsg} (${commitDate})`;
-          }
-
-          if (savedCommitSha && savedCommitSha !== latestCommit.sha) {
-            if (label) {
-              label.innerText = 'New deployment available!';
-              label.className = 'text-[10px] font-mono text-emerald-400 font-bold';
-            }
-            if (btnApply) btnApply.classList.remove('hidden');
-          } else {
-            localStorage.setItem('AU_LAST_SEEN_COMMIT', latestCommit.sha);
-            if (label) {
-              label.innerText = `Up to date (${shortSha})`;
-              label.className = 'text-[10px] font-mono text-teal-400';
-            }
-            if (btnApply) btnApply.classList.add('hidden');
-          }
-        }
-      } catch (err) {
-        console.error('Update check failed', err);
-        if (label) {
-          label.innerText = 'Unable to check repo';
-          label.className = 'text-[10px] font-mono text-rose-400';
-        }
-      } finally {
-        if (btnText) btnText.innerText = 'Check for Updates';
-      }
-    }
-
-    function applyAppUpdate() {
-      // Clear cache and reload app to fetch latest deployed assets
-      if ('caches' in window) {
-        caches.keys().then(names => {
-          names.forEach(name => caches.delete(name));
-        });
-      }
-      window.location.reload(true);
-    }
-
-    function renderAll() {
-      if (currentTab === 'dashboard') renderDashboard();
-      else if (currentTab === 'assets') renderAssetsView();
-      else if (currentTab === 'breakdown') renderBreakdown();
-      else if (currentTab === 'planner') renderPlanner();
-      else if (currentTab === 'history') renderHistory();
-    }
-
-    // Touch & Mouse Event Handlers for Interactive Chart Tooltips
-    function setupChartInteractions() {
-      // 1. Wealth Trajectory Chart Interaction
+    // Attach Interactive Canvas Touch and Hover Listeners
+    function attachChartInteractions() {
+      // 1. Wealth Trajectory Chart
       const netWorthCanvas = document.getElementById('netWorthChart');
       if (netWorthCanvas) {
-        const handleTrendTouch = (clientX) => {
+        const handleTrendMove = (clientX) => {
           const rect = netWorthCanvas.getBoundingClientRect();
           const filtered = getFilteredHistoryForGraphs();
-          if (filtered.length === 0) return;
-
+          if (filtered.length <= 1) return;
           const padLeft = 48;
           const padRight = 14;
           const chartW = rect.width - padLeft - padRight;
-          const touchX = clientX - rect.left;
-
-          if (touchX < padLeft) {
-            activeTouchTrendIdx = 0;
-          } else if (touchX > rect.width - padRight) {
-            activeTouchTrendIdx = filtered.length - 1;
-          } else {
-            const ratio = (touchX - padLeft) / chartW;
-            activeTouchTrendIdx = Math.max(0, Math.min(filtered.length - 1, Math.round(ratio * (filtered.length - 1))));
-          }
+          const x = clientX - rect.left - padLeft;
+          const ratio = Math.max(0, Math.min(1, x / chartW));
+          activeTouchTrendIdx = Math.round(ratio * (filtered.length - 1));
           renderTrendChart();
         };
 
-        netWorthCanvas.addEventListener('touchstart', (e) => {
-          if (e.touches.length > 0) handleTrendTouch(e.touches[0].clientX);
-        }, { passive: true });
-        netWorthCanvas.addEventListener('touchmove', (e) => {
-          if (e.touches.length > 0) handleTrendTouch(e.touches[0].clientX);
-        }, { passive: true });
-        netWorthCanvas.addEventListener('touchend', () => {
-          setTimeout(() => {
-            activeTouchTrendIdx = null;
-            renderTrendChart();
-          }, 3500);
-        });
-        netWorthCanvas.addEventListener('mousemove', (e) => {
-          handleTrendTouch(e.clientX);
-        });
+        netWorthCanvas.addEventListener('mousemove', e => handleTrendMove(e.clientX));
         netWorthCanvas.addEventListener('mouseleave', () => {
           activeTouchTrendIdx = null;
           renderTrendChart();
         });
-      }
-
-      // 2. Cash vs Super Chart Interaction
-      const csCanvas = document.getElementById('cashSuperChart');
-      if (csCanvas) {
-        const handleCSTouch = (clientX) => {
-          const rect = csCanvas.getBoundingClientRect();
-          const filtered = getFilteredHistoryForGraphs();
-          if (filtered.length === 0) return;
-
-          const padLeft = 48;
-          const padRight = 14;
-          const chartW = rect.width - padLeft - padRight;
-          const touchX = clientX - rect.left;
-
-          if (touchX < padLeft) {
-            activeTouchCSIdx = 0;
-          } else if (touchX > rect.width - padRight) {
-            activeTouchCSIdx = filtered.length - 1;
-          } else {
-            const ratio = (touchX - padLeft) / chartW;
-            activeTouchCSIdx = Math.max(0, Math.min(filtered.length - 1, Math.round(ratio * (filtered.length - 1))));
-          }
-          renderCashSuperChart();
-        };
-
-        csCanvas.addEventListener('touchstart', (e) => {
-          if (e.touches.length > 0) handleCSTouch(e.touches[0].clientX);
+        netWorthCanvas.addEventListener('touchmove', e => {
+          if (e.touches && e.touches[0]) handleTrendMove(e.touches[0].clientX);
         }, { passive: true });
-        csCanvas.addEventListener('touchmove', (e) => {
-          if (e.touches.length > 0) handleCSTouch(e.touches[0].clientX);
-        }, { passive: true });
-        csCanvas.addEventListener('touchend', () => {
-          setTimeout(() => {
-            activeTouchCSIdx = null;
-            renderCashSuperChart();
-          }, 3500);
-        });
-        csCanvas.addEventListener('mousemove', (e) => {
-          handleCSTouch(e.clientX);
-        });
-        csCanvas.addEventListener('mouseleave', () => {
-          activeTouchCSIdx = null;
-          renderCashSuperChart();
+        netWorthCanvas.addEventListener('touchend', () => {
+          setTimeout(() => { activeTouchTrendIdx = null; renderTrendChart(); }, 3500);
         });
       }
 
-      // 3. Forecast Chart Interaction
-      const fcCanvas = document.getElementById('forecastChart');
-      if (fcCanvas) {
-        const handleFCTouch = (clientX) => {
-          const rect = fcCanvas.getBoundingClientRect();
+      // 2. Compounding Forecast Chart
+      const forecastCanvas = document.getElementById('forecastChart');
+      if (forecastCanvas) {
+        const handleForecastMove = (clientX) => {
+          const rect = forecastCanvas.getBoundingClientRect();
           const histSlice = appHistory.slice(-6);
           const monthsAhead = forecastHorizon * 12;
           const stepDiv = (forecastHorizon === 1 ? 2 : (forecastHorizon === 3 ? 6 : 10));
-          let numProj = 0;
-          for (let i = 1; i <= monthsAhead; i++) {
-            if (i % stepDiv === 0 || i === monthsAhead) numProj++;
-          }
-          const totalPoints = histSlice.length + numProj;
-          if (totalPoints <= 0) return;
+          const numProj = Math.ceil(monthsAhead / stepDiv);
+          const totalSteps = histSlice.length + numProj - 1;
+          if (totalSteps <= 0) return;
 
           const padLeft = 48;
           const padRight = 14;
           const chartW = rect.width - padLeft - padRight;
-          const touchX = clientX - rect.left;
-
-          if (touchX < padLeft) {
-            activeTouchForecastIdx = 0;
-          } else if (touchX > rect.width - padRight) {
-            activeTouchForecastIdx = totalPoints - 1;
-          } else {
-            const ratio = (touchX - padLeft) / chartW;
-            activeTouchForecastIdx = Math.max(0, Math.min(totalPoints - 1, Math.round(ratio * (totalPoints - 1))));
-          }
+          const x = clientX - rect.left - padLeft;
+          const ratio = Math.max(0, Math.min(1, x / chartW));
+          activeTouchForecastIdx = Math.round(ratio * totalSteps);
           renderForecastChart();
         };
 
-        fcCanvas.addEventListener('touchstart', (e) => {
-          if (e.touches.length > 0) handleFCTouch(e.touches[0].clientX);
-        }, { passive: true });
-        fcCanvas.addEventListener('touchmove', (e) => {
-          if (e.touches.length > 0) handleFCTouch(e.touches[0].clientX);
-        }, { passive: true });
-        fcCanvas.addEventListener('touchend', () => {
-          setTimeout(() => {
-            activeTouchForecastIdx = null;
-            renderForecastChart();
-          }, 3500);
-        });
-        fcCanvas.addEventListener('mousemove', (e) => {
-          handleFCTouch(e.clientX);
-        });
-        fcCanvas.addEventListener('mouseleave', () => {
+        forecastCanvas.addEventListener('mousemove', e => handleForecastMove(e.clientX));
+        forecastCanvas.addEventListener('mouseleave', () => {
           activeTouchForecastIdx = null;
           renderForecastChart();
         });
+        forecastCanvas.addEventListener('touchmove', e => {
+          if (e.touches && e.touches[0]) handleForecastMove(e.touches[0].clientX);
+        }, { passive: true });
+        forecastCanvas.addEventListener('touchend', () => {
+          setTimeout(() => { activeTouchForecastIdx = null; renderForecastChart(); }, 3500);
+        });
       }
 
-      // 4. Retirement Trajectory Chart Interaction
-      const retCanvas = document.getElementById('retirementChart');
-      if (retCanvas) {
-        const handleRetireTouch = (clientX) => {
-          const rect = retCanvas.getBoundingClientRect();
-          const totalYears = 90 - plannerParams.currentAge + 1;
+      // 3. Retirement Chart
+      const retireCanvas = document.getElementById('retirementChart');
+      if (retireCanvas) {
+        const handleRetireMove = (clientX) => {
+          const rect = retireCanvas.getBoundingClientRect();
+          const totalYears = 90 - plannerParams.currentAge;
           if (totalYears <= 0) return;
-
           const padLeft = 48;
           const padRight = 14;
           const chartW = rect.width - padLeft - padRight;
-          const touchX = clientX - rect.left;
-
-          if (touchX < padLeft) {
-            activeTouchRetireIdx = 0;
-          } else if (touchX > rect.width - padRight) {
-            activeTouchRetireIdx = totalYears - 1;
-          } else {
-            const ratio = (touchX - padLeft) / chartW;
-            activeTouchRetireIdx = Math.max(0, Math.min(totalYears - 1, Math.round(ratio * (totalYears - 1))));
-          }
+          const x = clientX - rect.left - padLeft;
+          const ratio = Math.max(0, Math.min(1, x / chartW));
+          activeTouchRetireIdx = Math.round(ratio * totalYears);
           renderPlanner();
         };
 
-        retCanvas.addEventListener('touchstart', (e) => {
-          if (e.touches.length > 0) handleRetireTouch(e.touches[0].clientX);
-        }, { passive: true });
-        retCanvas.addEventListener('touchmove', (e) => {
-          if (e.touches.length > 0) handleRetireTouch(e.touches[0].clientX);
-        }, { passive: true });
-        retCanvas.addEventListener('touchend', () => {
-          setTimeout(() => {
-            activeTouchRetireIdx = null;
-            renderPlanner();
-          }, 3500);
-        });
-        retCanvas.addEventListener('mousemove', (e) => {
-          handleRetireTouch(e.clientX);
-        });
-        retCanvas.addEventListener('mouseleave', () => {
+        retireCanvas.addEventListener('mousemove', e => handleRetireMove(e.clientX));
+        retireCanvas.addEventListener('mouseleave', () => {
           activeTouchRetireIdx = null;
           renderPlanner();
+        });
+        retireCanvas.addEventListener('touchmove', e => {
+          if (e.touches && e.touches[0]) handleRetireMove(e.touches[0].clientX);
+        }, { passive: true });
+        retireCanvas.addEventListener('touchend', () => {
+          setTimeout(() => { activeTouchRetireIdx = null; renderPlanner(); }, 3500);
         });
       }
     }
 
-    // App Startup
-    window.onload = function() {
-      generateGuaranteedAppleIcon();
-      initData();
-      checkPinOnLaunch();
-      renderAll();
-      setupChartInteractions();
-
-      window.addEventListener('resize', () => {
-        requestAnimationFrame(() => renderAll());
-      });
-    };
-
-    // Guaranteed High-Res iOS Apple Touch Icon (Canvas-to-PNG Rasterizer)
-    function generateGuaranteedAppleIcon() {
+    // High-Resolution iOS Touch Icon Generator & Manifest Injection
+    function setupAppleTouchIconAndManifest() {
       try {
-        const size = 192;
         const iconCanvas = document.createElement('canvas');
-        iconCanvas.width = size;
-        iconCanvas.height = size;
+        iconCanvas.width = 192;
+        iconCanvas.height = 192;
         const ctx = iconCanvas.getContext('2d');
-        if (!ctx) return;
 
-        // 1. Deep Obsidian to Forest Emerald Radial Gradient Background
-        const bgGrad = ctx.createRadialGradient(size * 0.35, size * 0.3, 10, size * 0.5, size * 0.5, size * 0.75);
-        bgGrad.addColorStop(0, '#064e3b'); // Emerald-900
-        bgGrad.addColorStop(0.55, '#022c22'); // Emerald-950
-        bgGrad.addColorStop(1, '#020617'); // Slate-950
-
+        // Background Gradient
+        const bgGrad = ctx.createRadialGradient(96, 96, 20, 96, 96, 110);
+        bgGrad.addColorStop(0, '#064e3b');
+        bgGrad.addColorStop(0.7, '#022c22');
+        bgGrad.addColorStop(1, '#020617');
         ctx.fillStyle = bgGrad;
-        ctx.fillRect(0, 0, size, size);
+        ctx.fillRect(0, 0, 192, 192);
 
-        // 2. Subtle Luxury Inner Bezel / Border Ring
-        ctx.strokeStyle = 'rgba(52, 211, 153, 0.35)'; // Emerald-400
-        ctx.lineWidth = 4;
-        ctx.strokeRect(3, 3, size - 6, size - 6);
-
-        // 3. Southern Cross Star Cluster (Gold Stars)
-        const drawStar = (cx, cy, r, fill = '#fef08a') => {
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-          ctx.fillStyle = fill;
-          ctx.shadowColor = 'rgba(250, 204, 21, 0.75)';
-          ctx.shadowBlur = 8;
-          ctx.fill();
-          ctx.restore();
-        };
-
-        drawStar(146, 38, 4.2);
-        drawStar(160, 62, 3.2);
-        drawStar(132, 58, 3.5);
-        drawStar(146, 82, 4.0);
-        drawStar(155, 74, 2.0);
-
-        // 4. Ascending Growth Trajectory Line
-        ctx.save();
+        // Border
         ctx.strokeStyle = '#34d399';
-        ctx.lineWidth = 11;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(3, 3, 186, 186);
+
+        // Chart line
+        ctx.beginPath();
+        ctx.moveTo(30, 140);
+        ctx.bezierCurveTo(70, 130, 110, 80, 160, 48);
+        ctx.strokeStyle = '#34d399';
+        ctx.lineWidth = 14;
         ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.shadowColor = 'rgba(16, 185, 129, 0.8)';
-        ctx.shadowBlur = 14;
-
-        ctx.beginPath();
-        ctx.moveTo(34, 142);
-        ctx.lineTo(72, 110);
-        ctx.lineTo(104, 122);
-        ctx.lineTo(152, 62);
-        ctx.stroke();
-        ctx.restore();
-
-        // 5. Golden Apex Glow Node
-        drawStar(152, 62, 7.5, '#fef08a');
-        ctx.beginPath();
-        ctx.arc(152, 62, 9, 0, 2 * Math.PI);
-        ctx.strokeStyle = '#ca8a04';
-        ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        // 6. Bold "AU" Currency / Wealth Monogram
-        ctx.save();
-        ctx.font = '900 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        // Apex Circle
+        ctx.beginPath();
+        ctx.arc(160, 48, 9, 0, 2 * Math.PI);
+        ctx.fillStyle = '#fde047';
+        ctx.fill();
+
+        // AUD Typography
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 26px -apple-system, sans-serif';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillStyle = '#fef08a';
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-        ctx.shadowBlur = 6;
-        ctx.fillText('$ AUD', size / 2, 166);
-        ctx.restore();
+        ctx.fillText('AU', 65, 95);
 
-        // 7. Convert rendered canvas to Base64 PNG format (iOS Safari strictly requires PNG)
-        const pngDataUrl = iconCanvas.toDataURL('image/png');
+        ctx.fillStyle = '#34d399';
+        ctx.font = 'bold 16px monospace';
+        ctx.fillText('WEALTH', 65, 118);
 
-        // Apply to apple-touch-icon tags
-        const appleIcon = document.getElementById('dynamicAppleTouchIcon');
-        if (appleIcon) appleIcon.href = pngDataUrl;
+        const iconDataUrl = iconCanvas.toDataURL('image/png');
+        const touchIcon = document.getElementById('dynamicAppleTouchIcon');
+        if (touchIcon) touchIcon.href = iconDataUrl;
 
-        const allAppleLinks = document.querySelectorAll('link[rel*="apple-touch-icon"]');
-        allAppleLinks.forEach(link => { link.href = pngDataUrl; });
-
-        // 8. Build matching Web App Manifest Data URI
+        // Dynamic Manifest
         const manifest = {
-          name: "AU Wealth & FIRE",
+          name: "Australian Wealth & FIRE Tracker",
           short_name: "AU Wealth",
           start_url: window.location.href,
           display: "standalone",
@@ -3788,7 +4023,7 @@
           theme_color: "#020617",
           icons: [
             {
-              src: pngDataUrl,
+              src: iconDataUrl,
               sizes: "192x192",
               type: "image/png",
               purpose: "any maskable"
@@ -3804,6 +4039,48 @@
         console.warn('Icon generator fallback notice:', e);
       }
     }
+
+    // Initialize Data
+    function initData() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          appHistory = JSON.parse(stored);
+        } else {
+          appHistory = getHistoricalSeedDataset();
+          saveHistoryToStorage();
+        }
+      } catch (e) {
+        appHistory = getHistoricalSeedDataset();
+      }
+    }
+
+    function renderAll() {
+      if (currentTab === 'dashboard') {
+        renderDashboard();
+      } else if (currentTab === 'assets') {
+        renderAssetsView();
+      } else if (currentTab === 'breakdown') {
+        renderBreakdown();
+      } else if (currentTab === 'planner') {
+        renderPlanner();
+      } else if (currentTab === 'history') {
+        renderHistory();
+      }
+    }
+
+    // App Initialization on Window Load
+    window.onload = function() {
+      initData();
+      setupAppleTouchIconAndManifest();
+      checkPinLock();
+      attachChartInteractions();
+      renderAll();
+
+      window.addEventListener('resize', () => {
+        renderAll();
+      });
+    };
   </script>
 </body>
 </html>
