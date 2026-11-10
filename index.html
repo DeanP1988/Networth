@@ -57,16 +57,16 @@
       background-color: #020617;
       color: #f8fafc;
     }
-    /* Tuned midpoint spacing: between current and original height */
+    /* Tuned midpoint spacing: pushed up by 1px */
     .ios-status-spacer {
-      height: calc(env(safe-area-inset-top, 46px) + 5px);
-      min-height: 54px;
+      height: calc(env(safe-area-inset-top, 46px) + 4px);
+      min-height: 53px;
       width: 100%;
       background: #020617;
       display: block;
     }
     .safe-top { 
-      padding-top: calc(env(safe-area-inset-top, 46px) + 6px); 
+      padding-top: calc(env(safe-area-inset-top, 46px) + 5px); 
     }
     .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 24px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -154,11 +154,11 @@
   <!-- Mobile Container Frame (Max 430px for native iPhone feel) -->
   <div class="w-full max-w-md min-h-screen flex flex-col bg-slate-950 border-x border-slate-900 relative pb-28">
 
-    <!-- Dedicated Hardware Status Bar Spacer (Tuned midpoint height) -->
+    <!-- Dedicated Hardware Status Bar Spacer (Tuned midpoint height - 1px higher) -->
     <div class="ios-status-spacer sticky top-0 z-50"></div>
 
     <!-- Top Navigation Header -->
-    <header class="sticky top-[54px] z-40 bg-slate-950/95 ios-blur border-b border-slate-900 px-4 py-2.5 flex items-center justify-between">
+    <header class="sticky top-[53px] z-40 bg-slate-950/95 ios-blur border-b border-slate-900 px-4 py-2.5 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-950">
           <i class="fa-solid fa-chart-line text-slate-950 text-sm"></i>
@@ -226,7 +226,7 @@
             <div class="bg-slate-950/60 p-2.5 rounded-2xl border border-slate-800/60">
               <span class="text-[9px] text-slate-400 block truncate">Liquid Wealth</span>
               <span id="dashLiquidNetWorth" class="text-xs font-mono font-bold text-teal-300">$0</span>
-              <span class="text-[8px] text-slate-500 block truncate">Excl. PPOR & Super</span>
+              <span class="text-[8px] text-slate-500 block truncate">Cash & Shares − Short Debt</span>
             </div>
             <div class="bg-slate-950/60 p-2.5 rounded-2xl border border-slate-800/60">
               <span class="text-[9px] text-slate-400 block truncate">Debt Ratio / LVR</span>
@@ -1403,11 +1403,13 @@
       const totalAssets = cash + shares + properties + superAnn + other;
       const netWorth = totalAssets - liabilities;
 
-      const pporProperty = (entry.properties || []).find(p => p.name.toLowerCase().includes('ppor') || p.name.toLowerCase().includes('home')) || { value: 0 };
-      const pporDebt = (entry.liabilities || []).find(l => l.name.toLowerCase().includes('ppor') || l.name.toLowerCase().includes('home')) || { amount: 0 };
-      const pporEquity = Math.max(0, (pporProperty.value || 0) - (pporDebt.amount || 0));
+      // Separate mortgage liabilities (secured by property) from unsecured short-term debt (credit cards, personal loans)
+      const shortTermDebt = (entry.liabilities || [])
+        .filter(l => !(l.platform || l.name || '').toLowerCase().includes('mortgage'))
+        .reduce((acc, curr) => acc + (curr.amount || 0), 0);
 
-      const liquidNetWorth = netWorth - superAnn - pporEquity;
+      // Liquid Wealth = Cash + Shares minus short-term/credit debt (mortgages stay secured against property equity)
+      const liquidNetWorth = Math.max(0, (cash + shares) - shortTermDebt);
       const debtRatio = totalAssets > 0 ? (liabilities / totalAssets) * 100 : 0;
 
       return { cash, shares, properties, super: superAnn, other, liabilities, totalAssets, netWorth, liquidNetWorth, debtRatio };
