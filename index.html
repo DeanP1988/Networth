@@ -57,7 +57,9 @@
       background-color: #020617;
       color: #f8fafc;
     }
-    .safe-top { padding-top: env(safe-area-inset-top, 16px); }
+    .safe-top { 
+      padding-top: calc(max(env(safe-area-inset-top, 44px), 48px) + 8px); 
+    }
     .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 24px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -145,7 +147,7 @@
   <div class="w-full max-w-md min-h-screen flex flex-col bg-slate-950 border-x border-slate-900 relative pb-28">
 
     <!-- Top Navigation Header -->
-    <header class="sticky top-0 z-40 bg-slate-950/80 ios-blur border-b border-slate-900 safe-top px-4 py-3 flex items-center justify-between">
+    <header class="sticky top-0 z-40 bg-slate-950/85 ios-blur border-b border-slate-900 safe-top px-4 pb-3 pt-1 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-950">
           <i class="fa-solid fa-chart-line text-slate-950 text-sm"></i>
