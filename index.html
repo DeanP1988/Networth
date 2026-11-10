@@ -57,9 +57,16 @@
       background-color: #020617;
       color: #f8fafc;
     }
-    /* Generous clearance for Dynamic Island (54px-59px) + iOS status bar time and battery */
+    /* Generous, rock-solid physical spacing to clear the iPhone Dynamic Island, camera notch, status bar clock and battery */
+    .ios-status-spacer {
+      height: calc(env(safe-area-inset-top, 59px) + 16px);
+      min-height: 72px;
+      width: 100%;
+      background: #020617;
+      display: block;
+    }
     .safe-top { 
-      padding-top: calc(env(safe-area-inset-top, 54px) + 14px); 
+      padding-top: calc(env(safe-area-inset-top, 59px) + 20px); 
     }
     .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 24px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -147,8 +154,11 @@
   <!-- Mobile Container Frame (Max 430px for native iPhone feel) -->
   <div class="w-full max-w-md min-h-screen flex flex-col bg-slate-950 border-x border-slate-900 relative pb-28">
 
+    <!-- Dedicated Hardware Status Bar Spacer (Guarantees clearance below Dynamic Island, Clock & Battery) -->
+    <div class="ios-status-spacer sticky top-0 z-50"></div>
+
     <!-- Top Navigation Header -->
-    <header class="sticky top-0 z-40 bg-slate-950/90 ios-blur border-b border-slate-900 safe-top px-4 pb-3 pt-2 flex items-center justify-between">
+    <header class="sticky top-[72px] z-40 bg-slate-950/95 ios-blur border-b border-slate-900 px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-950">
           <i class="fa-solid fa-chart-line text-slate-950 text-sm"></i>
